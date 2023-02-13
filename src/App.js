@@ -1,23 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import useJaneHopkins from './hooks/useJaneHopkins';
+
+
 
 function App() {
+const {entities} = useJaneHopkins();
+
+const addPatient = async() => {
+  const addPatientResponse = await entities.patient.add({
+    name: "billy",
+    dob: "January 14, 2000",
+    insuranceNumber: "32123",
+  })
+  console.log(addPatientResponse);
+}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={() => {addPatient()}}>add patient</button>
     </div>
   );
 }
