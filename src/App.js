@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import useJaneHopkins from './hooks/useJaneHopkins';
+import useBavaria from './hooks/useBavaria';
+import useFDA from './hooks/useFDA';
 
 
 
