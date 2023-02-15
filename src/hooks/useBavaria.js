@@ -12,4 +12,4 @@ const useBavaria = () => {
   return {entities};
 };
 
-export default useBavaria();
+export default useBavaria;
