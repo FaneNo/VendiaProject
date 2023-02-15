@@ -12,4 +12,4 @@ const useFDA = () => {
   return {entities};
 };
 
-export default useFDA();
+export default useFDA;
