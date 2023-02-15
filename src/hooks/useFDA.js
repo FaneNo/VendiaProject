@@ -6,8 +6,10 @@ const client = createVendiaClient({
     apiKey: `7HV7U3eQTqudmJ9GaJEexSjPJC9qzbtLCZfkbRK7uvZj`, // <---- API key
 })
 
-export default function useFDA() {
-  return (
-    <div>useFDA</div>
-  )
-}
+const {entities} = client;
+
+const useFDA = () => {
+  return {entities};
+};
+
+export default useFDA();

@@ -6,8 +6,10 @@ const client = createVendiaClient({
     apiKey: `7FDXtSjTZkoyJFreAorUnYeRBJvqsVsMXPfe7znrYr8F`, // <---- API key
 })
 
-export default function useBavaria() {
-  return (
-    <div>useBavaria</div>
-  )
-}
+const {entities} = client;
+
+const useBavaria = () => {
+  return {entities};
+};
+
+export default useBavaria();
