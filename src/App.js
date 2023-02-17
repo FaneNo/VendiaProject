@@ -20,7 +20,7 @@ const addPatient = async() => {
 
   return (
     <div className="App">
-      <button onClick={() => {addPatient()}}>add patient</button>
+      <button onClick={() => {addPatient()}}>stupid patient</button>
     </div>
   );
 }
