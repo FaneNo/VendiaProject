@@ -5,11 +5,12 @@ import useBavaria from './hooks/useBavaria';
 import useFDA from './hooks/useFDA';
 // import NavBar from './view/home';
 import { Component } from 'react';
-import home from './view/home';
-import fda from './view/fda';
-import login from './view/login';
-import patient from './view/patient';
-
+import {Route, Routes} from 'react-router-dom';
+import Home from './view/home';
+import FDA from './view/fda';
+import Login from './view/login';
+import Patient from './view/patient';
+import Register from './view/register';
 
 
 function App() {
@@ -23,26 +24,18 @@ function App() {
 //   })
 //   console.log(addPatientResponse);
 // }
-  console.log(window.location);
-  let Component
-  switch (window.location.pathname) {
-    case "/":
-      Component = home
-      break
-    case "/login": 
-      Component = login
-      break
-    case "/fda":
-      Component = fda
-      break
-    case "/patient":
-      Component = patient
-      break
-  }
-  
+
   return (
     <>
-    <Component/>
+    
+    <Routes>
+      <Route path='/' element = {<Home />} />
+      <Route path='/fda' element = {<FDA />} />
+      <Route path='/login' element = {<Login />} />
+      <Route path='/patient' element = {<Patient />} />
+      <Route path='/register' element = {<Register />} />
+    </Routes>
+    
 
     {/* <div className="App">
       <button onClick={() => { addPatient(); } }>add patient</button>

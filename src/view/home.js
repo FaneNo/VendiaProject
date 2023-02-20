@@ -1,19 +1,22 @@
+import {Link } from 'react-router-dom';
 export default function Home() {
     return <nav className="nav">
         <div className="homeImg" >
-            <a href="/"><img className="vendiaLogo" src={require("../vendiaLogo.png")} /></a>
-            
+            <Link to="/"><img className="vendiaLogo" src={require("../vendiaLogo.png")} /></Link>
         </div>
-        <a href="/" className="title">Site name</a>
+        <Link to="/" className="title">Site name</Link>
         <ul>
             <li>
-                <a href="/fda">FDA</a>   
+                <Link to="/fda">FDA</Link>   
             </li>
             <li>
-                <a href="/patient">Patient</a>
+                <Link to="/patient">Patient</Link>
             </li>
             <li>
-                <a href="/login">Login</a>
+                <Link to="/register">Register</Link>
+            </li>
+            <li>
+                <Link to="/login">Login</Link>
             </li>
             
         </ul>

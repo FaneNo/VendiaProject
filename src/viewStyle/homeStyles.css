@@ -15,6 +15,7 @@ body {
     align-items: center;
     gap: 2rem;
     padding: 0 1rem;
+    
 }
 .homeImg {
     display: flex;
@@ -55,11 +56,12 @@ body {
     padding: .1rem;
 }
 
-.nav li.active {
-    background-color: aquamarine;
+.nav li a {
+    transition: all 0.3s ease-out;
+
 }
 
-.nav li:hover {
-    background-color: blue;
+.nav li a:hover {
+    color: blue;
 }
 
