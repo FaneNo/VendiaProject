@@ -2,26 +2,14 @@ import NavBar from '../view/home';
 export default function Patient() {
     return (<>
         <NavBar/>
-        <h1>Patient</h1>
-        <div className='box'>
-            <div className='profile'>
-                <ul className='profile-list'>
-                    <li>Name</li>
-                    <li>DOB/age</li>
-                    <li>Update:</li>
-                </ul>
-            </div>
-            <div className='temp'>
-                
-            </div>
-            <div className='blood-pressure'>
-                
-            </div>
-            <div className='blood-type'>
-                
-            </div>
+        <div class="container">
+            <div class="box" id="top-left"></div>
+            <div class="box" id="top-right-1"></div>
+            <div class="box" id="top-right-2"></div>
+            <div class="box" id="top-right-3"></div>
+            <div class="box" id="bottom-left"></div>
+            <div class="box" id="bottom-right"></div>
         </div>
-    
     </> 
     )
 }

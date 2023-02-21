@@ -11,6 +11,7 @@ import FDA from './view/fda';
 import Login from './view/login';
 import Patient from './view/patient';
 import Register from './view/register';
+import Doctor from './view/doctor';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
       <Route path='/login' element = {<Login />} />
       <Route path='/patient' element = {<Patient />} />
       <Route path='/register' element = {<Register />} />
+      <Route path='/doctor' element = {<Doctor />} />
     </Routes>
     
 

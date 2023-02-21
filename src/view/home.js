@@ -13,6 +13,10 @@ export default function Home() {
                 <Link to="/patient">Patient</Link>
             </li>
             <li>
+                <Link to="/doctor">Doctor</Link>
+            </li>
+
+            <li>
                 <Link to="/register">Register</Link>
             </li>
             <li>
