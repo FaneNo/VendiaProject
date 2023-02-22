@@ -1,10 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import useJaneHopkins from './hooks/useJaneHopkins';
 import useBavaria from './hooks/useBavaria';
 import useFDA from './hooks/useFDA';
-<<<<<<< HEAD
-// import NavBar from './view/home';
 import { Component } from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Home from './view/home';
@@ -15,9 +12,6 @@ import Register from './view/register';
 import Doctor from './view/doctor';
 import New from './view/new';
 
-=======
-import LoginPage from './scenes/loginPage';
->>>>>>> c18ad42cb25e8b805cd1b978e7ed972f413d3944
 
 function App() {
 // const {entities} = useJaneHopkins();

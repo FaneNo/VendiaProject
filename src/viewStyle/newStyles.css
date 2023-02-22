@@ -1,0 +1,15 @@
+
+.newBox{
+    /* background-color: red; */
+    /* width: 1000px; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    
+}
+
+.newBox h2{
+    
+    text-align: center;
+}
