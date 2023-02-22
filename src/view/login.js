@@ -1,48 +1,38 @@
-const { default: Box } = require("@mui/material/Box");
-const { default: Typography } = require("@mui/material/Typography");
-const { useTheme, useMediaQuery } = require("@mui/material");
-const Form = require("./Form");
+import { Link } from 'react-router-dom';
 
-function Login() {
-  const theme = useTheme();
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+export default function Login() {
   return (
-    Box(
-      null,
-      Box({
-        width: "100%",
-        backgroundColor: theme.palette.background.alt,
-        p: "1rem 6%",
-        textAlign: "center"
-      },
-        Typography({
-          fontWeight: "bold",
-          fontSize: "32px",
-          color: "primary"
-        },
-          "Vendia Care"
-        )
-      ),
+    <>
+      <nav className="nav">
+        <div className="homeImg">
+          <Link to="/">
+            <img className="vendiaLogo" src={require("../vendiaLogo.png")} />
+          </Link>
+        </div>
+        <Link to="/" className="title">Vendia Care</Link>
+      </nav>
 
-      Box({
-        width: isNonMobileScreens ? "50%" : "93%",
-        p: "2rem",
-        m: "2rem auto",
-        borderRadius: "1.5rem",
-        backgroundColor: theme.palette.background.alt
-      },
-        Typography({
-          fontWeight: "500",
-          variant: "h5",
-          sx: { mb: "1.5rem" }
-        },
-          "Welcome to Vendia Care, where your health matters!"
-        ),
-        Form(null)
-      )
-    )
+      <div className="login-container">
+        <h1>Login</h1>
+        <form className="login-form">
+          <label>
+            Email:
+            <input type="email" name="email" />
+          </label>
+          <br />
+          <label>
+            Password:
+            <input type="password" name="password" />
+          </label>
+          <br />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </>
   );
 }
 
-module.exports = Login;
+
+
+
 

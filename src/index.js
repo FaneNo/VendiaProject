@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import "./viewStyle/homeStyles.css";
 import "./viewStyle/patientStyles.css";
 import "./viewStyle/newStyles.css";
+import "./viewStyle/loginStyle.css";
 import {BrowserRouter} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
