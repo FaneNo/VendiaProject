@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import useJaneHopkins from './hooks/useJaneHopkins';
 import useBavaria from './hooks/useBavaria';
@@ -14,6 +13,7 @@ import Register from './view/register';
 import Doctor from './view/doctor';
 import New from './view/new';
 import LoginPage from './view/login';
+
 
 function App() {
 // const {entities} = useJaneHopkins();
