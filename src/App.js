@@ -3,8 +3,7 @@ import './App.css';
 import useJaneHopkins from './hooks/useJaneHopkins';
 import useBavaria from './hooks/useBavaria';
 import useFDA from './hooks/useFDA';
-
-
+import LoginPage from './scenes/loginPage';
 
 function App() {
 const {entities} = useJaneHopkins();
