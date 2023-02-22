@@ -15,7 +15,9 @@ export default function Home() {
             <li>
                 <Link to="/doctor">Doctor</Link>
             </li>
-
+            <li>
+                <Link to="/new">New patient</Link>
+            </li>
             <li>
                 <Link to="/register">Register</Link>
             </li>
