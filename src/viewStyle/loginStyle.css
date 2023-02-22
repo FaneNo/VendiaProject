@@ -1,15 +1,59 @@
-.contain {
-    position: absolute;
-    top: 50%;
-    right: 20%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 500px;
-    background-color: rgb(248, 248, 248);
-    border: 1px solid black;
-    border-radius: 10px;
+.nav {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .background {
+    background-color: gray;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-container h1 {
+    font-family: "Arial", sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .login-container {
+    background-color: white;
+    border-radius: 8px;
     padding: 20px;
-}
+    width: 300px;
+    max-width: 100%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+   
+  }
+
+  .login-form label {
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    position: relative;
+  }  
+
+  button[type="submit"] {
+    padding: 10px 40px; /* add padding around the button text */
+    border: none;
+    background-color: blue;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  
+  
   
   
   
