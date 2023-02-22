@@ -11,9 +11,10 @@ export default function Login() {
         </div>
         <Link to="/" className="title">Vendia Care</Link>
       </nav>
-
+      
+      <div className="contain">
       <div className="login-container">
-        <h1>Login</h1>
+        <h1>Login to Vendia Care</h1>
         <form className="login-form">
           <label>
             Email:
@@ -27,6 +28,7 @@ export default function Login() {
           <br />
           <button type="submit">Submit</button>
         </form>
+      </div>
       </div>
     </>
   );

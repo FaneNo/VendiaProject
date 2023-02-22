@@ -3,13 +3,15 @@
 }
 body {
     margin: 0;
-    
 }
 
+.titleName {
+    color: black;
+}
 
 .nav {
     background-color: rgb(4, 243, 243);
-    color: white;
+    color: rgb(0, 0, 0);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -61,7 +63,7 @@ body {
 
 }
 
-.nav li a:hover {
-    color: blue;
-}
+ .nav li a:hover {
+    color: rgb(0, 0, 0);
+} 
 

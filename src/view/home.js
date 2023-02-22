@@ -4,7 +4,7 @@ export default function Home() {
         <div className="homeImg" >
             <Link to="/"><img className="vendiaLogo" src={require("../vendiaLogo.png")} /></Link>
         </div>
-        <Link to="/" className="title">Vendia Care</Link>
+        <div className="titleName" ><Link to="/" className="title">Vendia Care</Link></div>
         <ul>
             <li>
                 <Link to="/fda">FDA</Link>   
