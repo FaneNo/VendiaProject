@@ -12,6 +12,7 @@ import Login from './view/login';
 import Patient from './view/patient';
 import Register from './view/register';
 import Doctor from './view/doctor';
+import New from './view/new';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
       <Route path='/patient' element = {<Patient />} />
       <Route path='/register' element = {<Register />} />
       <Route path='/doctor' element = {<Doctor />} />
+      <Route path='/new' element = {<New />} />
     </Routes>
     
 
