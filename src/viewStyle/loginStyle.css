@@ -7,7 +7,7 @@
 }
 
 .background {
-  background-color: rgb(0, 0, 0);
+  background-color: gray;
   height: 100vh;
   display: flex;
   align-items: center;
