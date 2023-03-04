@@ -20,21 +20,21 @@ function LoginForm() {
   };
 
   return (
-    <div className="login-container">
-      <h1>Login to Vendia Care</h1>
+      <div className="login-container">
+        <h1>Login to Vendia Care</h1>
       <form className="login-form" onSubmit={handleSubmit}>
-        <label>
-          Email:
+          <label>
+            Email:
           <input type="email" name="email" value={email} onChange={handleEmailChange} />
-        </label>
-        <br />
-        <label>
-          Password:
+          </label>
+          <br />
+          <label>
+            Password:
           <input type="password" name="password" value={password} onChange={handlePasswordChange} />
-        </label>
-        <br />
+          </label>
+          <br />
         <button type="submit">Login</button>
-      </form>
+        </form>
     </div>
   );
 }
@@ -56,7 +56,7 @@ function BackgroundContainer(props) {
   return (
     <div className="background" style={{ backgroundColor: props.backgroundColor }}>
       {props.children}
-    </div>
+      </div>
   );
 }
 
