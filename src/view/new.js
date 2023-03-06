@@ -14,13 +14,13 @@ export default function New() {
         oxygenSaturation: '',
         uuid: '',
         address: '',
-        currentMedications: [{'medication': "med1"}],
+        currentMedications: [{'medication': ""}],
         familyHistory: '',
         currentlyEmployed: '',
         currentlyInsured: '',
-        icdHealthCodes: [{'code': 'code1'}],
-        allergies: [{'allergy': 'allergy1'}],
-        visits: [{"patient": "patient1", "dateTime": "2023-03-04T10:00:00Z", "notes": "notes1", "hivViralLoad": ""}],
+        icdHealthCodes: [{'code': ''}],
+        allergies: [{'allergy': ''}],
+        visits: [{"patient": "", "dateTime": "", "notes": "", "hivViralLoad": ""}],
         bloodType: ''
       });
     
@@ -41,33 +41,28 @@ export default function New() {
             oxygenSaturation: '',
             uuid: '',
             address: '',
-            currentMedications: [{'medication': "med1"}],
+            currentMedications: [{'medication': ""}],
             familyHistory: '',
             currentlyEmployed: '',
             currentlyInsured: '',
-            icdHealthCodes: [{'code': 'code1'}],
-            allergies: [{'allergy': 'allergy1'}],
-            visits: [{"patient": "patient1", "dateTime": "2023-03-04T10:00:00Z", "notes": "notes1", "hivViralLoad": ""}],
-            bloodType: ''
+            icdHealthCodes: [{'code': ''}],
+            allergies: [{'allergy': ''}],
+            visits: [{"patient": "", "dateTime": "", "notes": "", "hivViralLoad": ""}],
+            bloodType: '',
+            
+            
           });
         } catch (error) {
           console.error(error);
         }
-      };
+    };
     
-    //   const handleInputChange = (event) => {
-    //     console.log('handleInputChange called');
-    //     const { name, value } = event.target;
-    //     setPatients((prevState) => ({
-    //       ...prevState,
-    //       [name]: value
-    //     }));
-    //   };
     
-      const handleSubmit = async (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         await addPatient();
-      };
+    };
     
    
     return (<>
@@ -127,7 +122,23 @@ export default function New() {
                             </div>
                             <div>
                                 <label className='form-label' htmlFor= 'icd'>ICD health codes</label>
-                                <input type={'text'} id='icd' className='form-control' value={patients.icdHealthCodes} onChange = {(e) => setPatients({...patients, icdHealthCodes: e.target.value})}/>
+                                {patients.icdHealthCodes.map((icd, idx) => (
+                                    <div key={idx}>
+                                    <input type='text' className='form-control' value={icd.code} onChange={e => {
+                                        const newCode = patients.icdHealthCodes.map((a, i) => {
+                                        if (i === idx) {
+                                            return {code: e.target.value}
+                                        } else {
+                                            return a;
+                                        }
+                                        });
+                                        setPatients(prevPatients => ({
+                                        ...prevPatients,
+                                        icdHealthCodes: newCode
+                                        }));
+                                    }} />
+                                    </div>
+                                ))}
                             </div>
                             
                         </div>
@@ -142,7 +153,23 @@ export default function New() {
                             </div>
                             <div>
                                 <label className='form-label' htmlFor= 'allergies'>Allergies</label>
-                                <input type={'text'} id='allergies' className='form-control' value={patients.allergies} onChange = {(e) => setPatients({...patients, allergies: e.target.value})}/>
+                                {patients.allergies.map((allergys, idx) => (
+                                    <div key={idx}>
+                                    <input type='text' className='form-control' value={allergys.allergy} onChange={e => {
+                                        const newAllergies = patients.allergies.map((a, i) => {
+                                        if (i === idx) {
+                                            return {allergy: e.target.value}
+                                        } else {
+                                            return a;
+                                        }
+                                        });
+                                        setPatients(prevPatients => ({
+                                        ...prevPatients,
+                                        allergies: newAllergies
+                                        }));
+                                    }} />
+                                    </div>
+                                ))}
                             </div>
                             <div>
                                 <label className='form-label' htmlFor= 'insured'>Currently insured</label>
@@ -153,15 +180,35 @@ export default function New() {
                                 <input type={'text'} id='btype' className='form-control' value={patients.bloodType} onChange = {(e) => setPatients({...patients, bloodType: e.target.value})}/>
                             </div>
                             <div>
-                                <label className='form-label' htmlFor= 'medication'>Current Medicationt</label>
-                                <input type={'text'} id='medication' className='form-control' value={patients.currentMedications} onChange = {(e) => setPatients({...patients, currentMedications: e.target.value})}/>
+                                <label className='form-label' htmlFor= 'medication'>Current Medication</label>
+                                {patients.currentMedications.map((medications, idx) => (
+                                    <div key={idx}>
+                                    <input type='text' className='form-control' value={medications.medication} onChange={e => {
+                                        const newMedication = patients.currentMedications.map((a, i) => {
+                                        if (i === idx) {
+                                            return {medication: e.target.value}
+                                        } else {
+                                            return a;
+                                        }
+                                        });
+                                        setPatients(prevPatients => ({
+                                        ...prevPatients,
+                                        currentMedications: newMedication
+                                        }));
+                                    }} />
+                                    </div>
+                                ))}
                             </div>
                         </div>
                         
                     </div>
                 </div>
                 <div className='button'>
-                    <button type='submit' >add patient</button>
+                    <button type='submit' onClick={() => {
+                        setPatients(prevPatients => ({...prevPatients,allergies: [...prevPatients.allergies, {allergy: ''}]})); 
+                        setPatients(prevPatients => ({...prevPatients,currentMedications: [...prevPatients.currentMedications, {medication: ''}]}));
+                        setPatients(prevPatients => ({...prevPatients,icdHealthCodes: [...prevPatients.icdHealthCodes, {code: ''}]}));
+                        }}>add patient</button>
                 </div>
                 
                 
