@@ -2,8 +2,8 @@ import NavBar from '../view/home';
 export default function Patient() {
     return (<>
         <NavBar/>
-        <div class="container">
-            <div class="box" id="top-left">
+        <div className="container" >
+            <div className="box" id="top-left">
                 <span className='list'>
                     <ul>
                         <li>Patient Picture</li>
@@ -13,28 +13,28 @@ export default function Patient() {
                     </ul>
                 </span>
             </div>
-            <div class="box" id="top-right-1">
+            <div className="box" id="top-right-1">
                 <span className='list'>
                     <ul>
                         <li>Blood Type</li>
                     </ul>
-                </span>
+                </span> 
             </div>
-            <div class="box" id="top-right-2">
+            <div className="box" id="top-right-2">
                 <span className='list'>
                     <ul>
                         <li>Temperature</li>
                     </ul>
                 </span>
             </div>
-            <div class="box" id="top-right-3">
+            <div className="box" id="top-right-3">
                 <span className='list'>
                     <ul>
                         <li>Blood Pressure</li>
                     </ul>
                 </span>
             </div>
-            <div class="box" id="bottom-left">
+            <div className="box" id="bottom-left">
                 <span className='list'>
                     <ul>
                         <li>Height:</li>
@@ -47,10 +47,10 @@ export default function Patient() {
                     </ul>
                 </span>
             </div>
-            <div class="box" id="bottom-right">
-                <span className='list'>
+            <div className="box" id="bottom-right">
+                <span className='list' id=''>
                     <ul>
-                        <li>Family History:</li>
+                        <li>Family History: </li>
                         <li>Address:</li>
                         <li>List of visit:</li>
                         <li>Allergies:</li>

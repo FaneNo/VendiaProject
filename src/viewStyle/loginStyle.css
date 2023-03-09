@@ -1,18 +1,27 @@
-.nav {
-  background-color: white;
+#loginNav {
+  background-color: cyan;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
 }
 
-.background {
+.backgroundL {
   background-color: gray;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+#loginT {
+  font-size: 2rem;
+  margin: auto;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  
+}
+
 
 .login-container h1 {
   font-family: "Arial", sans-serif;
@@ -29,6 +38,7 @@
   max-width: 100%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   text-align: center;
+  
 }
 
 .login-form {
@@ -60,5 +70,6 @@ button[type="submit"] {
   font-size: 16px;
   border-radius: 5px;
 }
+
 
 
