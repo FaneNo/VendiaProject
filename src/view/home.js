@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 export default function Home() {
   return (
     <div className="background" style={{ backgroundColor: '#f0f0f0' }}>
-      <nav className="nav">
+      <nav className="homeNav">
         <div className="homeImg" >
           <Link to="/"><img className="vendiaLogo" src={require("../vendiaLogo.png")} /></Link>
         </div>
-        <div className="titleName" ><Link to="/" className="title">Vendia Care</Link></div>
+        <div className="titleName" ><Link to="/" className="titleN">Vendia Care</Link></div>
         <ul>
           <li>
             <Link to="/fda">FDA</Link>   

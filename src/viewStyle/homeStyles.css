@@ -3,13 +3,14 @@
 }
 body {
     margin: 0;
+      
 }
 
 .titleName {
     color: black;
 }
 
-.nav {
+.homeNav {
     background-color: cyan;
     color: rgb(0, 0, 0);
     display: flex;
@@ -33,14 +34,14 @@ body {
     display: flex;
     
 }
-.title {
+.titleN {
     font-size: 2rem;
     margin: 0 auto;
     text-align: center;
     
 }
 
-.nav ul {
+.homeNav ul {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -49,7 +50,7 @@ body {
     
 }
 
-.nav a {
+.homeNav a {
     color: inherit;
     text-decoration: none;
     height: 100%;
@@ -58,12 +59,12 @@ body {
     padding: .1rem;
 }
 
-.nav li a {
+.homeNav li a {
     transition: all 0.3s ease-out;
 
 }
 
- .nav li a:hover {
+.homeNav li a:hover {
     color: rgb(0, 0, 0);
 } 
 

@@ -1,15 +1,31 @@
-
-.newBox{
-    /* background-color: red; */
-    /* width: 1000px; */
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 100px;
-    margin-bottom: 100px;
-    
-}
-
+.newBox {
+    background-color: white;
+    width: 1000px;
+    margin: auto;
+    position: fixed;
+    top: 100px;
+    bottom: 100px;
+    right: 100px;
+    left: 100px;
+    border-radius: 20px; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    padding-top: 10px;
+  }
+  
+  
 .newBox h2{
-    
     text-align: center;
 }
+
+.button {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+  }
+  
+  

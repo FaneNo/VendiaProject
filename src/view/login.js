@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from './firebase-config';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -14,15 +15,23 @@ function LoginForm() {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(`Submitted email: ${email} and password: ${password}`);
-  };
+  const registerLogin = async () => {
+    try {
+    const user = createUserWithEmailAndPassword(
+        auth, 
+        email, 
+        password
+        );
+    console.log(user)
+    } catch (error) {
+        console.log(error.message);
+    }
+};
 
   return (
       <div className="login-container">
         <h1>Login to Vendia Care</h1>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form">
           <label>
             Email:
           <input type="email" name="email" value={email} onChange={handleEmailChange} />
@@ -33,7 +42,7 @@ function LoginForm() {
           <input type="password" name="password" value={password} onChange={handlePasswordChange} />
           </label>
           <br />
-        <button type="submit">Login</button>
+        <button type="submit" onClick={registerLogin}>Login</button>
         </form>
     </div>
   );
@@ -41,20 +50,21 @@ function LoginForm() {
 
 function NavContainer() {
   return (
-    <nav className="nav">
+    <>
+    <nav className="nav" id='loginNav'>
       <div className="homeImg">
         <Link to="/">
           <img className="vendiaLogo" src={require("../vendiaLogo.png")} />
         </Link>
       </div>
-      <Link to="/" className="title">Vendia Care</Link>
-    </nav>
+      <Link to="/" className="title" id='loginT'>Vendia Care</Link>
+    </nav></>
   );
 }
 
 function BackgroundContainer(props) {
   return (
-    <div className="background" style={{ backgroundColor: props.backgroundColor }}>
+    <div className="backgroundL" style={{ backgroundColor: props.backgroundColor }}>
       {props.children}
       </div>
   );
@@ -70,6 +80,7 @@ function Login() {
 }
 
 export default Login;
+
 
 
 
