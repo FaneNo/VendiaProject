@@ -50,20 +50,21 @@ function LoginForm() {
 
 function NavContainer() {
   return (
-    <nav className="nav">
+    <>
+    <nav className="nav" id='loginNav'>
       <div className="homeImg">
         <Link to="/">
           <img className="vendiaLogo" src={require("../vendiaLogo.png")} />
         </Link>
       </div>
-      <Link to="/" className="title">Vendia Care</Link>
-    </nav>
+      <Link to="/" className="title" id='loginT'>Vendia Care</Link>
+    </nav></>
   );
 }
 
 function BackgroundContainer(props) {
   return (
-    <div className="background" style={{ backgroundColor: props.backgroundColor }}>
+    <div className="backgroundL" style={{ backgroundColor: props.backgroundColor }}>
       {props.children}
       </div>
   );

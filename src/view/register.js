@@ -78,20 +78,20 @@ function RegisterForm() {
 
 function NavContainer() {
   return (
-    <nav className="nav">
+    <nav className="nav" id='regNav'>
       <div className="homeImg">
         <Link to="/">
           <img className="vendiaLogo" src={require("../vendiaLogo.png")} />
         </Link>
       </div>
-      <Link to="/" className="title">Vendia Care</Link>
+      <Link to="/" className="title" id='regT'>Vendia Care</Link>
     </nav>
   );
 }
 
 function BackgroundContainer(props) {
   return (
-    <div className="background" style={{ backgroundColor: props.backgroundColor }}>
+    <div className="backgroundR" style={{ backgroundColor: props.backgroundColor }}>
       {props.children}
       </div>
   );
