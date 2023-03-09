@@ -24,16 +24,17 @@ body{
   .container {
     display: flex;
     flex-wrap: wrap;
-    height: 100vh;
-    padding: 20px;
-    margin-top: 100px;
+    /* height: 100vh;
+    padding: 20px; */
+    margin-top: 3rem;
   }
   
   .box {
     width: 200px;
     height: 200px;
-    border: 1px solid black;
     margin: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   }
   
   #top-left {
@@ -44,13 +45,13 @@ body{
   
   #bottom-left {
     width: 410px;
-    height: 200px;
+    height: 500px;
     background-color: #E74C3C;
   }
   
   #bottom-right {
-    width: 630px;
-    height: 200px;
+    width: 640px;
+    height: 500px;
     background-color: #2ECC71;
   }
   
@@ -65,16 +66,26 @@ body{
     flex-direction: column;
   }
   
-  #bottom-left-box {
+  /* #bottom-left-box {
     width: 410px;
-    height: 200px;
+    height: 500px;
     background-color: #E74C3C;
   }
   
   #bottom-right-box {
-    width: 630px;
-    height: 200px;
+    width: 640px;
+    height: 500px;
     background-color: #2ECC71;
+  } */
+
+  .list li:not(:last-child) {
+    margin-bottom: 40px;
+  }
+  
+  .list ul{
+    list-style: none;
+    margin-top: 10px;
+    
   }
   
   @media screen and (max-width: 768px) {

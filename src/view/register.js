@@ -67,7 +67,7 @@ function RegisterForm() {
           <br />
           <label>
             Confirm Password:
-          <input type="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={handleConfrimPasswordChange} />
+          <input type="password" name="confirmPassword" value={confirmPassword} onChange={handleConfrimPasswordChange} />
           </label>
           <br />
         <button type="submit" onClick={registerFire}>Submit</button>
@@ -81,7 +81,7 @@ function NavContainer() {
     <nav className="nav" id='regNav'>
       <div className="homeImg">
         <Link to="/">
-          <img className="vendiaLogo" src={require("../vendiaLogo.png")} />
+          <img className="vendiaLogo" src={require("../vendiaLogo.png")}  alt ='vendia logo'/>
         </Link>
       </div>
       <Link to="/" className="title" id='regT'>Vendia Care</Link>
