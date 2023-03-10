@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './firebase-config';
 
+function RegisterImage() {
+  return (
+    <img className="register-image" src={require("../registerIMG.jpg")} alt="Login" />
+  );
+}
 
 function RegisterForm() {
   const [email, setEmail] = useState('');
@@ -101,6 +106,7 @@ function Register() {
   return (
     <BackgroundContainer backgroundColor="#f0f0f0">
       <NavContainer />
+      <RegisterImage />
       <RegisterForm />
     </BackgroundContainer>
   );
