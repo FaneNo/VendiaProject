@@ -31,6 +31,16 @@
   margin-bottom: 20px;
 }
 
+.login-image {
+  border-radius: 80px;
+  padding: 60px;
+  width: 800px;
+  max-width: 100%;
+  height: 750px;
+  margin-left: -100px;
+}
+
+
 .login-container {
   background-color: white;
   border-radius: 8px;

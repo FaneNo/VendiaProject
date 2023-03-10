@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './firebase-config';
 
+function LoginImage() {
+  return (
+    <img className="login-image" src={require("../loginIMG.jpg")} alt="Login" />
+  );
+}
+
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,36 +20,38 @@ function LoginForm() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+  
 
   const registerLogin = async () => {
     try {
-    const user = createUserWithEmailAndPassword(
+      const user = await createUserWithEmailAndPassword(
         auth, 
         email, 
         password
-        );
-    console.log(user)
+      );
+      console.log(user)
     } catch (error) {
-        console.log(error.message);
+      console.log(error.message);
     }
-};
+  };
+
 
   return (
-      <div className="login-container">
-        <h1>Login to Vendia Care</h1>
+    <div className="login-container">
+      <h1>Login to Vendia Care</h1>
       <form className="login-form">
-          <label>
-            Email:
+        <label>
+          Email:
           <input type="email" name="email" value={email} onChange={handleEmailChange} />
-          </label>
-          <br />
-          <label>
-            Password:
+        </label>
+        <br />
+        <label>
+          Password:
           <input type="password" name="password" value={password} onChange={handlePasswordChange} />
-          </label>
-          <br />
+        </label>
+        <br />
         <button type="submit" onClick={registerLogin}>Login</button>
-        </form>
+      </form>
     </div>
   );
 }
@@ -51,14 +59,15 @@ function LoginForm() {
 function NavContainer() {
   return (
     <>
-    <nav className="nav" id='loginNav'>
-      <div className="homeImg">
-        <Link to="/">
-          <img className="vendiaLogo" src={require("../vendiaLogo.png")} />
-        </Link>
-      </div>
-      <Link to="/" className="title" id='loginT'>Vendia Care</Link>
-    </nav></>
+      <nav className="nav" id='loginNav'>
+        <div className="homeImg">
+          <Link to="/">
+            <img className="vendiaLogo" src={require("../vendiaLogo.png")} />
+          </Link>
+        </div>
+        <Link to="/" className="title" id='loginT'>Vendia Care</Link>
+      </nav>
+    </>
   );
 }
 
@@ -66,7 +75,7 @@ function BackgroundContainer(props) {
   return (
     <div className="backgroundL" style={{ backgroundColor: props.backgroundColor }}>
       {props.children}
-      </div>
+    </div>
   );
 }
 
@@ -74,6 +83,7 @@ function Login() {
   return (
     <BackgroundContainer backgroundColor="#f0f0f0">
       <NavContainer />
+      <LoginImage />
       <LoginForm />
     </BackgroundContainer>
   );
