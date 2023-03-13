@@ -1,4 +1,4 @@
-import NavBar from '../view/home';
+import Navbar from '../view/nav';
 import useJaneHopkins from '../hooks/useJaneHopkins';
 import {useState} from 'react';
 export default function New() { 
@@ -66,7 +66,7 @@ export default function New() {
     
    
     return (<>
-        <NavBar/>
+        <Navbar/>
         <div className='newBox'>
             <h2>New Patient</h2>
             <form onSubmit={handleSubmit}>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './firebase-config';
+import NavbarLR from '../view/navLR';
 
 function LoginImage() {
   return (
@@ -56,20 +56,6 @@ function LoginForm() {
   );
 }
 
-function NavContainer() {
-  return (
-    <>
-      <nav className="nav" id='loginNav'>
-        <div className="homeImg">
-          <Link to="/">
-            <img className="vendiaLogo" src={require("../vendiaLogo.png")} />
-          </Link>
-        </div>
-        <Link to="/" className="title" id='loginT'>Vendia Care</Link>
-      </nav>
-    </>
-  );
-}
 
 function BackgroundContainer(props) {
   return (
@@ -81,11 +67,13 @@ function BackgroundContainer(props) {
 
 function Login() {
   return (
+    <>
+    <NavbarLR />
     <BackgroundContainer backgroundColor="#f0f0f0">
-      <NavContainer />
       <LoginImage />
       <LoginForm />
     </BackgroundContainer>
+    </>
   );
 }
 

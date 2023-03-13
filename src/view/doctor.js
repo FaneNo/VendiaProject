@@ -1,7 +1,7 @@
-import NavBar from '../view/home';
+import Navbar from '../view/nav';
 export default function Doctor() {
     return (<>
-        <NavBar/>
+        <Navbar/>
         <h1>Patient Zero</h1>
         
     </>
