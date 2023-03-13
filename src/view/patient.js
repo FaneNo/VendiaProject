@@ -1,7 +1,7 @@
-import NavBar from '../view/home';
+import Navbar from '../view/nav';
 export default function Patient() {
     return (<>
-        <NavBar/>
+        <Navbar/>
         <div className="container" >
             <div className="box" id="top-left">
                 <span className='list'>

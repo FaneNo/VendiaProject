@@ -53,13 +53,13 @@
   }
   
   .homeNav {
-    background-color: cyan;
-    color: rgb(0, 0, 0);
+    background-color: #4c90af; /* Green */
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
     padding: 0 1rem;
+    height: 80px; /* added height for more spacing */
   }
   
   .homeImg {
@@ -80,6 +80,7 @@
     font-size: 2rem;
     margin: 0 auto;
     text-align: center;
+    font-weight: bold; /* added font weight for emphasis */
   }
   
   .homeNav ul {
@@ -97,13 +98,22 @@
     display: flex;
     align-items: stretch;
     padding: 0.1rem;
-  }
-  
-  .homeNav li a {
+    font-size: 1.2rem; /* increased font size */
+    font-weight: bold; /* added font weight for emphasis */
     transition: all 0.3s ease-out;
   }
   
   .homeNav li a:hover {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255); /* changed hover color to white */
+    background-color: #3e51aa; /* added background color on hover */
+    border-radius: 5px; /* added border radius for button-like effect */
   }
+  
+  .titleName {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
   

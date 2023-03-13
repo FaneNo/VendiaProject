@@ -2,7 +2,6 @@ import './App.css';
 import useJaneHopkins from './hooks/useJaneHopkins';
 import useBavaria from './hooks/useBavaria';
 import useFDA from './hooks/useFDA';
-// import NavBar from './view/home';
 import { Component } from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Home from './view/home';
@@ -12,7 +11,7 @@ import Patient from './view/patient';
 import Register from './view/register';
 import Doctor from './view/doctor';
 import New from './view/new';
-import LoginPage from './view/login';
+
 
 
 function App() {
