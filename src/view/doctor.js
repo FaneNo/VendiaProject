@@ -35,13 +35,11 @@ export default function Doctor() {
                 <>
                 <div class="card" >
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item" style={{background: "cyan"}} key={key}>name: {patients.name}, dob:{patients.dob}</li>
+                        <li class="list-group-item" style={{background: "cyan"}} key={key}>name: {patients.name}, dob:{patients.dob}, ID: {patients._id}</li>
                         
                     </ul>
-                </div>
-                
+                </div>               
                 </>
-                
             )
         })}</div>
         :

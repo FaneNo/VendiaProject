@@ -3,7 +3,7 @@ import useJaneHopkins from '../hooks/useJaneHopkins';
 import {useState} from 'react';
 export default function New() { 
 
-    const [format, setFormat] = useState("list");
+    
     const [patients, setPatients] = useState({
         name: '',
         dob: '',
