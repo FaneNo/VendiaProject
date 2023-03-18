@@ -2,7 +2,8 @@ import Navbar from '../view/nav';
 import useJaneHopkins from '../hooks/useJaneHopkins';
 import {useState} from 'react';
 export default function New() { 
-    
+
+    const [format, setFormat] = useState("list");
     const [patients, setPatients] = useState({
         name: '',
         dob: '',
@@ -28,7 +29,19 @@ export default function New() {
     
       const addPatient = async () => {
         try {
-          const response = await entities.patient.add(patients);
+          const response = await entities.patient.add(patients,{
+            aclInput: {
+                acl:[
+                    {
+                        principal: {
+                            nodes: ["Bavaria","FDA"]
+                        },
+                        operations: ["READ"],
+                        path: "name",
+                    }
+                ]
+            }
+          });
           console.log(response);
           setPatients({
             name: '',
