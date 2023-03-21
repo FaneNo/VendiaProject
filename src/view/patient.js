@@ -1,8 +1,12 @@
+import { useParams } from 'react-router-dom';
 import Navbar from '../view/nav';
 export default function Patient() {
+    const {id} = useParams();
     return (<>
         <Navbar/>
+        <h2>Patient - {id}</h2>
         <div className="container" >
+            
             <div className="box" id="top-left">
                 <span className='list'>
                     <ul>
