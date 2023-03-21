@@ -38,6 +38,13 @@ export default function New() {
                         },
                         operations: ["READ"],
                         path: "name",
+                    },
+                    {
+                        principal: {
+                            nodes: ["Bavaria","FDA"]
+                        },
+                        operations: ["READ"],
+                        path: "dob",
                     }
                 ]
             }

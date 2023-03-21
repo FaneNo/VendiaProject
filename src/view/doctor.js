@@ -2,7 +2,7 @@ import Navbar from '../view/nav';
 import useJaneHopkins from '../hooks/useJaneHopkins';
 import {useState, useEffect} from 'react';
 export default function Doctor() {
-    const {entities} = useJaneHopkins();
+    const {entities, } = useJaneHopkins();
     const [format, setFormat] = useState("list");
     const [patients, setPatients] = useState();
 
@@ -13,6 +13,12 @@ export default function Doctor() {
         
     };
 
+    const handleDelete = async (id) => {
+        const response = await entities.patient.remove(id);
+        console.log(response);
+        listPatients();
+    }
+
     useEffect(() => {
         listPatients();
     }, []);
@@ -21,7 +27,15 @@ export default function Doctor() {
         <Navbar/>
         <h1>Patient Zero</h1>
         {format === "list" ? 
-        <><button className='btn btn-primary' onClick={() => { setFormat("list"); } }>List</button>
+        <>
+        <button 
+            className='btn btn-primary' 
+            onClick={() => { 
+                setFormat("list"); 
+            } }
+        >
+            List
+        </button>
         <button className='btn btn-danger' onClick={() => { setFormat("grid"); } }>Grid</button></>
         :
         <><button className='btn btn-danger' onClick={() => { setFormat("list"); } }>List</button>
@@ -35,7 +49,11 @@ export default function Doctor() {
                 <>
                 <div class="card" >
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item" style={{background: "cyan"}} key={key}>name: {patients.name}, dob:{patients.dob}, ID: {patients._id}</li>
+                        <li class="list-group-item" style={{background: "cyan"}} key={key}>name: {patients.name}, dob:{patients.dob}, ID: {patients._id} 
+                        <button className='btn btn-danger' onClick={() => handleDelete(patients._id)}>Delete patient</button>
+                        <button className='btn btn-primary'>View Patient</button>
+                        </li>
+                        
                         
                     </ul>
                 </div>               
@@ -48,7 +66,10 @@ export default function Doctor() {
                 <>
                 <div class="card">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item" key={key}>name: {patients.name}, dob:{patients.dob}, ID: {patients._id}</li>
+                        <li class="list-group-item" key={key}>name: {patients.name}, dob:{patients.dob}, ID: {patients._id} 
+                        <button className='btn btn-danger' onClick={() => handleDelete(patients._id)}>Delete patient</button>
+                        <button className='btn btn-primary'>View Patient</button>
+                        </li>
                         
                     </ul>
                 </div>
