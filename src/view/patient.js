@@ -1,29 +1,41 @@
-import { useParams } from 'react-router-dom';
-import Navbar from '../view/nav';
-import useJaneHopkins from '../hooks/useJaneHopkins';
+
+import { useParams } from "react-router-dom";
+import Navbar from "../view/nav";
+import { useState, useEffect } from "react";
+import useJaneHopkins from "../hooks/useJaneHopkins";
 
 export default function Patient() {
-    const {id} = useParams();
-    const entities = useJaneHopkins();
-    return (<>
-        <Navbar/>
-        <h2>Patient - {id}</h2>
-        <div className="container" >
-            
-            <div className="box" id="top-left">
-                <span className='list'>
-                    <ul>
-                        <li>Patient Picture </li>
-                        <li>Name: </li>
-                        <li>DOB: </li>
-                        
-                    </ul>
-                </span>
-            </div>
+  const { id } = useParams();
+  const { entities } = useJaneHopkins();
+  const [patient, setPatient] = useState(null);
+
+  useEffect(() => {
+    const fetchPatient = async () => {
+      const patientData = await entities.patient.get(id);
+      setPatient(patientData);
+    };
+
+    fetchPatient();
+  }, [entities.patient, id]);
+
+  return (
+    <>
+      <Navbar />
+      <h2>Patient - {id}</h2>
+      <div className="container">
+        <div className="box" id="top-left">
+          <span className="list">
+            <ul>
+              <li>Patient Picture</li>
+              <li>Name: {patient?.name}</li>
+              <li>DOB: {patient?.dob}</li>
+            </ul>
+          </span>
+        </div>
             <div className="box" id="top-right-1">
                 <span className='list'>
                     <ul>
-                        <li>Blood Type</li> 
+                        <li>Blood Type{patient?.bloodType}</li>
                     </ul>
                 </span> 
             </div>
