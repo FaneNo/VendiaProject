@@ -59,7 +59,7 @@ export default function Patient() {
                         <li>Weight:{patient?.weight}</li>
                         <li>UUID:{patient?.uuid}</li>
                         <li>Insurance Number:{patient?.insuranceNumber}</li>
-                        <li>ICD Health code:{patient?.icdHealthCodes}</li>
+                        <li>ICD Health code:</li>
                         <li>Oxygen Saturation:{patient?.oxygenSaturation}</li>
                         <li>Currently Insured:</li>
                     </ul>
@@ -68,7 +68,7 @@ export default function Patient() {
             <div className="box" id="bottom-right">
                 <span className='list' id=''>
                     <ul>
-                        <li>Family History: </li>
+                        <li>Family History:{patient?.familyHistory}</li>
                         <li>Address:</li>
                         <li>List of visit:</li>
                         <li>Allergies:</li>
