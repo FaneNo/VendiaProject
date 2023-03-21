@@ -1,7 +1,7 @@
 import Navbar from '../view/nav';
 import useJaneHopkins from '../hooks/useJaneHopkins';
 import {useState, useEffect} from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 export default function Doctor() {
     const {entities, } = useJaneHopkins();
     const [format, setFormat] = useState("list");
@@ -24,6 +24,7 @@ export default function Doctor() {
     const redirect = async (patientID) => {
         
     }
+    const navigate = useNavigate();
 
     useEffect(() => {
         listPatients();
@@ -57,7 +58,7 @@ export default function Doctor() {
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item" style={{background: "cyan"}} key={key}>name: {patients.name}, dob:{patients.dob}, ID: {patients._id} 
                         <button className='btn btn-danger' onClick={() => handleDelete(patients._id)}>Delete patient</button>
-                        <button className='btn btn-primary' onClick={() => redirect(patients._id)}>View Patient</button>
+                        <button className='btn btn-primary' onClick={() => navigate(`/patient/${patients._id}`)}>View Patient</button>
                         </li>
                         
                         
