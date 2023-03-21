@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
+import patient from './patient';
 
 function Navbar() {
   return (
@@ -23,7 +24,7 @@ function Navbar() {
           <Link to="/doctor">Doctor</Link>
         </li>
         <li>
-          <Link to="/new">New patient</Link>
+          <Link to="/new">New patient </Link>
         </li>
         <li>
           <Link to="/register">Register</Link>
