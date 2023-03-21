@@ -35,7 +35,7 @@ function App() {
       <Route path='/' element = {<Home />} />
       <Route path='/fda' element = {<FDA />} />
       <Route path='/login' element = {<Login />} />
-      <Route path='/patient' element = {<Patient />} />
+      <Route path='/patient/:id' element = {<Patient />} />
       <Route path='/register' element = {<Register />} />
       <Route path='/doctor' element = {<Doctor />} />
       <Route path='/new' element = {<New />} />

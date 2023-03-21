@@ -18,7 +18,7 @@ function Navbar() {
           <Link to="/fda">FDA</Link>
         </li>
         <li>
-          <Link to="/patient/:id">Patient</Link>
+          <Link to="/patient">Patient</Link>
         </li>
         <li>
           <Link to="/doctor">Doctor</Link>
