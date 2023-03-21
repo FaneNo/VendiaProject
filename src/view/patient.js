@@ -56,12 +56,12 @@ export default function Patient() {
             <div className="box" id="bottom-left">
                 <span className='list'>
                     <ul>
-                        <li>Height:</li>
-                        <li>Weight:</li>
-                        <li>UUID:</li>
-                        <li>Insurance Number:</li>
-                        <li>ICD Health code:</li>
-                        <li>Oxygen Saturation:</li>
+                        <li>Height: {patient?.height}</li>
+                        <li>Weight:{patient?.weight}</li>
+                        <li>UUID:{patient?.uuid}</li>
+                        <li>Insurance Number:{patient?.insuranceNumber}</li>
+                        <li>ICD Health code:{patient?.icdHealthCodes}</li>
+                        <li>Oxygen Saturation:{patient?.oxygenSaturation}</li>
                         <li>Currently Insured:</li>
                     </ul>
                 </span>
