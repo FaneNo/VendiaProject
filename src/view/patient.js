@@ -1,7 +1,10 @@
 import { useParams } from 'react-router-dom';
 import Navbar from '../view/nav';
+import useJaneHopkins from '../hooks/useJaneHopkins';
+
 export default function Patient() {
     const {id} = useParams();
+    const entities = useJaneHopkins();
     return (<>
         <Navbar/>
         <h2>Patient - {id}</h2>
@@ -10,9 +13,9 @@ export default function Patient() {
             <div className="box" id="top-left">
                 <span className='list'>
                     <ul>
-                        <li>Patient Picture</li>
-                        <li>Name:</li>
-                        <li>DOB:</li>
+                        <li>Patient Picture </li>
+                        <li>Name: </li>
+                        <li>DOB: </li>
                         
                     </ul>
                 </span>
@@ -20,7 +23,7 @@ export default function Patient() {
             <div className="box" id="top-right-1">
                 <span className='list'>
                     <ul>
-                        <li>Blood Type</li>
+                        <li>Blood Type</li> 
                     </ul>
                 </span> 
             </div>
