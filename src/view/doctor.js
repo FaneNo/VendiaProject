@@ -56,6 +56,7 @@ export default function Doctor() {
                 <>
                 <div class="card" >
                     <ul class="list-group list-group-flush">
+
                         <li class="list-group-item" style={{background: "cyan"}} key={key}>name: {patients.name}, dob:{patients.dob}, bloodtype: {patients.bloodType}, ID: {patients._id} 
                         <button className='btn btn-danger' onClick={() => handleDelete(patients._id)}>Delete patient</button>
                         <button className='btn btn-primary' onClick={() => navigate(`/patient/${patients._id}`)}>View Patient</button>

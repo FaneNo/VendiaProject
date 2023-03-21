@@ -1,3 +1,4 @@
+
 import { useParams } from "react-router-dom";
 import Navbar from "../view/nav";
 import { useState, useEffect } from "react";
