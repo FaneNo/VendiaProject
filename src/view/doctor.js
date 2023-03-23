@@ -21,9 +21,6 @@ export default function Doctor() {
         listPatients();
     }
 
-    const redirect = async (patientID) => {
-        
-    }
     const navigate = useNavigate();
 
     useEffect(() => {
