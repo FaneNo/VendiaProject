@@ -63,10 +63,6 @@ export default function Patient() {
                         <li>Weight:{patient?.weight}</li>
                         <li>UUID: {patient?.uuid}</li>
                         <li>Insurance Number:{patient?.insuranceNumber}</li>
-                        
-                        {/* {Array.isArray(patient) && patient?.map((p, index) => (
-                            
-                        ))} */}
                         <li>ICD Health code: {patient?.icdHealthCodes[0].code}</li>
                         <li>Oxygen Saturation:{patient?.oxygenSaturation}</li>
                         <li>Currently Insured:</li>
