@@ -76,7 +76,7 @@ export default function Patient() {
             <div className="box" id="bottom-right">
                 <span className='list' id=''>
                     <ul>
-                        <li>Family History: </li>
+                        <li>Family History:{patient?.familyHistory}</li>
                         <li>Address:</li>
                         <li>List of visit:</li>
                         <li>Allergies:</li>
