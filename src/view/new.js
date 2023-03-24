@@ -224,11 +224,7 @@ export default function New() {
                     </div>
                 </div>
                 <div className='button'>
-                    <button type='submit' onClick={() => {
-                        setPatients(prevPatients => ({...prevPatients,allergies: [...prevPatients.allergies, {allergy: ''}]})); 
-                        setPatients(prevPatients => ({...prevPatients,currentMedications: [...prevPatients.currentMedications, {medication: ''}]}));
-                        setPatients(prevPatients => ({...prevPatients,icdHealthCodes: [...prevPatients.icdHealthCodes, {code: ''}]}));
-                        }}>add patient</button>
+                    <button type='submit' >add patient</button>
                 </div>
                 
                 
@@ -237,3 +233,11 @@ export default function New() {
     </>
     )   
 }
+
+
+// onClick={() => {
+//     setPatients(prevPatients => ({...prevPatients,allergies: [...prevPatients.allergies, {allergy: ''}]})); 
+//     setPatients(prevPatients => ({...prevPatients,currentMedications: [...prevPatients.currentMedications, {medication: ''}]}));
+//     setPatients(prevPatients => ({...prevPatients,icdHealthCodes: [...prevPatients.icdHealthCodes, {code: ''}]}));
+//     }}
+// put the code above in the button if the add patient doesn't work
