@@ -11,22 +11,12 @@ import Patient from './view/patient';
 import Register from './view/register';
 import Doctor from './view/doctor';
 import New from './view/new';
+import Edit from './view/edit';
 
 
 
 function App() {
-// const {entities} = useJaneHopkins();
 
-// const addPatient = async() => {
-//   const addPatientResponse = await entities.patient.add({
-//     name: "billy",
-//     dob: "January 14, 2000",
-//     insuranceNumber: "32123",
-    
-
-//   })
-//   console.log(addPatientResponse);
-// }
 
   return (
     <>
@@ -39,12 +29,10 @@ function App() {
       <Route path='/register' element = {<Register />} />
       <Route path='/doctor' element = {<Doctor />} />
       <Route path='/new' element = {<New />} />
+      <Route path='/edit/:id' element = {<Edit />} />
     </Routes>
     
 
-    {/* <div className="App">
-      <button onClick={() => { addPatient(); } }>add patient</button>
-    </div> */}
     
     </>
      
