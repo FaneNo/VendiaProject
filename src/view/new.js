@@ -22,7 +22,7 @@ export default function New() {
         icdHealthCodes: [{'code': ''}],
         allergies: [{'allergy': ''}],
         visits: [{"patient": "", "dateTime": "", "notes": "", "hivViralLoad": ""}],
-        bloodType: ''
+        bloodType: '',
       });
     
       const { entities } = useJaneHopkins();
