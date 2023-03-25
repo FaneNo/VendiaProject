@@ -67,6 +67,7 @@ export default function Patient() {
                         <li>ICD Health code: {patient?.icdHealthCodes[0].code}</li>
                         <li>Oxygen Saturation:{patient?.oxygenSaturation}</li>
                         <li>Currently Insured: {patient?.currentlyInsured}</li>
+                        <li>Currently Employed: {patient?.currentlyEmployed}</li>
                     </ul>
                 </span>
             </div>

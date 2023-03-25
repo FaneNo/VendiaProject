@@ -43,28 +43,28 @@ export default function Patient() {
                 <ul>
                     <li>Patient Picture</li>
                     <li>Name: <input type={'text'} className=" height form-control" value={patient?.name || ''} onChange = {(e) => setPatient({...patient, name: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
-                    <li>DOB: {patient?.dob}</li>
+                    <li>DOB: <input type={'text'} className=" height form-control" value={patient?.dob || ''} onChange = {(e) => setPatient({...patient, dob: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
                 </ul>
             </span>
         </div>
         <div className="box" id="top-right-1">
             <span className='list'>
                 <ul>
-                    <li>Blood Type: {patient?.bloodType}</li>
+                    <li>Blood Type: <input type={'text'} className=" height form-control" value={patient?.bloodType || ''} onChange = {(e) => setPatient({...patient, bloodType: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
                 </ul>
             </span> 
         </div>
             <div className="box" id="top-right-2">
                 <span className='list'>
                     <ul>
-                        <li>Temperature {patient?.temperature}</li>
+                        <li>Temperature <input type={'text'} className=" height form-control" value={patient?.temperature || ''} onChange = {(e) => setPatient({...patient, temperature: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
                     </ul>
                 </span>
             </div>
             <div className="box" id="top-right-3">
                 <span className='list'>
                     <ul>
-                        <li>Blood Pressure {patient?.bloodPressure}</li>
+                        <li>Blood Pressure <input type={'text'} className=" height form-control" value={patient?.bloodPressure || ''} onChange = {(e) => setPatient({...patient, bloodPressure: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
                     </ul>
                 </span>
             </div>
@@ -72,28 +72,88 @@ export default function Patient() {
                 <span className='list'>
                     <ul>
                         <li>Height: <input type={'text'} className=" height form-control" value={patient?.height || ''} onChange = {(e) => setPatient({...patient, height: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
-                        <li>Weight:{patient?.weight}</li>
-                        <li>UUID: {patient?.uuid}</li>
-                        <li>Insurance Number:{patient?.insuranceNumber}</li>
-                        <li>ICD Health code: {patient?.icdHealthCodes && patient.icdHealthCodes.length > 0 ? patient?.icdHealthCodes[0].code : ""}</li>
-                        <li>Oxygen Saturation:{patient?.oxygenSaturation}</li>
-                        <li>Currently Insured: {patient?.currentlyInsured}</li>
+                        <li>Weight:<input type={'text'} className=" height form-control" value={patient?.weight || ''} onChange = {(e) => setPatient({...patient, weight: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
+                        <li>UUID: <input type={'text'} className=" height form-control" value={patient?.uuid || ''} onChange = {(e) => setPatient({...patient, uuid: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
+                        <li>Insurance Number:<input type={'text'} className=" height form-control" value={patient?.insuranceNumber || ''} onChange = {(e) => setPatient({...patient, insuranceNumber: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
+                        <li>ICD Health code: 
+                            {/* {patient?.icdHealthCodes && patient.icdHealthCodes.length > 0 ? patient?.icdHealthCodes[0].code : ""} */}
+                            
+                            
+                            {patient.icdHealthCodes?.map((icd, idx) => (
+                                    <div key={idx}>
+                                    <input type='text' className='form-control' value={patient?.icdHealthCodes && patient.icdHealthCodes.length > 0 ? patient?.icdHealthCodes[0].code : ""} onChange={e => {
+                                        const newCode = patient.icdHealthCodes.map((a, i) => {
+                                        if (i === idx) {
+                                            return {code: e.target.value}
+                                        } else {
+                                            return a;
+                                        }
+                                        });
+                                        setPatient(prevPatient => ({
+                                        ...prevPatient,
+                                        icdHealthCodes: newCode
+                                        }));
+                                    }} />
+                                    </div>
+                                ))}
+                        </li>
+                        <li>Oxygen Saturation:<input type={'text'} className=" height form-control" value={patient?.oxygenSaturation || ''} onChange = {(e) => setPatient({...patient, oxygenSaturation: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
+                        <li>Currently Insured: <input type={'text'} className=" height form-control" value={patient?.currentlyInsured || ''} onChange = {(e) => setPatient({...patient, currentlyInsured: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
+                        <li>Currently Employed: <input type={'text'} className=" height form-control" value={patient?.currentlyEmployed || ''} onChange = {(e) => setPatient({...patient, currentlyEmployed: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
                     </ul>
                 </span>
             </div>
             <div className="box" id="bottom-right">
                 <span className='list' id=''>
                     <ul>
-                        <li>Family History:{patient?.familyHistory}</li>
-                        <li>Address: {patient?.address}</li>
+                        <li>Family History:<input type={'text'} className=" height form-control" value={patient?.familyHistory || ''} onChange = {(e) => setPatient({...patient, familyHistory: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
+                        <li>Address: <input type={'text'} className=" height form-control" value={patient?.address || ''} onChange = {(e) => setPatient({...patient, address: e.target.value})} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></li>
                         <li>List of visit:</li>
-                        <li>Allergies: {patient?.allergies && patient.allergies.length > 0 ? patient.allergies[0].allergy : ""}</li>
-                        <li>Current Medication: {patient?.medication && patient.medication.length > 0 ? patient?.currentMedications[0].medication : ""}</li>
+                        <li>Allergies: 
+                            {/* {patient?.allergies && patient.allergies.length > 0 ? patient.allergies[0].allergy : ""} */}
+                            {patient.allergies?.map((medication, idx) => (
+                                <div key={idx}>
+                                <input type='text' className='form-control' value={patient?.allergies && patient.allergies.length > 0 ? patient.allergies[0].allergy : "" || ""} onChange={e => {
+                                    const newAllergies = patient.allergies.map((a, i) => {
+                                    if (i === idx) {
+                                        return {allergy: e.target.value}
+                                    } else {
+                                        return a;
+                                    }
+                                    });
+                                    setPatient(prevPatient => ({
+                                    ...prevPatient,
+                                    allergies: newAllergies
+                                    }));
+                                }} />
+                                </div>
+                            ))}    
+                        </li>
+                        <li>Current Medication: 
+                            {/* {patient?.medication && patient.medication.length > 0 ? patient?.currentMedications[0].medication : ""} */}
+                            {patient.currentMedications?.map((medication, idx) => (
+                                <div key={idx}>
+                                <input type='text' className='form-control' value={patient?.currentMedications && patient.currentMedications.length > 0 ? patient?.currentMedications[0].medication : "" || ""} onChange={e => {
+                                    const newMedication = patient.currentMedications.map((a, i) => {
+                                    if (i === idx) {
+                                        return {medication: e.target.value}
+                                    } else {
+                                        return a;
+                                    }
+                                    });
+                                    setPatient(prevPatient => ({
+                                    ...prevPatient,
+                                    currentMedications: newMedication
+                                    }));
+                                }} />
+                                </div>
+                            ))}
+                        </li>
                     </ul>
                 </span>
             </div>
         </div>
-        <input className="btn btn-primary" type="submit" value="Submit"></input>
+        <input className="btn btn-primary" type="submit" value="Save"></input>
     
         </form>
     </> 
