@@ -13,6 +13,7 @@ import Doctor from "./view/doctor";
 import New from "./view/new";
 import Edit from "./view/edit";
 
+
 function App() {
   return (
     <>
@@ -33,6 +34,8 @@ function App() {
         <Route path="/new" element={<New />} />
         <Route path="/edit/:id" element={<Edit />} />
       </Routes>
+
+      
     </>
   );
 }

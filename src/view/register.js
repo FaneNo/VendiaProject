@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase-config";
 import NavbarLR from "./navLR";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { useForm } from "react-hook-form";
 
 function RegisterImage() {
   return (
@@ -19,6 +22,7 @@ function RegisterForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -31,29 +35,20 @@ function RegisterForm() {
     setConfirmPassword(event.target.value);
   };
 
-  const registerFire = async () => {
-    try {
-      const user = createUserWithEmailAndPassword(auth, email, password);
-      navigate("/");
-    } catch (error) {
-      console.log(error.message);
-    }
+  const registerFire = async (e) => {
+    e.preventDefault();
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
-
-  //   const handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     auth.createUserWithEmailAndPassword(email, password)
-  //       .then((userCredential) => {
-  //         // Signed in
-  //         const user = userCredential.user;
-  //         console.log(`Signed in as ${user.email}`);
-  //       })
-  //       .catch((error) => {
-  //         const errorCode = error.code;
-  //         const errorMessage = error.message;
-  //         console.error(`Error: ${errorCode} - ${errorMessage}`);
-  //       });
-  //   };
 
   return (
     <div className="register-container">
@@ -65,6 +60,7 @@ function RegisterForm() {
             type="email"
             name="email"
             value={email}
+            required
             onChange={handleEmailChange}
           />
         </label>
@@ -75,6 +71,7 @@ function RegisterForm() {
             type="password"
             name="password"
             value={password}
+            required
             onChange={handlePasswordChange}
           />
         </label>
@@ -86,6 +83,7 @@ function RegisterForm() {
             type="password"
             name="confirmPassword"
             value={confirmPassword}
+            required
             onChange={handleConfrimPasswordChange}
           />
         </label>
