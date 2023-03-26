@@ -1,7 +1,25 @@
 import React from "react";
 import Navbar from "../view/nav";
+import {useState, useEffect} from "react";
+import { auth } from "./firebase-config";
+import {onAuthStateChanged} from "firebase/auth"
+import Signout from "./logout";
+import {Navigate} from "react-router-dom"
 
-function HomeImage() {
+function HomeImage(){
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if(user) {
+        const uid = user.uid;
+        console.log("uid", uid);
+        
+      } else {
+        console.log("user is logged out")
+      }
+    });
+  }, [])
+
+
   return (
     <img className="home-image" src={require("../homeIMG.png")} alt="Home" />
   );
@@ -29,6 +47,7 @@ function Home() {
         <div className="container">
           <HomeImage />
           <TextBox />
+          
         </div>
       </div>
     </div>
