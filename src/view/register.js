@@ -9,19 +9,18 @@ import { useForm } from "react-hook-form";
 
 function RegisterImage() {
   return (
-    <img
-      className="register-image"
-      src={require("../registerIMG.jpg")}
-      alt="Login"
-    />
+    <img className="register-image" src={require("../registerIMG.jpg")} alt="Login" />
   );
 }
 
+
 function RegisterForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [userType, setUserType] = useState('');
   const navigate = useNavigate();
+
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -31,9 +30,9 @@ function RegisterForm() {
     setPassword(event.target.value);
   };
 
-  const handleConfrimPasswordChange = (event) => {
+    const handleConfrimPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
-  };
+    };
 
   const registerFire = async (e) => {
     e.preventDefault();
@@ -51,8 +50,8 @@ function RegisterForm() {
   };
 
   return (
-    <div className="register-container">
-      <h1>Register to Vendia Care</h1>
+      <div className="register-container">
+        <h1>Register to Vendia Care</h1>
       <form className="register-form">
         <label>
           Email:
@@ -96,25 +95,23 @@ function RegisterForm() {
   );
 }
 
+
 function BackgroundContainer(props) {
   return (
-    <div
-      className="backgroundR"
-      style={{ backgroundColor: props.backgroundColor }}
-    >
+    <div className="backgroundR" style={{ backgroundColor: props.backgroundColor }}>
       {props.children}
-    </div>
+      </div>
   );
 }
 
 function Register() {
   return (
     <>
-      <NavbarLR />
-      <BackgroundContainer backgroundColor="#f0f0f0">
-        <RegisterImage />
-        <RegisterForm />
-      </BackgroundContainer>
+    <NavbarLR />
+    <BackgroundContainer backgroundColor="#f0f0f0">
+      <RegisterImage />
+      <RegisterForm />
+    </BackgroundContainer>
     </>
   );
 }
