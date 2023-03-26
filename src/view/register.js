@@ -3,9 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase-config";
 import NavbarLR from "./navLR";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import { useForm } from "react-hook-form";
+
 
 function RegisterImage() {
   return (
@@ -40,7 +38,7 @@ function RegisterForm() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        navigate("/");
+        navigate("/login");
       })
       .catch((error) => {
         const errorCode = error.code;

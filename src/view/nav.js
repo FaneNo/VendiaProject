@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-
+import Signout from './logout';
 
 
 function Navbar({ userType }) {
@@ -38,6 +38,9 @@ function Navbar({ userType }) {
             </li>
             <li>
               <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Signout/>
             </li>
           </>
         )}
