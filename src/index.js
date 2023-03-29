@@ -8,14 +8,18 @@ import "./viewStyle/patientStyles.css";
 import "./viewStyle/newStyles.css";
 import "./viewStyle/loginStyle.css";
 import "./viewStyle/registerStyle.css";
+import "./viewStyle/bavariaStyle.css";
 import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { AuthContextProvider } from "./context/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

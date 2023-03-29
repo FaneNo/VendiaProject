@@ -1,28 +1,28 @@
 * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    margin: 0;
-  }
-  
-  .container {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  .home-image {
-    border-radius: 80px;
-    padding: 60px;
-    width: 900px;
-    max-width: 100%;
-    height: 700px;
-    margin-left: -200px;
-  }
-  
-  .text-box {
+  } */
+
+.home-image {
+  border-radius: 80px;
+  padding: 60px;
+  width: 900px;
+  max-width: 100%;
+  height: 700px;
+  margin-left: -200px;
+}
+
+/* .text-box {
     background-color: white;
     border-radius: 80px;
     padding: 60px;
@@ -32,99 +32,126 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     text-align: center;
     margin-left: 20px;
+  } */
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
   }
-  
-  @media screen and (max-width: 768px) {
-    .container {
-      flex-direction: column;
-    }
-  
-    .home-image {
-      margin-right: 0;
-      margin-bottom: 30px;
-    }
-  
-    .text-box {
+
+  .home-image {
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
+
+  /* .text-box {
       margin-left: 0;
       margin-right: 0;
       width: 100%;
       height: auto;
-    }
-  }
-  
-  .homeNav {
-    background-color: #4c90af; /* Green */
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-    height: 80px; /* added height for more spacing */
-  }
-  
-  .homeImg {
-    display: flex;
-    width: 5rem;
-    height: auto;
-    text-align: center;
-  }
-  
-  .vendiaLogo {
-    width: 100%;
-    height: auto;
-    padding: 0.2rem;
-    display: flex;
-  }
-  
-  .titleN {
-    font-size: 2rem;
-    margin: 0 auto;
-    text-align: center;
-    font-weight: bold; /* added font weight for emphasis */
-  }
-  
-  .homeNav ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .homeNav a {
-    color: inherit;
-    text-decoration: none;
-    height: 100%;
-    display: flex;
-    align-items: stretch;
-    padding: 0.1rem;
-    font-size: 1.2rem; /* increased font size */
-    font-weight: bold; /* added font weight for emphasis */
-    transition: all 0.3s ease-out;
-  }
-  
-  .homeNav li a:hover {
-    color: rgb(255, 255, 255); /* changed hover color to white */
-    background-color: #3e51aa; /* added background color on hover */
-    border-radius: 5px; /* added border radius for button-like effect */
-  }
-  
+    } */
+}
+
+.homeNav {
+  background-color: #1d1238; /* Green */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  height: 80px; /* added height for more spacing */
+}
+
+.homeImg {
+  display: flex;
+  width: 5rem;
+  height: auto;
+  text-align: center;
+}
+
+.vendiaLogo {
+  width: 100%;
+  height: auto;
+  padding: 0.2rem;
+  display: flex;
+}
+
+.titleN {
+  font-size: 2rem;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: bold; /* added font weight for emphasis */
+}
+
+.homeNav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.homeNav a {
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  padding: 0.1rem;
+  font-size: 1.2rem; /* increased font size */
+  font-weight: bold; /* added font weight for emphasis */
+  transition: all 0.3s ease-out;
+}
+
+.homeNav li a:hover {
+  color: rgb(255, 255, 255); /* changed hover color to white */
+  background-color: #5365b4; /* added background color on hover */
+  border-radius: 5px; /* added border radius for button-like effect */
+}
+
+.titleName {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (min-width: 768px) {
   .titleName {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    
+    overflow: hidden;
   }
-  
-  @media only screen and (min-width: 768px) {
-    .titleName {
-      /* flex-grow: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center; */
-      overflow: hidden;
-      
-    }
+}
+
+.blurb h2 {
+  color: #bfb1e3;
+  font-weight: 100;
+  font-size: 2.5rem;
+}
+
+.blurb p {
+  color: #cfc5ea;
+  font-weight: 100;
+  font-size: 1.125rem;
+  line-height: 2;
+}
+
+.contentH {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+#headingGroup h1 {
+  color: #bfb1e3;
+  font-weight: 100;
+  font-size: 4rem;
+}
+
+@media (max-width: 1200px) {
+  #headingGroup h1 {
+    font-weight: 100;
+    font-size: 3rem;
   }
+  .blurb h2 {
+    font-size: 2rem;
+  }
+}

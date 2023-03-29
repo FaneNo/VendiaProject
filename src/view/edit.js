@@ -2,8 +2,9 @@ import { json, useParams, useNavigate } from "react-router-dom";
 import Navbar from "../view/nav";
 import { useState, useEffect } from "react";
 import useJaneHopkins from "../hooks/useJaneHopkins";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function Patient() {
+export default function Edit() {
   const { id } = useParams();
   const { entities } = useJaneHopkins();
   const [patient, setPatient] = useState({});
@@ -17,7 +18,7 @@ export default function Patient() {
     e.preventDefault();
     const { _owner, ...product } = patient;
     const updateProductResponse = await entities.patient.update(product);
-    console.log(updateProductResponse);
+
     setPatient(updateProductResponse);
     navigate(`/patient/${patient._id}`);
   };
@@ -182,29 +183,17 @@ export default function Patient() {
                 </li>
                 <li>
                   ICD Health code:
-                  {/* {patient?.icdHealthCodes && patient.icdHealthCodes.length > 0 ? patient?.icdHealthCodes[0].code : ""} */}
-                  {patient.icdHealthCodes?.map((icd, idx) => (
+                  {patient.icdHealthCodes?.slice(0, 1).map((icd, idx) => (
                     <div key={idx}>
                       <input
                         type="text"
                         className="form-control"
-                        value={
-                          patient?.icdHealthCodes &&
-                          patient.icdHealthCodes.length > 0
-                            ? patient?.icdHealthCodes[0].code
-                            : ""
-                        }
+                        value={icd.code}
                         onChange={(e) => {
-                          const newCode = patient.icdHealthCodes.map((a, i) => {
-                            if (i === idx) {
-                              return { code: e.target.value };
-                            } else {
-                              return a;
-                            }
-                          });
+                          const newCode = e.target.value;
                           setPatient((prevPatient) => ({
                             ...prevPatient,
-                            icdHealthCodes: newCode,
+                            icdHealthCodes: [{ code: newCode }],
                           }));
                         }}
                       />
@@ -267,7 +256,7 @@ export default function Patient() {
               <ul>
                 <li>
                   Family History:
-                  <input
+                  <textarea
                     type={"text"}
                     className=" height form-control"
                     value={patient?.familyHistory || ""}
@@ -276,7 +265,7 @@ export default function Patient() {
                     }
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default"
-                  ></input>
+                  ></textarea>
                 </li>
                 <li>
                   Address:{" "}
@@ -295,27 +284,17 @@ export default function Patient() {
                 <li>
                   Allergies:
                   {/* {patient?.allergies && patient.allergies.length > 0 ? patient.allergies[0].allergy : ""} */}
-                  {patient.allergies?.map((medication, idx) => (
+                  {patient.allergies?.slice(0, 1).map((icd, idx) => (
                     <div key={idx}>
-                      <input
+                      <textarea
                         type="text"
                         className="form-control"
-                        value={
-                          patient?.allergies && patient.allergies.length > 0
-                            ? patient.allergies[0].allergy
-                            : "" || ""
-                        }
+                        value={icd.allergy}
                         onChange={(e) => {
-                          const newAllergies = patient.allergies.map((a, i) => {
-                            if (i === idx) {
-                              return { allergy: e.target.value };
-                            } else {
-                              return a;
-                            }
-                          });
+                          const newAllergy = e.target.value;
                           setPatient((prevPatient) => ({
                             ...prevPatient,
-                            allergies: newAllergies,
+                            allergies: [{ allergy: newAllergy }],
                           }));
                         }}
                       />
@@ -325,30 +304,17 @@ export default function Patient() {
                 <li>
                   Current Medication:
                   {/* {patient?.medication && patient.medication.length > 0 ? patient?.currentMedications[0].medication : ""} */}
-                  {patient.currentMedications?.map((medication, idx) => (
+                  {patient.currentMedications?.slice(0, 1).map((icd, idx) => (
                     <div key={idx}>
-                      <input
+                      <textarea
                         type="text"
                         className="form-control"
-                        value={
-                          patient?.currentMedications &&
-                          patient.currentMedications.length > 0
-                            ? patient?.currentMedications[0].medication
-                            : "" || ""
-                        }
+                        value={icd.medication}
                         onChange={(e) => {
-                          const newMedication = patient.currentMedications.map(
-                            (a, i) => {
-                              if (i === idx) {
-                                return { medication: e.target.value };
-                              } else {
-                                return a;
-                              }
-                            }
-                          );
+                          const newMedication = e.target.value;
                           setPatient((prevPatient) => ({
                             ...prevPatient,
-                            currentMedications: newMedication,
+                            currentMedications: [{ medication: newMedication }],
                           }));
                         }}
                       />

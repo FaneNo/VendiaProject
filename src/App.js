@@ -1,7 +1,4 @@
 import "./App.css";
-import useJaneHopkins from "./hooks/useJaneHopkins";
-import useBavaria from "./hooks/useBavaria";
-import useFDA from "./hooks/useFDA";
 import { Component, useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./view/home";
@@ -12,9 +9,15 @@ import Register from "./view/register";
 import Doctor from "./view/doctor";
 import New from "./view/new";
 import Edit from "./view/edit";
-
+import Bavaria from "./view/bavaria"
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
+  const { currentUser } = useContext(AuthContext);
+  const RequireAuth = ({ children }) => {
+    return currentUser ? children : <Navigate to="/login" replace = {true}/>;
+  };
+  console.log(currentUser);
   return (
     <>
       <Routes>
@@ -22,20 +25,50 @@ function App() {
           path="/"
           element={
             <>
-              <Home />
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
             </>
           }
         />
         <Route path="/fda" element={<FDA />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/patient/:id" element={<Patient />} />
+        <Route
+          path="/patient/:id"
+          element={
+            <RequireAuth>
+              <Patient />
+            </RequireAuth>
+          }
+        />
         <Route path="/register" element={<Register />} />
-        <Route path="/doctor" element={<Doctor />} />
-        <Route path="/new" element={<New />} />
-        <Route path="/edit/:id" element={<Edit />} />
-      </Routes>
+        <Route
+          path="/doctor"
+          element={
+            <RequireAuth>
+              <Doctor />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/new"
+          element={
+            <RequireAuth>
+              <New />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/edit/:id"
+          element={
+            <RequireAuth>
+              <Edit />
+            </RequireAuth>
+          }
+        />
 
-      
+        <Route path="/bavaria" element ={<Bavaria/>} />
+      </Routes>
     </>
   );
 }

@@ -1,6 +1,9 @@
 import Navbar from "../view/nav";
 import useJaneHopkins from "../hooks/useJaneHopkins";
 import { useState } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 export default function New() {
   const [patients, setPatients] = useState({
     name: "",
@@ -43,6 +46,20 @@ export default function New() {
               },
               operations: ["READ"],
               path: "dob",
+            },
+            {
+              principal: {
+                nodes: ["Bavaria", "FDA"],
+              },
+              operations: ["READ"],
+              path: "weight",
+            },
+            {
+              principal: {
+                nodes: ["Bavaria", "FDA"],
+              },
+              operations: ["READ"],
+              path: "height",
             },
           ],
         },
@@ -114,6 +131,7 @@ export default function New() {
                       setPatients({ ...patients, dob: e.target.value })
                     }
                   />
+                  
                 </div>
                 <div>
                   <label className="form-label" htmlFor="UUID">
