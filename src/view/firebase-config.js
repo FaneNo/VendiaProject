@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAASOU46kcXdRSBxv8E6_8i0SNjmYhSy-Y",
+    apiKey: "AIzaSyAASOU46kcXdRSBxv8E6_8i0SNjmYhSy-Y" ,
     authDomain: "vendia-care-9ea12.firebaseapp.com",
     projectId: "vendia-care-9ea12",
     storageBucket: "vendia-care-9ea12.appspot.com",

@@ -2,7 +2,7 @@ import "./App.css";
 import useJaneHopkins from "./hooks/useJaneHopkins";
 import useBavaria from "./hooks/useBavaria";
 import useFDA from "./hooks/useFDA";
-import { Component } from "react";
+import { Component, useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./view/home";
 import FDA from "./view/fda";
@@ -13,12 +13,8 @@ import Doctor from "./view/doctor";
 import New from "./view/new";
 import Edit from "./view/edit";
 
-function App() {
-  const currentUser = false;
-  const requireAuth = ({ children }) => {
-    return currentUser ? children : <Navigate to="/login" />;
-  };
 
+function App() {
   return (
     <>
       <Routes>
@@ -26,9 +22,7 @@ function App() {
           path="/"
           element={
             <>
-              <requireAuth />
-              <Home /> 
-              <requireAuth />
+              <Home />
             </>
           }
         />
@@ -40,6 +34,8 @@ function App() {
         <Route path="/new" element={<New />} />
         <Route path="/edit/:id" element={<Edit />} />
       </Routes>
+
+      
     </>
   );
 }
