@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import Signout from './logout';
 
-
 function Navbar({ userType }) {
   return (
     <nav className="homeNav">
@@ -42,6 +41,7 @@ function Navbar({ userType }) {
             <li>
               <Signout/>
             </li>
+
           </>
         )}
       </ul>
@@ -50,3 +50,4 @@ function Navbar({ userType }) {
 }
 
 export default Navbar;
+

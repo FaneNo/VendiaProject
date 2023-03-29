@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase-config";
 import NavbarLR from "./navLR";
-
 
 function RegisterImage() {
   return (
@@ -11,14 +10,12 @@ function RegisterImage() {
   );
 }
 
-
 function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [userType, setUserType] = useState('');
   const navigate = useNavigate();
-
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -28,29 +25,42 @@ function RegisterForm() {
     setPassword(event.target.value);
   };
 
-    const handleConfrimPasswordChange = (event) => {
+  const handleConfirmPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
-    };
+  };
+
+  const handleUserTypeChange = (event) => {
+    setUserType(event.target.value);
+  };
 
   const registerFire = async (e) => {
     e.preventDefault();
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/login");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      console.log(user, userType);
+      navigate("/login");
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    }
   };
 
   return (
-      <div className="register-container">
-        <h1>Register to Vendia Care</h1>
+    <div className="register-container">
+      <h1>Register to Vendia Care</h1>
       <form className="register-form">
+      <label>
+          User Type:
+          <select value={userType} onChange={handleUserTypeChange}>
+            <option value="">Select user type</option>
+            <option value="doctor">Doctor</option>
+            <option value="fda">FDA</option>
+            <option value="patient">Patient</option>
+          </select>
+        </label>
+        <br />
         <label>
           Email:
           <input
@@ -81,7 +91,7 @@ function RegisterForm() {
             name="confirmPassword"
             value={confirmPassword}
             required
-            onChange={handleConfrimPasswordChange}
+            onChange={handleConfirmPasswordChange}
           />
         </label>
         <br />
@@ -93,23 +103,22 @@ function RegisterForm() {
   );
 }
 
-
 function BackgroundContainer(props) {
   return (
     <div className="backgroundR" style={{ backgroundColor: props.backgroundColor }}>
       {props.children}
-      </div>
+    </div>
   );
 }
 
 function Register() {
   return (
     <>
-    <NavbarLR />
-    <BackgroundContainer backgroundColor="#f0f0f0">
-      <RegisterImage />
-      <RegisterForm />
-    </BackgroundContainer>
+      <NavbarLR />
+      <BackgroundContainer backgroundColor="#f0f0f0">
+        <RegisterImage />
+        <RegisterForm />
+      </BackgroundContainer>
     </>
   );
 }
