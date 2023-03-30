@@ -233,3 +233,8 @@ font-size: 16px;
 }
 }
 
+.navLinks li {
+  display: inline-block;
+  margin-right: 10px;
+}
+

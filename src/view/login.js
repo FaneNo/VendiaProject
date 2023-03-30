@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "./firebase-config";
-import NavbarLR from "../view/navLR";
+import Navbar from "../view/nav";
 import { useNavigate } from "react-router-dom";
 
 function LoginImage() {
@@ -88,7 +88,7 @@ function BackgroundContainer(props) {
 function Login() {
   return (
     <>
-      <NavbarLR />
+      <Navbar />
       <BackgroundContainer backgroundColor="#f0f0f0">
         <LoginImage />
         <LoginForm />

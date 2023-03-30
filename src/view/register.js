@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "./firebase-config";
 import { doc, setDoc } from "firebase/firestore";
-import NavbarLR from "./navLR";
+import Navbar from "./nav";
 
 function RegisterImage() {
   return (
@@ -40,6 +40,7 @@ function RegisterForm() {
           role: formData.role,
         })
         .then(() => {
+          console.log("Navigating to home page");
           navigate("/");
         })
         .catch((error) => {
@@ -130,7 +131,7 @@ return (
 function Register() {
 return (
 <>
-<NavbarLR />
+<Navbar />
 <BackgroundContainer backgroundColor="#f0f0f0">
 <RegisterImage />
 <RegisterForm />
