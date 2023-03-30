@@ -1,8 +1,27 @@
-import { Link } from 'react-router-dom';
-import React from 'react';
-import Signout from './logout';
+import React, { useState } from "react";
+import { auth, db } from "./firebase-config";
+import { doc, getDoc } from "firebase/firestore";
+import { Link } from "react-router-dom";
+import Signout from "./logout";
 
-function Navbar({ userType }) {
+function Navbar() {
+  const [userRole, setUserRole] = useState("");
+
+  // Check user's role
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      const userDoc = doc(db, "users", user.uid);
+      const docSnap = await getDoc(userDoc);
+  
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        setUserRole(userData.role);
+      }
+    } else {
+      setUserRole("");
+    }
+  });
+
   return (
     <nav className="homeNav">
       <div className="homeImg">
@@ -14,35 +33,34 @@ function Navbar({ userType }) {
         <Link to="/" className="titleN">Vendia Care</Link>
       </div>
       <ul className="navLinks">
-        {userType === 'patient' && (
-          <li>
-            <Link to="/patient">Patient</Link>
-          </li>
-        )}
-        { userType === 'doctor' && (
-          <li>
-            <Link to="/doctor">Doctor</Link>
-            <Link to="/new">New patient </Link>
-          </li>
-        )}
-        {userType === 'fda' && (
-          <li>
+        <li>
+          {userRole === "doctor" && (
+            <>
+              <Link to="/doctor">Doctor</Link>
+              <Link to="/new">New Patient</Link>
+            </>
+          )}
+          {userRole === "fda" && (
             <Link to="/fda">FDA</Link>
-          </li>
-        )}
-        {!(userType === 'patient' || userType === 'doctor' || userType === 'fda') && (
+          )}
+          {userRole === "patient" && (
+            <Link to="/edit">Patient</Link>
+          )}
+        </li>
+        {userRole === "" && (
           <>
+            <li>
+              <Link to="/login">Log in</Link>
+            </li>
             <li>
               <Link to="/register">Register</Link>
             </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Signout/>
-            </li>
-
           </>
+        )}
+        {userRole !== "" && (
+          <li>
+            <Signout />
+          </li>
         )}
       </ul>
     </nav>
@@ -50,4 +68,6 @@ function Navbar({ userType }) {
 }
 
 export default Navbar;
+
+
 
