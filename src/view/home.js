@@ -101,8 +101,9 @@ function HomeImage() {
 function Home() {
   return (
     <div>
+      {/* #110015 */}
       <Navbar />
-      <div className="backgroundHome" style={{ backgroundColor: "#110015" }}>
+      <div className="backgroundHome" style={{ backgroundColor: "white" }}>
         <div className="container">
           <HomeImage />
           {/* <TextBox /> */}

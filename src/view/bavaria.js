@@ -1,6 +1,6 @@
 import Navbar from "./nav";
 import useBavaria from "../hooks/useBavaria";
-import { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
@@ -20,36 +20,97 @@ import { Card, TableFooter } from "@mui/material";
 import { flexbox } from "@mui/system";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import Dialog from "@mui/material/Dialog";
+import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import CloseIcon from "@mui/icons-material/Close";
+import Slide from "@mui/material/Slide";
+import { async } from "@firebase/util";
+import { CheckBox } from "@mui/icons-material";
+import Checkbox from "@mui/material/Checkbox";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function Bavaria() {
   const { entities } = useBavaria();
-  const [format, setFormat] = useState("list");
+
   const [patients, setPatients] = useState([]);
   const { id } = useParams();
+  const [drug, setDrug] = useState([]);
+
+  const listDrug = async () => {
+    let drugList = await entities.drug.list();
+    console.log(drugList.items);
+    setDrug(drugList.items);
+  };
+
+ 
+
+  const handleStatusChange = async (drugId) => {
+    try {
+      // Get the drug item with the given ID
+      const  { _owner, ...product } = await entities.drug.get(drugId);
+      
+      // If the drug item is found, update its status to "pending"
+      if (product) {
+        const updatedDrug = { ...product, status: "pending" };
+        
+        // Update the drug item with the new status
+        await entities.drug.update(updatedDrug);
+    
+        // Reload the drug list
+        await listDrug();
+      }
+    } catch (error) { 
+      console.error(error);
+    }
+  };
+
+  const handleDeleteDrug = async (drugId) => {
+    try {
+      // Remove the drug item with the given ID
+      await entities.drug.remove(drugId);
+  
+      // Reload the drug list
+      await listDrug();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const listPatients = async () => {
     let patientList = await entities.patient.list();
-    console.log(patientList.items);
+
     setPatients(patientList.items);
   };
 
-  const handleDelete = async (id) => {
-    const response = await entities.patient.remove(id);
+  const [open, setOpen] = React.useState(false);
 
-    listPatients();
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const navigate = useNavigate();
 
-  const columns = [
-    { field: "id", headerName: "ID", width: 300 },
-    { field: "name", headerName: "Name", width: 150 },
-    { field: "dob", headerName: "Date of Birth", width: 130 },
-    { field: "height", headerName: "Height", width: 90 },
-    { field: "weight", headerName: "Weight", width: 90 },
-    { field: "uuid", headerName: "UUID", width: 90 },
-    { field: "status", headerName: "Status", width: 150 },
-  ];
+  // const columns = [
+  //   { field: "id", headerName: "ID", width: 300 },
+  //   { field: "name", headerName: "Name", width: 150 },
+  //   { field: "dob", headerName: "Date of Birth", width: 130 },
+  //   { field: "height", headerName: "Height", width: 90 },
+  //   { field: "weight", headerName: "Weight", width: 90 },
+  //   { field: "uuid", headerName: "UUID", width: 90 },
+  //   { field: "status", headerName: "Status", width: 150 },
+  // ];
 
   const rows =
     patients.length > 0
@@ -104,9 +165,6 @@ export default function Bavaria() {
                       <TableCell>Date</TableCell>
                       <TableCell>Drug</TableCell>
                       <TableCell>Status</TableCell>
-                      <TableCell>
-                        <button className="btn btn-primary">Assign drug</button>
-                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -143,11 +201,20 @@ export default function Bavaria() {
 
   useEffect(() => {
     listPatients();
+    listDrug();
+    console.log(drug);
   }, []);
 
   return (
     <>
       <Navbar />
+      <button
+        className="btn btn-primary"
+        onClick={() => navigate(`/createDrug`)}
+      >
+        Create drug
+      </button>
+
       <div
         className="container-fluid"
         style={{
@@ -186,23 +253,83 @@ export default function Bavaria() {
             alignItems="center"
           >
             <Box
-            margin= "auto"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center">
-            <Button variant="contained" color="primary" sx={{ height: 40 }}>
-              Get result
-            </Button>
+              margin="auto"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Button variant="contained" color="primary" sx={{ height: 40 }}>
+                Get result
+              </Button>
             </Box>
-            
+
             <Box
-            margin= "auto"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center">
-            <Button variant="contained" color="primary" sx={{ height: 40 }}>
-              Send Drugs
-            </Button>
+              margin="auto"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Button variant="contained" onClick={handleClickOpen}>
+                Send Drug
+              </Button>
+              <Dialog
+                fullScreen
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={Transition}
+              >
+                <AppBar sx={{ position: "relative" }}>
+                  <Toolbar>
+                    {/* <IconButton
+                      edge="start"
+                      color="inherit"
+                      onClick={handleClose}
+                      aria-label="close"
+                    >
+                      <CloseIcon />
+                    </IconButton> */}
+                    <Typography sx={{ flex: 1 }} variant="h6" component="div">
+                      Drug List
+                    </Typography>
+                    {/* <Button autoFocus color="inherit" onClick={handleClose}>
+                      save
+                    </Button> */}
+                    <IconButton
+                      edge="start"
+                      color="inherit"
+                      onClick={handleClose}
+                      aria-label="close"
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  </Toolbar>
+                </AppBar>
+                <List>
+                  {drug.map((drug) => (
+                    
+                    <React.Fragment key={`${drug.id}-${drug.batchNumber}`}>
+                      
+                      <ListItem>
+                        <ListItemText>
+                          batchNumber: {drug.batchNumber}
+                        </ListItemText>
+                        <ListItemText>
+                          Status: {drug.status || ""} 
+                        </ListItemText>
+                        <ListItemText>
+                          Placebo: {drug.placebo } 
+                        </ListItemText>
+                        <Button variant="contained" onClick={() => handleStatusChange(drug._id) }>Select</Button>
+                        <Button variant="outlined" onClick={() => handleDeleteDrug(drug._id) }>Removed</Button>
+                      </ListItem>
+
+                      <Divider />
+                    </React.Fragment>
+                    
+                  ))}
+                  
+                </List>
+              </Dialog>
             </Box>
           </Box>
         </TableContainer>

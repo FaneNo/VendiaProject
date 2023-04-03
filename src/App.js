@@ -9,13 +9,14 @@ import Register from "./view/register";
 import Doctor from "./view/doctor";
 import New from "./view/new";
 import Edit from "./view/edit";
-import Bavaria from "./view/bavaria"
+import Bavaria from "./view/bavaria";
+import CreateDrug from "./view/createDrug";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
   const RequireAuth = ({ children }) => {
-    return currentUser ? children : <Navigate to="/login" replace = {true}/>;
+    return currentUser ? children : <Navigate to="/login" replace={true} />;
   };
   console.log(currentUser);
   return (
@@ -67,7 +68,8 @@ function App() {
           }
         />
 
-        <Route path="/bavaria" element ={<Bavaria/>} />
+        <Route path="/bavaria" element={<Bavaria />} />
+        <Route path="/createDrug" element={<CreateDrug />} />
       </Routes>
     </>
   );
