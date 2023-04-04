@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+<<<<<<< HEAD
 import { auth } from "./firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "./firebase-config";
+=======
+import { auth, db } from "./firebase-config";
+import { doc, setDoc } from "firebase/firestore";
+>>>>>>> 4271918c7a806d4b2a4f0d2f17121a984feacdcd
 import NavbarLR from "./navLR";
 
 function RegisterImage() {
@@ -13,30 +18,19 @@ function RegisterImage() {
 }
 
 function RegisterForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [userType, setUserType] = useState('');
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "",
+  });
+
   const navigate = useNavigate();
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-  };
-
-  const handleUserTypeChange = (event) => {
-    setUserType(event.target.value);
-  };
-
-  const registerFire = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -53,12 +47,47 @@ function RegisterForm() {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
+=======
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+>>>>>>> 4271918c7a806d4b2a4f0d2f17121a984feacdcd
     }
+
+    createUserWithEmailAndPassword(auth, formData.email, formData.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const userRef = doc(db, "users", user.uid);
+        setDoc(userRef, {
+          name: formData.name,
+          email: formData.email,
+          role: formData.role,
+        })
+        .then(() => {
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Error creating user:", error);
+        });
+      })
+      .catch((error) => {
+        console.error("Error creating user:", error);
+      });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   return (
     <div className="register-container">
       <h1>Register to Vendia Care</h1>
+<<<<<<< HEAD
       <form className="register-form" onSubmit={registerFire}>
       <label>
           User Type:
@@ -70,17 +99,20 @@ function RegisterForm() {
           </select>
         </label>
         <br />
+=======
+      <form className="register-form" onSubmit={handleSubmit}>
+>>>>>>> 4271918c7a806d4b2a4f0d2f17121a984feacdcd
         <label>
-          Email:
+          Name:
           <input
-            type="email"
-            name="email"
-            value={email}
-            required
-            onChange={handleEmailChange}
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
           />
-        </label>
+        </label >
         <br />
+<<<<<<< HEAD
         <label>
           Password:
           <input
@@ -110,26 +142,72 @@ function RegisterForm() {
       </form>
     </div>
   );
+=======
+    <label>
+      Email:
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+      />
+    </label>
+    <br />
+    <label>
+      Password:
+      <input
+        type="password"
+        name="password"
+        value={formData.password}
+        onChange={handleChange}
+      />
+    </label>
+    <br />
+    <label>
+      Confirm password:
+      <input
+        type="password"
+        name="confirmPassword"
+        value={formData.confirmPassword}
+        onChange={handleChange}
+      />
+    </label>
+    <br />
+    <label>
+      Role:
+      <select name="role" value={formData.role} onChange={handleChange}>
+        <option value="">-- Select a role --</option>
+        <option value="patient">Patient</option>
+        <option value="doctor">Doctor</option>
+        <option value="fda">FDA</option>
+      </select>
+    </label>
+    <br />
+    <button type="submit">Sign up</button>
+  </form>
+</div>
+);
+>>>>>>> 4271918c7a806d4b2a4f0d2f17121a984feacdcd
 }
 
 function BackgroundContainer(props) {
-  return (
-    <div className="backgroundR" style={{ backgroundColor: props.backgroundColor }}>
-      {props.children}
-    </div>
-  );
+return (
+<div className="backgroundR" style={{ backgroundColor: props.backgroundColor }}>
+{props.children}
+</div>
+);
 }
 
 function Register() {
-  return (
-    <>
-      <NavbarLR />
-      <BackgroundContainer backgroundColor="#f0f0f0">
-        <RegisterImage />
-        <RegisterForm />
-      </BackgroundContainer>
-    </>
-  );
+return (
+<>
+<NavbarLR />
+<BackgroundContainer backgroundColor="#f0f0f0">
+<RegisterImage />
+<RegisterForm />
+</BackgroundContainer>
+</>
+);
 }
 
 export default Register;
