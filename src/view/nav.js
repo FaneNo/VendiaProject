@@ -36,15 +36,19 @@ function Navbar() {
         <li>
           {userRole === "doctor" && (
             <>
+              <li>
               <Link to="/doctor">Doctor</Link>
+            </li>
+            <li>
               <Link to="/new">New Patient</Link>
+            </li>
             </>
           )}
           {userRole === "fda" && (
             <Link to="/fda">FDA</Link>
           )}
           {userRole === "patient" && (
-            <Link to="/edit">Patient</Link>
+            <Link to="/patient">Patient</Link>
           )}
         </li>
         {userRole === "" && (

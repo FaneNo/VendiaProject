@@ -8,8 +8,7 @@ import { db } from "./firebase-config";
 =======
 import { auth, db } from "./firebase-config";
 import { doc, setDoc } from "firebase/firestore";
->>>>>>> 4271918c7a806d4b2a4f0d2f17121a984feacdcd
-import NavbarLR from "./navLR";
+import Navbar from "./nav";
 
 function RegisterImage() {
   return (
@@ -65,6 +64,7 @@ function RegisterForm() {
           role: formData.role,
         })
         .then(() => {
+          console.log("Navigating to home page");
           navigate("/");
         })
         .catch((error) => {
@@ -201,7 +201,7 @@ return (
 function Register() {
 return (
 <>
-<NavbarLR />
+<Navbar />
 <BackgroundContainer backgroundColor="#f0f0f0">
 <RegisterImage />
 <RegisterForm />
