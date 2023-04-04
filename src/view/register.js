@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase-config";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "./firebase-config";
 import NavbarLR from "./navLR";
 
 function RegisterImage() {
@@ -39,7 +41,14 @@ function RegisterForm() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       console.log(user, userType);
-      navigate("/login");
+  
+      // Save user type to Firestore
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        userType: userType
+      });
+  
+      navigate("/");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -50,7 +59,7 @@ function RegisterForm() {
   return (
     <div className="register-container">
       <h1>Register to Vendia Care</h1>
-      <form className="register-form">
+      <form className="register-form" onSubmit={registerFire}>
       <label>
           User Type:
           <select value={userType} onChange={handleUserTypeChange}>
@@ -95,7 +104,7 @@ function RegisterForm() {
           />
         </label>
         <br />
-        <button type="submit" onClick={registerFire}>
+        <button type="submit" >
           Submit
         </button>
       </form>
