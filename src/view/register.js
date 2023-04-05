@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "./firebase-config";
+import { auth } from "./firebase-config";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "./firebase-config";
 import { doc, setDoc } from "firebase/firestore";
-import NavbarLR from "./navLR";
+import Navbar from "./nav";
 
-function RegisterImage() {
-  return (
-    <img className="register-image" src={require("../registerIMG.jpg")} alt="Login" />
-  );
-}
 
 function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -40,6 +37,7 @@ function RegisterForm() {
           role: formData.role,
         })
         .then(() => {
+          console.log("Navigating to home page");
           navigate("/");
         })
         .catch((error) => {
@@ -61,80 +59,73 @@ function RegisterForm() {
 
   return (
     <div className="register-container">
-      <h1>Register to Vendia Care</h1>
-      <form className="register-form" onSubmit={handleSubmit}>
+      <div className="register-form">
+        <div className = "register-image">
+      <img  src={require("../registerIMG.jpg")} alt="Login" />
+      </div>
+      <form className="register-box" onSubmit={handleSubmit}>
+        <h1>Register to Vendia Care</h1>
         <label>
-          Name:
+          User Type:
+          <select name="role" value={formData.role} onChange={handleChange}>
+            <option value="">--Select user type--</option>
+            <option value="doctor">Doctor</option>
+            <option value="fda">FDA</option>
+            <option value="patient">Patient</option>
+          </select>
+        </label>
+        <br />
+        <label>
+          Email:
           <input
-            type="text"
-            name="name"
-            value={formData.name}
+            type="email"
+            name="email"
+            value={formData.email}
+            required
             onChange={handleChange}
           />
-        </label >
+        </label>
         <br />
-    <label>
-      Email:
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-      />
-    </label>
-    <br />
-    <label>
-      Password:
-      <input
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-      />
-    </label>
-    <br />
-    <label>
-      Confirm password:
-      <input
-        type="password"
-        name="confirmPassword"
-        value={formData.confirmPassword}
-        onChange={handleChange}
-      />
-    </label>
-    <br />
-    <label>
-      Role:
-      <select name="role" value={formData.role} onChange={handleChange}>
-        <option value="">-- Select a role --</option>
-        <option value="patient">Patient</option>
-        <option value="doctor">Doctor</option>
-        <option value="fda">FDA</option>
-      </select>
-    </label>
-    <br />
-    <button type="submit">Sign up</button>
-  </form>
-</div>
-);
+        <label>
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            required
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <br />
+        <label>
+          Confirm Password:
+          <input
+            type="password"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            required
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <button type="submit" >
+          Submit
+        </button>
+      </form>
+      </div>
+    </div>
+  );
+  
 }
 
-function BackgroundContainer(props) {
-return (
-<div className="backgroundR" style={{ backgroundColor: props.backgroundColor }}>
-{props.children}
-</div>
-);
-}
+
 
 function Register() {
 return (
 <>
-<NavbarLR />
-<BackgroundContainer backgroundColor="#f0f0f0">
-<RegisterImage />
+<Navbar />
 <RegisterForm />
-</BackgroundContainer>
 </>
 );
 }
