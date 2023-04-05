@@ -1,13 +1,6 @@
-<<<<<<< HEAD
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-=======
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
->>>>>>> 4271918c7a806d4b2a4f0d2f17121a984feacdcd
-
 
 
 const firebaseConfig = {
@@ -21,13 +14,9 @@ const firebaseConfig = {
   };  
 
   const app = initializeApp(firebaseConfig);
-<<<<<<< HEAD
 
-  export const auth = getAuth(app);
-  export const db = getFirestore(app);
-=======
   const auth = getAuth(app);
   const db = getFirestore(app);
   
   export { auth, db };
->>>>>>> 4271918c7a806d4b2a4f0d2f17121a984feacdcd
+
