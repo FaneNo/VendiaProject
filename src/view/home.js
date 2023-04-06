@@ -1,10 +1,10 @@
-import React from "react";
-import Navbar from "../view/nav";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { auth } from "./firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
+import Navbar from "../view/nav";
 import Signout from "./logout";
-import { Navigate } from "react-router-dom";
+
 
 function HomeImage() {
   useEffect(() => {
@@ -18,69 +18,72 @@ function HomeImage() {
     });
   }, []);
 
+  return <img className="home-image" src={require("../homeIMG.png")} alt="Home" />;
+}
+
+// function TextBox() {
+//   return (
+//     <div className="text-box">
+//       <h1>Welcome to Vendia Care</h1>
+//       <p>
+//         At Vendia Care, we strive to provide the highest quality healthcare services to our patients. Our team of experienced doctors and healthcare professionals are committed to improving the health and well-being of our patients.
+//       </p>
+//       <div className="cta-container">
+//         <Link to="/schedule-appointment" className="cta-btn">
+//           Schedule an Appointment
+//         </Link>
+//       </div>
+//     </div>
+//   );
+// }
+
+function Testimonials() {
   return (
-    <>
-      
-      <section className="container-fluid px-0">
-        <div className="row align-items-center contentH">
-          <div className="col-lg-6">
-            <div
-              id="headingGroup"
-              className="text-white text-center d-none d-lg-block mt-5 "
-            >
-              <h1 className="">Vendia HealthCare</h1>
-            </div>
-          </div>
-          <div className="col-lg-6">
-            <img className="img-fluid" src={require("../DnA.gif")} alt="" />
-          </div>
-        </div>
-      </section>
-      <section className="container-fluid px-0">
-        <div className="row align-items-center contentH ">
-          <div className="col-md-6 order-2 order-md-1">
-            <img src={require("../Bio.gif")} alt="" className="img-fluid" />
-          </div>
-          <div className="col-md-6 text-center order-1 order-md-2">
-            <div className="row justify-content-center">
-              <div className="col-10 col-lg-8 blurb mb-5 mb-md-0">
-                <h2>About</h2>
-                <p className="lead">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Neque, iste molestiae beatae, maiores deserunt in voluptatibus
-                  aspernatur architecto excepturi delectus soluta? Ipsa,
-                  deleniti dolorem hic consequatur repellat eveniet quidem
-                  voluptate necessitatibus dolorum delectus minus vitae, ut,
-                  veritatis sint ipsum magnam autem nam ex deserunt debitis
-                  eaque ratione! Nobis, quidem assumenda.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row align-items-center contentH">
-          <div className="col-md-6 text-center">
-            <div className="row justify-content-center">
-              <div className="col-10 col-lg-8 blurb mb-5 mb-md-0">
-                <h2>About</h2>
-                <p className="lead">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Neque, iste molestiae beatae, maiores deserunt in voluptatibus
-                  aspernatur architecto excepturi delectus soluta? Ipsa,
-                  deleniti dolorem hic consequatur repellat eveniet quidem
-                  voluptate necessitatibus dolorum delectus minus vitae, ut,
-                  veritatis sint ipsum magnam autem nam ex deserunt debitis
-                  eaque ratione! Nobis, quidem assumenda.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <img src={require("../DNA2.gif")} alt="" className="img-fluid " />
-          </div>
-        </div>
-      </section>
-    </>
+    <div className="testimonials-container">
+      <h2>What Our Patients Are Saying</h2>
+      <div className="testimonial">
+        <p>
+          "I've been a patient at Vendia Care for several years and have always had a positive experience. The staff is friendly and knowledgeable, and the doctors are top-notch."
+        </p>
+        <p className="testimonial-author">- John Smith</p>
+      </div>
+      <div className="testimonial">
+        <p>
+          "I was impressed with the level of care I received at Vendia Care. The doctors took the time to listen to my concerns and provide personalized treatment."
+        </p>
+        <p className="testimonial-author">- Jane Doe</p>
+      </div>
+    </div>
+  );
+}
+
+function SocialLinks() {
+  return (
+    <div className="social-links-container">
+      <h2>Connect with Us</h2>
+      <ul className="social-links-list">
+        <li>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-facebook"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-twitter"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-instagram"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-linkedin"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
   );
 }
 
@@ -103,11 +106,13 @@ function Home() {
     <div>
       {/* #110015 */}
       <Navbar />
-      <div className="backgroundHome" style={{ backgroundColor: "white" }}>
+      <div className="backgroundHome">
         <div className="container">
+        {/* <TextBox /> */}
           <HomeImage />
-          {/* <TextBox /> */}
+          <Testimonials />
         </div>
+        <SocialLinks />
       </div>
     </div>
   );

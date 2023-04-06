@@ -1,79 +1,97 @@
-#regNav {
-  background-color: cyan;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-  
-.backgroundR {
-  background-color: gray;
-  height: 100vh;
+.register-container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #f2f2f2, #e6e6e6);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5%;
 }
-#regT {
-  font-size: 2rem;
-  margin: auto;
-  text-align: center;
-  color: black;
-  text-decoration: none;
-  
+
+.register-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  flex-wrap: wrap;
 }
-  
-.register-container h1 {
-  font-family: "Arial", sans-serif;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+
+.register-image,
+.register-box {
+  flex-basis: 50%;
+  flex-grow: 1;
 }
 
 .register-image {
-  border-radius: 80px;
-  padding: 60px;
-  width: 800px;
-  max-width: 100%;
-  height: 750px;
-  margin-left: -100px;
+  flex-basis: 60%;
 }
 
-.register-container {
-  background-color: white;
+.register-image img {
+  width: 100%;
+  display: block;
+  margin-right: 100px;
+}
+
+.register-box {
+  background: #fff;
+  padding: 40px 8%;
+  color: #333;
+  min-width: 250px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  padding: 60px;
-  width: 400px;
-  max-width: 100%;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  flex-basis: 40%;
+}
+
+.register-box h1 {
+  font-family: "Arial", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20gpx;
   text-align: center;
 }
-  
-.register-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-  
-.register-form label {
-  font-family: "Open Sans", sans-serif;
-  font-weight: bold;
-  position: relative;
-  text-align: left;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-}
-  
-.register-form label input {
-  margin-top: 5px;
-}
-  
+
 button[type="submit"] {
-  padding: 10px 40px;
+  padding: 12px 40px;
   border: none;
-  background-color: blue;
+  background-color: #0056b3;
   color: white;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+  background-color: #004080;
+}
+
+.register-box label {
+  padding: 10px;
+  border-radius: 4px;
+  outline: none;
+  display: block;
+  width: 100%;
+  margin: 5px 0 10px;
+  font-size: 16px;
+}
+
+.register-box input[type="email"],
+.register-box input[type="password"],
+.register-box select {
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin: 5px 0 10px;
+  background-color: #f2f2f2;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.register-box input[type="email"]:focus,
+.register-box input[type="password"]:focus,
+.register-box select:focus {
+  background-color: #fff;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
