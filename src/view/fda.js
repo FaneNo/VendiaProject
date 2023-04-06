@@ -1,10 +1,7 @@
-
-
 import Navbar from "./nav";
-import useFDA from "../hooks/useFDA"
-import { useState, useEffect, Fragment } from "react";
+import useFDA from "../hooks/useFDA";
+import React, { useState, useEffect, Fragment } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -19,16 +16,27 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { GridArrowDownwardIcon, GridArrowUpwardIcon } from "@mui/x-data-grid";
 import { Card, TableFooter } from "@mui/material";
-import { flexbox } from "@mui/system";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
+import Dialog from "@mui/material/Dialog";
+import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import CloseIcon from "@mui/icons-material/Close";
+import Slide from "@mui/material/Slide";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function Bavaria() {
   const { entities } = useFDA();
   const [format, setFormat] = useState("list");
   const [patients, setPatients] = useState([]);
   const { id } = useParams();
-  const [approve, setApprove] = useState("Pending")
+  const [drug, setDrug] = useState([]);
 
   const listPatients = async () => {
     let patientList = await entities.patient.list();
@@ -36,23 +44,63 @@ export default function Bavaria() {
     setPatients(patientList.items);
   };
 
-  const handleDelete = async (id) => {
-    const response = await entities.patient.remove(id);
+  const listDrug = async () => {
+    let drugList = await entities.drug.list();
+    console.log(drugList.items);
+    setDrug(drugList.items);
+  };
 
-    listPatients();
+  const handleStatusChange = async (drugId) => {
+    try {
+      // Get the drug item with the given ID
+      const { _owner, ...product } = await entities.drug.get(drugId);
+
+      // If the drug item is found, update its status to "pending"
+      if (product) {
+        const updatedDrug = { ...product, status: "Approved" };
+
+        // Update the drug item with the new status
+        await entities.drug.update(updatedDrug);
+
+        // Reload the drug list
+        await listDrug();
+        
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleRejectChange = async (drugId) => {
+    try {
+      // Get the drug item with the given ID
+      const { _owner, ...product } = await entities.drug.get(drugId);
+
+      // If the drug item is found, update its status to "pending"
+      if (product) {
+        const updatedDrug = { ...product, status: "Rejected" };
+
+        // Update the drug item with the new status
+        await entities.drug.update(updatedDrug);
+
+        // Reload the drug list
+        await listDrug();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const navigate = useNavigate();
-
-  const columns = [
-    { field: "id", headerName: "ID", width: 300 },
-    { field: "name", headerName: "Name", width: 150 },
-    { field: "dob", headerName: "Date of Birth", width: 130 },
-    { field: "height", headerName: "Height", width: 90 },
-    { field: "weight", headerName: "Weight", width: 90 },
-    { field: "uuid", headerName: "UUID", width: 90 },
-    { field: "status", headerName: "Status", width: 150 },
-  ];
 
   const rows =
     patients.length > 0
@@ -73,8 +121,7 @@ export default function Bavaria() {
   function Row(props) {
     const { row } = props;
     const [open, setOpen] = useState(false);
-    const [approve, setApprove] = useState("Pending")
-    
+    const [approve, setApprove] = useState("Pending");
 
     return (
       <Fragment>
@@ -95,7 +142,7 @@ export default function Bavaria() {
           <TableCell align="left">{row.dob}</TableCell>
           <TableCell align="left">{row.height}</TableCell>
           <TableCell align="left">{row.weight}</TableCell>
-          <TableCell align="left">{approve}</TableCell>
+          <TableCell align="left"></TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -109,9 +156,14 @@ export default function Bavaria() {
                     <TableRow>
                       <TableCell>Date</TableCell>
                       <TableCell>Drug</TableCell>
-                      
+
                       <TableCell>
-                        <button className="btn btn-primary" onClick={() => setApprove("Approved")}>Approved</button>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => setApprove("Approved")}
+                        >
+                          Approved
+                        </button>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -149,6 +201,7 @@ export default function Bavaria() {
 
   useEffect(() => {
     listPatients();
+    listDrug();
   }, []);
 
   return (
@@ -193,23 +246,80 @@ export default function Bavaria() {
             alignItems="center"
           >
             <Box
-            margin= "auto"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center">
-            <Button variant="contained" color="primary" sx={{ height: 40 }}>
-              Get result
-            </Button>
+              margin="auto"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Button variant="contained" color="primary" sx={{ height: 40 }}>
+                Get result
+              </Button>
             </Box>
-            
+
             <Box
-            margin= "auto"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center">
-            <Button variant="contained" color="primary" sx={{ height: 40 }} onClick={() => setApprove("Approved")} >
-              Approve All
-            </Button>
+              margin="auto"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Button variant="contained" onClick={handleClickOpen}>
+                Approve Drug
+              </Button>
+              <Dialog
+                fullScreen
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={Transition}
+              >
+                <AppBar sx={{ position: "relative" }}>
+                  <Toolbar>
+                    <Typography sx={{ flex: 1 }} variant="h6" component="div">
+                      Drug List
+                    </Typography>
+
+                    <IconButton
+                      edge="start"
+                      color="inherit"
+                      onClick={handleClose}
+                      aria-label="close"
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  </Toolbar>
+                </AppBar>
+                <List>
+                  {drug.map((drug) => (
+                    <React.Fragment key={`${drug.id}-${drug.batchNumber}`}>
+                      {drug.status === "pending" && (
+                        <>
+                          <ListItem>
+                            <ListItemText>
+                              batchNumber: {drug.batchNumber}
+                            </ListItemText>
+                            <ListItemText>
+                              Status: {drug.status || ""}
+                            </ListItemText>
+                            <ListItemText>Placebo: {drug.placebo.toString()}</ListItemText>
+                            <Button
+                              variant="contained"
+                              onClick={() => handleStatusChange(drug._id)}
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              onClick={() => handleRejectChange(drug._id)}
+                            >
+                              Reject
+                            </Button>
+                          </ListItem>
+                          <Divider />
+                        </>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </List>
+              </Dialog>
             </Box>
           </Box>
         </TableContainer>
@@ -217,4 +327,3 @@ export default function Bavaria() {
     </>
   );
 }
-

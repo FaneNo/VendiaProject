@@ -11,14 +11,11 @@ import New from "./view/new";
 import Edit from "./view/edit";
 import Bavaria from "./view/bavaria";
 import CreateDrug from "./view/createDrug";
-import { AuthContext } from "./context/AuthContext";
+
 
 function App() {
-  const { currentUser } = useContext(AuthContext);
-  const RequireAuth = ({ children }) => {
-    return currentUser ? children : <Navigate to="/login" replace={true} />;
-  };
-  console.log(currentUser);
+  
+  
   return (
     <>
       <Routes>
@@ -26,9 +23,9 @@ function App() {
           path="/"
           element={
             <>
-              <RequireAuth>
+           
                 <Home />
-              </RequireAuth>
+             
             </>
           }
         />
@@ -37,34 +34,34 @@ function App() {
         <Route
           path="/patient/:id"
           element={
-            <RequireAuth>
+           
               <Patient />
-            </RequireAuth>
+           
           }
         />
         <Route path="/register" element={<Register />} />
         <Route
           path="/doctor"
           element={
-            <RequireAuth>
+           
               <Doctor />
-            </RequireAuth>
+            
           }
         />
         <Route
           path="/new"
           element={
-            <RequireAuth>
+           
               <New />
-            </RequireAuth>
+            
           }
         />
         <Route
           path="/edit/:id"
           element={
-            <RequireAuth>
+        
               <Edit />
-            </RequireAuth>
+            
           }
         />
 

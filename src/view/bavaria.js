@@ -2,7 +2,6 @@ import Navbar from "./nav";
 import useBavaria from "../hooks/useBavaria";
 import React, { useState, useEffect, Fragment } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -14,12 +13,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
 import { GridArrowDownwardIcon, GridArrowUpwardIcon } from "@mui/x-data-grid";
 import { Card, TableFooter } from "@mui/material";
-import { flexbox } from "@mui/system";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import Dialog from "@mui/material/Dialog";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
@@ -29,9 +25,6 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
-import { async } from "@firebase/util";
-import { CheckBox } from "@mui/icons-material";
-import Checkbox from "@mui/material/Checkbox";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -50,24 +43,23 @@ export default function Bavaria() {
     setDrug(drugList.items);
   };
 
- 
-
   const handleStatusChange = async (drugId) => {
     try {
       // Get the drug item with the given ID
-      const  { _owner, ...product } = await entities.drug.get(drugId);
-      
+      const { _owner, ...product } = await entities.drug.get(drugId);
+
       // If the drug item is found, update its status to "pending"
       if (product) {
         const updatedDrug = { ...product, status: "pending" };
-        
+
         // Update the drug item with the new status
         await entities.drug.update(updatedDrug);
-    
+
         // Reload the drug list
-        await listDrug();
+        console.log(product);
+        
       }
-    } catch (error) { 
+    } catch (error) {
       console.error(error);
     }
   };
@@ -76,9 +68,10 @@ export default function Bavaria() {
     try {
       // Remove the drug item with the given ID
       await entities.drug.remove(drugId);
-  
+
       // Reload the drug list
       await listDrug();
+      
     } catch (error) {
       console.error(error);
     }
@@ -101,16 +94,6 @@ export default function Bavaria() {
   };
 
   const navigate = useNavigate();
-
-  // const columns = [
-  //   { field: "id", headerName: "ID", width: 300 },
-  //   { field: "name", headerName: "Name", width: 150 },
-  //   { field: "dob", headerName: "Date of Birth", width: 130 },
-  //   { field: "height", headerName: "Height", width: 90 },
-  //   { field: "weight", headerName: "Weight", width: 90 },
-  //   { field: "uuid", headerName: "UUID", width: 90 },
-  //   { field: "status", headerName: "Status", width: 150 },
-  // ];
 
   const rows =
     patients.length > 0
@@ -280,20 +263,10 @@ export default function Bavaria() {
               >
                 <AppBar sx={{ position: "relative" }}>
                   <Toolbar>
-                    {/* <IconButton
-                      edge="start"
-                      color="inherit"
-                      onClick={handleClose}
-                      aria-label="close"
-                    >
-                      <CloseIcon />
-                    </IconButton> */}
                     <Typography sx={{ flex: 1 }} variant="h6" component="div">
                       Drug List
                     </Typography>
-                    {/* <Button autoFocus color="inherit" onClick={handleClose}>
-                      save
-                    </Button> */}
+
                     <IconButton
                       edge="start"
                       color="inherit"
@@ -306,28 +279,38 @@ export default function Bavaria() {
                 </AppBar>
                 <List>
                   {drug.map((drug) => (
-                    
                     <React.Fragment key={`${drug.id}-${drug.batchNumber}`}>
-                      
                       <ListItem>
-                        <ListItemText>
+                        <ListItemText >
                           batchNumber: {drug.batchNumber}
                         </ListItemText>
+                        <ListItemText>Status: {drug.status}</ListItemText>
                         <ListItemText>
-                          Status: {drug.status || ""} 
+                          Placebo: {drug.placebo.toString()}
                         </ListItemText>
-                        <ListItemText>
-                          Placebo: {drug.placebo } 
-                        </ListItemText>
-                        <Button variant="contained" onClick={() => handleStatusChange(drug._id) }>Select</Button>
-                        <Button variant="outlined" onClick={() => handleDeleteDrug(drug._id) }>Removed</Button>
+                        {drug.status === "Approved" ? (
+                          <Typography variant="body2" color="textSecondary">
+                            
+                          </Typography>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            onClick={() => handleStatusChange(drug._id)}
+                          >
+                            Select
+                          </Button>
+                        )}
+                        <Button
+                          variant="outlined"
+                          onClick={() => handleDeleteDrug(drug._id)}
+                        >
+                          Removed
+                        </Button>
                       </ListItem>
 
                       <Divider />
                     </React.Fragment>
-                    
                   ))}
-                  
                 </List>
               </Dialog>
             </Box>

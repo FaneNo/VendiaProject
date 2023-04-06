@@ -6,7 +6,6 @@ import {
 import { auth } from "./firebase-config";
 import NavbarLR from "../view/navLR";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
 
 function LoginImage() {
   return (
@@ -19,7 +18,7 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const {dispatch} = useContext(AuthContext)
+
 
 
   const handleEmailChange = (event) => {
@@ -36,7 +35,7 @@ function LoginForm() {
       .then((userCredential) => {
         const user = userCredential.user;
         navigate("/");
-        dispatch({type: "LOGIN", payload: user})
+        
         
       })
       .catch((error) => {
