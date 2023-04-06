@@ -37,6 +37,9 @@
           "bloodPressure": {
             "type": "string"
           },
+          "bloodType": {
+            "type": "string"
+          },
           "temperature": {
             "type": "string"
           },
@@ -126,6 +129,9 @@
             "type": "string"
           },
           "id": {
+            "type": "string"
+          },
+          "status": {
             "type": "string"
           }
         }

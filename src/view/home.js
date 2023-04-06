@@ -87,9 +87,24 @@ function SocialLinks() {
   );
 }
 
+// function TextBox() {
+//   return (
+//     <div className="text-box">
+//       <h1>Welcome to Vendia Care</h1>
+//       <p>
+//         At Vendia Care, we strive to provide the highest quality healthcare
+//         services to our patients. Our team of experienced doctors and healthcare
+//         professionals are committed to improving the health and well-being of
+//         our patients.
+//       </p>
+//     </div>
+//   );
+// }
+
 function Home() {
   return (
     <div>
+      {/* #110015 */}
       <Navbar />
       <div className="backgroundHome">
         <div className="container">

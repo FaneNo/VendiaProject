@@ -8,6 +8,7 @@ import "./viewStyle/patientStyles.css";
 import "./viewStyle/newStyles.css";
 import "./viewStyle/loginStyle.css";
 import "./viewStyle/registerStyle.css";
+import "./viewStyle/bavariaStyle.css";
 import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 

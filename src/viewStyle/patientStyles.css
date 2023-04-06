@@ -1,7 +1,7 @@
 body{
-  background-color: #e6e1e1 !important;
+  background-color: white !important;
 }
-
+/* #110015 */
 .profile-list{
   list-style: none;
   margin: 0;
@@ -33,31 +33,35 @@ body{
     width: 200px;
     height: 200px;
     margin: 10px;
+    
     border-radius: 20px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   }
   
   #top-left {
     width: 410px;
-    height: 200px;
+    height: fit-content;
     background-color: #F1C40F;
   }
   
   #bottom-left {
     width: 410px;
-    height: 500px;
+    height: fit-content;
+    
     background-color: #E74C3C;
   }
   
   #bottom-right {
     width: 640px;
-    height: 500px;
+    height: inherit;
+    
     background-color: #2ECC71;
   }
   
   #top-right-1, #top-right-2, #top-right-3 {
     width: 200px;
-    height: 200px;
+    height: inherit;
+    
     background-color: white;
   }
   

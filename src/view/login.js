@@ -35,10 +35,13 @@ function LoginForm() {
       .then((userCredential) => {
         const user = userCredential.user;
         navigate("/");
+        
+        
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        setError(true);
       });
   };
 

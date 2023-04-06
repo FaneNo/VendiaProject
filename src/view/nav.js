@@ -26,11 +26,17 @@ function Navbar() {
     <nav className="homeNav">
       <div className="homeImg">
         <Link to="/">
-          <img className="vendiaLogo" src={require("../vendiaLogo.png")} alt="Vendia Logo" />
+          <img
+            className="vendiaLogo"
+            src={require("../vendiaLogo.png")}
+            alt="Vendia Logo"
+          />
         </Link>
       </div>
       <div className="titleName">
-        <Link to="/" className="titleN">Vendia Care</Link>
+        <Link to="/" className="titleN">
+          Vendia Care
+        </Link>
       </div>
       <ul className="navLinks">
         <li>
