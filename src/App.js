@@ -11,11 +11,9 @@ import New from "./view/new";
 import Edit from "./view/edit";
 import Bavaria from "./view/bavaria";
 import CreateDrug from "./view/createDrug";
-
+import Admin from "./view/admin";
 
 function App() {
-  
-  
   return (
     <>
       <Routes>
@@ -23,48 +21,18 @@ function App() {
           path="/"
           element={
             <>
-           
-                <Home />
-             
+              <Home />
             </>
           }
         />
         <Route path="/fda" element={<FDA />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/patient/:id"
-          element={
-           
-              <Patient />
-           
-          }
-        />
+        <Route path="/patient/:id" element={<Patient />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/doctor"
-          element={
-           
-              <Doctor />
-            
-          }
-        />
-        <Route
-          path="/new"
-          element={
-           
-              <New />
-            
-          }
-        />
-        <Route
-          path="/edit/:id"
-          element={
-        
-              <Edit />
-            
-          }
-        />
-
+        <Route path="/doctor" element={<Doctor />} />
+        <Route path="/new" element={<New />} />
+        <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/admin" element = {<Admin/>} />
         <Route path="/bavaria" element={<Bavaria />} />
         <Route path="/createDrug" element={<CreateDrug />} />
       </Routes>
