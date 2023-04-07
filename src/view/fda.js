@@ -31,7 +31,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Bavaria() {
+export default function FDA() {
   const { entities } = useFDA();
   const [format, setFormat] = useState("list");
   const [patients, setPatients] = useState([]);
@@ -98,6 +98,7 @@ export default function Bavaria() {
 
   const handleClose = () => {
     setOpen(false);
+     
   };
 
   const navigate = useNavigate();

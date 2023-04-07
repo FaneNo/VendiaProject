@@ -57,12 +57,14 @@ export default function Bavaria() {
 
         // Reload the drug list
         console.log(product);
-        
+       
       }
     } catch (error) {
       console.error(error);
     }
   };
+  
+ 
 
   const handleDeleteDrug = async (drugId) => {
     try {
@@ -186,7 +188,7 @@ export default function Bavaria() {
     listPatients();
     listDrug();
     console.log(drug);
-  }, []);
+  }, [] );
 
   return (
     <>
