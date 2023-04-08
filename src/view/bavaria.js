@@ -57,14 +57,11 @@ export default function Bavaria() {
 
         // Reload the drug list
         console.log(product);
-       
       }
     } catch (error) {
       console.error(error);
     }
   };
-  
- 
 
   const handleDeleteDrug = async (drugId) => {
     try {
@@ -73,7 +70,6 @@ export default function Bavaria() {
 
       // Reload the drug list
       await listDrug();
-      
     } catch (error) {
       console.error(error);
     }
@@ -188,7 +184,7 @@ export default function Bavaria() {
     listPatients();
     listDrug();
     console.log(drug);
-  }, [] );
+  }, []);
 
   return (
     <>
@@ -283,7 +279,7 @@ export default function Bavaria() {
                   {drug.map((drug) => (
                     <React.Fragment key={`${drug.id}-${drug.batchNumber}`}>
                       <ListItem>
-                        <ListItemText >
+                        <ListItemText>
                           batchNumber: {drug.batchNumber}
                         </ListItemText>
                         <ListItemText>Status: {drug.status}</ListItemText>
@@ -291,9 +287,10 @@ export default function Bavaria() {
                           Placebo: {drug.placebo.toString()}
                         </ListItemText>
                         {drug.status === "Approved" ? (
-                          <Typography variant="body2" color="textSecondary">
-                            
-                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                          ></Typography>
                         ) : (
                           <Button
                             variant="contained"
