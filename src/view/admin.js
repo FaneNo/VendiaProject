@@ -50,54 +50,14 @@ export default function Admin() {
     setDrug(drugList.items);
   };
 
-  const handleStatusChange = async (drugId) => {
-    try {
-      // Get the drug item with the given ID
-      const { _owner, ...product } = await entities.drug.get(drugId);
-
-      // If the drug item is found, update its status to "pending"
-      if (product) {
-        const updatedDrug = { ...product, status: "Approved" };
-
-        // Update the drug item with the new status
-        await entities.drug.update(updatedDrug);
-
-        // Reload the drug list
-        await listDrug();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const handleRejectChange = async (drugId) => {
-    try {
-      // Get the drug item with the given ID
-      const { _owner, ...product } = await entities.drug.get(drugId);
-
-      // If the drug item is found, update its status to "pending"
-      if (product) {
-        const updatedDrug = { ...product, status: "Rejected" };
-
-        // Update the drug item with the new status
-        await entities.drug.update(updatedDrug);
-
-        // Reload the drug list
-        await listDrug();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
+  
 
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+
 
   const navigate = useNavigate();
 
@@ -149,64 +109,10 @@ export default function Admin() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Button variant="outlined" onClick={handleClickOpen}>
+              <Button variant="outlined" onClick={() => navigate(`/patientDrug/${row.id}`)}>
                 Select
               </Button>
-              <Dialog
-                fullScreen
-                open={open}
-                onClose={handleClose}
-                TransitionComponent={Transition}
-              >
-                <AppBar sx={{ position: "relative" }}>
-                  <Toolbar>
-                    <Typography sx={{ flex: 1 }} variant="h6" component="div">
-                      Drug List
-                    </Typography>
-
-                    <IconButton
-                      edge="start"
-                      color="inherit"
-                      onClick={handleClose}
-                      aria-label="close"
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                  </Toolbar>
-                </AppBar>
-                <List>
-                  {drug.map((drug) => (
-                    <React.Fragment key={`${drug.id}-${drug.batchNumber}`}>
-                      {drug.status === "pending" && (
-                        <>
-                          <ListItem>
-                            <ListItemText>
-                              batchNumber: {drug.batchNumber}
-                            </ListItemText>
-                            <ListItemText>
-                              Status: {drug.status || ""}
-                            </ListItemText>
-                            <ListItemText>Placebo: {drug.placebo.toString()}</ListItemText>
-                            <Button
-                              variant="contained"
-                              onClick={() => handleStatusChange(drug._id)}
-                            >
-                              Approve
-                            </Button>
-                            <Button
-                              variant="outlined"
-                              onClick={() => handleRejectChange(drug._id)}
-                            >
-                              Reject
-                            </Button>
-                          </ListItem>
-                          <Divider />
-                        </>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </List>
-              </Dialog>
+              
             </Box>
           </TableCell>
         </TableRow>

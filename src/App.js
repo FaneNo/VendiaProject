@@ -12,6 +12,7 @@ import Edit from "./view/edit";
 import Bavaria from "./view/bavaria";
 import CreateDrug from "./view/createDrug";
 import Admin from "./view/admin";
+import PatientDrug from "./view/selectPatientDrug";
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
         <Route path="/admin" element = {<Admin/>} />
         <Route path="/bavaria" element={<Bavaria />} />
         <Route path="/createDrug" element={<CreateDrug />} />
+        <Route path="/patientDrug/:id" element={<PatientDrug />} />
+
       </Routes>
     </>
   );
