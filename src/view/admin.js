@@ -36,34 +36,26 @@ export default function Admin() {
   const [format, setFormat] = useState("list");
   const [patients, setPatients] = useState([]);
   const { id } = useParams();
-  const [drug, setDrug] = useState([]);
+
+ 
+  
 
   const listPatients = async () => {
     let patientList = await entities.patient.list();
-    
+    console.log(patientList);
     setPatients(patientList.items);
   };
 
-  const listDrug = async () => {
-    let drugList = await entities.drug.list();
-    console.log(drugList.items);
-    setDrug(drugList.items);
-  };
-
-  
-  
+ 
 
   const [open, setOpen] = useState(false);
-
-  
-
-
 
   const navigate = useNavigate();
 
   const rows =
     patients.length > 0
-      ? patients.map((patient) => {
+      ? patients.map( (patient) => {
+        
           return {
             id: patient._id,
             name: patient.name,
@@ -73,6 +65,7 @@ export default function Admin() {
             weight: patient.weight,
             uuid: patient.uuid,
             bloodPressure: patient.bloodPressure,
+            drugs: patient.drugs && patient.drugs.map((drug) => drug.drug), 
           };
         })
       : [];
@@ -103,16 +96,18 @@ export default function Admin() {
           <TableCell align="left">{row.weight}</TableCell>
           <TableCell align="left"></TableCell>
           <TableCell align="left">
-          <Box
+            <Box
               margin="auto"
               display="flex"
               justifyContent="space-between"
               alignItems="center"
             >
-              <Button variant="outlined" onClick={() => navigate(`/patientDrug/${row.id}`)}>
+              <Button
+                variant="outlined"
+                onClick={() => navigate(`/patientDrug/${row.id}`)}
+              >
                 Select
               </Button>
-              
             </Box>
           </TableCell>
         </TableRow>
@@ -121,21 +116,24 @@ export default function Admin() {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h6" gutterBottom component="div">
-                  History
+                  Drug
                 </Typography>
                 <Table size="small" aria-label="purchases">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Date</TableCell>
-                      <TableCell>Drug</TableCell>
+                     
+                      {/* <TableCell>Drug</TableCell> */}
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {row.history
-                      ? row.history.map((historyRow) => (
-                          <TableRow key={historyRow.id}></TableRow>
-                        ))
-                      : null}
+                    
+                    {row.drugs &&
+                      row.drugs.map((drug) => (
+                        <TableRow key={drug}>
+                          
+                          <TableCell>ID: {drug}</TableCell>
+                        </TableRow>
+                      ))} 
                   </TableBody>
                 </Table>
               </Box>
@@ -159,12 +157,17 @@ export default function Admin() {
       ),
       name: PropTypes.string,
       height: PropTypes.string,
+      drugs: PropTypes.arrayOf(
+        PropTypes.shape({
+          drug: PropTypes.string.isRequired,
+        })
+      ), 
     }).isRequired,
   };
 
   useEffect(() => {
     listPatients();
-    listDrug();
+   
   }, []);
 
   return (

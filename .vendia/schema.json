@@ -94,6 +94,17 @@
               }
             }
           },
+          "drugs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "drug": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "visits": {
             "type": "array",
             "items": {
@@ -132,6 +143,9 @@
             "type": "string"
           },
           "status": {
+            "type": "string"
+          },
+          "date": {
             "type": "string"
           }
         }

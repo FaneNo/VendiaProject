@@ -198,6 +198,7 @@ enum Vendia_SyncMode {
 
 input Self_Drug_ConditionInput_ {
   batchNumber: Vendia_ModelStringInput_
+  date: Vendia_ModelStringInput_
   id: Vendia_ModelStringInput_
   placebo: Vendia_ModelBooleanInput_
   status: Vendia_ModelStringInput_
@@ -209,6 +210,7 @@ input Self_Drug_ConditionInput_ {
 input Self_Drug_FilterInput_ {
   _owner: Vendia_ModelStringInput_
   batchNumber: Vendia_ModelStringInput_
+  date: Vendia_ModelStringInput_
   id: Vendia_ModelStringInput_
   placebo: Vendia_ModelBooleanInput_
   status: Vendia_ModelStringInput_
@@ -224,6 +226,7 @@ input Self_Drug_OrderInput_ {
 type Self_Drug {
   _id: ID!
   batchNumber: String
+  date: String
   id: String
   placebo: Boolean
   status: String
@@ -234,6 +237,7 @@ type Self_Drug {
 type Self_Drug_Partial_ {
   _id: ID!
   batchNumber: String
+  date: String
   id: String
   placebo: Boolean
   status: String
@@ -264,6 +268,7 @@ type Self_Drug_Connection_ {
 
 input Self_Drug_Input_ {
   batchNumber: String
+  date: String
   id: String
   placebo: Boolean
   status: String
@@ -271,6 +276,7 @@ input Self_Drug_Input_ {
 
 input Self_Drug_UpdateInput_ {
   batchNumber: String
+  date: String
   id: String
   placebo: Boolean
   status: String
@@ -278,6 +284,7 @@ input Self_Drug_UpdateInput_ {
 
 input Self_Drug_PartialInput_ {
   batchNumber: String
+  date: String
   id: String
   placebo: Boolean
   status: String
@@ -292,6 +299,7 @@ input Self_Patient_ConditionInput_ {
   currentlyEmployed: Vendia_ModelStringInput_
   currentlyInsured: Vendia_ModelStringInput_
   dob: Vendia_ModelStringInput_
+  _drugsItem: Self_Patient_drugs_drugsItem_ConditionInput_
   familyHistory: Vendia_ModelStringInput_
   height: Vendia_ModelStringInput_
   _icdHealthCodesItem: Self_Patient_icdHealthCodes_icdHealthCodesItem_ConditionInput_
@@ -318,6 +326,7 @@ input Self_Patient_FilterInput_ {
   currentlyEmployed: Vendia_ModelStringInput_
   currentlyInsured: Vendia_ModelStringInput_
   dob: Vendia_ModelStringInput_
+  _drugsItem: Self_Patient_drugs_drugsItem_FilterInput_
   familyHistory: Vendia_ModelStringInput_
   height: Vendia_ModelStringInput_
   _icdHealthCodesItem: Self_Patient_icdHealthCodes_icdHealthCodesItem_FilterInput_
@@ -348,6 +357,7 @@ type Self_Patient {
   currentlyEmployed: String
   currentlyInsured: String
   dob: String
+  drugs: [Self_Patient_drugs_drugsItem]
   familyHistory: String
   height: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem]
@@ -373,6 +383,7 @@ type Self_Patient_Partial_ {
   currentlyEmployed: String
   currentlyInsured: String
   dob: String
+  drugs: [Self_Patient_drugs_drugsItem_Partial_]
   familyHistory: String
   height: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_Partial_]
@@ -418,6 +429,7 @@ input Self_Patient_Input_ {
   currentlyEmployed: String
   currentlyInsured: String
   dob: String
+  drugs: [Self_Patient_drugs_drugsItem_Input_]
   familyHistory: String
   height: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_Input_]
@@ -440,6 +452,7 @@ input Self_Patient_UpdateInput_ {
   currentlyEmployed: String
   currentlyInsured: String
   dob: String
+  drugs: [Self_Patient_drugs_drugsItem_UpdateInput_]
   familyHistory: String
   height: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_UpdateInput_]
@@ -462,6 +475,7 @@ input Self_Patient_PartialInput_ {
   currentlyEmployed: String
   currentlyInsured: String
   dob: String
+  drugs: [Self_Patient_drugs_drugsItem_PartialInput_]
   familyHistory: String
   height: String
   icdHealthCodes: [Self_Patient_icdHealthCodes_icdHealthCodesItem_PartialInput_]
@@ -544,6 +558,42 @@ type Self_Patient_currentMedications_currentMedicationsItem_Transaction_Result_ 
 }
 
 type Self_Patient_currentMedications_currentMedicationsItem_Delete_Transaction_Result_ {
+  transaction: Vendia_Transaction!
+}
+
+input Self_Patient_drugs_drugsItem_ConditionInput_ {
+  drug: Vendia_ModelStringInput_
+  _and: [Self_Patient_drugs_drugsItem_ConditionInput_]
+  _or: [Self_Patient_drugs_drugsItem_ConditionInput_]
+  _not: Self_Patient_drugs_drugsItem_ConditionInput_
+}
+
+input Self_Patient_drugs_drugsItem_FilterInput_ {
+  drug: Vendia_ModelStringInput_
+  _and: [Self_Patient_drugs_drugsItem_FilterInput_]
+  _or: [Self_Patient_drugs_drugsItem_FilterInput_]
+  _not: Self_Patient_drugs_drugsItem_FilterInput_
+}
+
+type Self_Patient_drugs_drugsItem {
+  drug: String
+}
+
+type Self_Patient_drugs_drugsItem_Partial_ {
+  drug: String
+}
+
+type Self_Patient_drugs_drugsItem_Result_ {
+  error: String
+  result: Self_Patient_drugs_drugsItem
+}
+
+type Self_Patient_drugs_drugsItem_Transaction_Result_ {
+  transaction: Vendia_Transaction!
+  result: Self_Patient_drugs_drugsItem
+}
+
+type Self_Patient_drugs_drugsItem_Delete_Transaction_Result_ {
   transaction: Vendia_Transaction!
 }
 
@@ -3723,6 +3773,18 @@ input Self_Patient_currentMedications_currentMedicationsItem_UpdateInput_ {
 
 input Self_Patient_currentMedications_currentMedicationsItem_PartialInput_ {
   medication: String
+}
+
+input Self_Patient_drugs_drugsItem_Input_ {
+  drug: String
+}
+
+input Self_Patient_drugs_drugsItem_UpdateInput_ {
+  drug: String
+}
+
+input Self_Patient_drugs_drugsItem_PartialInput_ {
+  drug: String
 }
 
 input Self_Patient_icdHealthCodes_icdHealthCodesItem_Input_ {

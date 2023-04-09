@@ -18,14 +18,17 @@ export default function BasicTextFields() {
     id: "",
     status: "",
   });
+  const current = new Date();
+  const date = `${current.getMonth()+1}/${current.getDate()}/${current.getFullYear()}`;
+
   const navigate = useNavigate();
   const addDrug = async (batchNumber, placebo, id, status) => {
     const drug = await entities.drug.add({
       batchNumber: batchNumber,
       placebo: placebo,
       id: id,
-      status: status
-    
+      status: status,
+      date: date
       // add other fields here if necessary
     });
     console.log(drug); // for testing purposes only

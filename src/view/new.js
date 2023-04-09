@@ -60,6 +60,12 @@ export default function New() {
               },
               operations: ["READ"],
               path: "height",
+            },{
+              principal: {
+                nodes: ["Bavaria", "FDA"],
+              },
+              operations: ["READ"],
+              path: "drugs",
             },
           ],
         },
