@@ -86,8 +86,8 @@ const headCells = [
 ];
 
 const DEFAULT_ORDER = "asc";
-const DEFAULT_ORDER_BY = "calories";
-const DEFAULT_ROWS_PER_PAGE = 5;
+const DEFAULT_ORDER_BY = "id";
+const DEFAULT_ROWS_PER_PAGE = 100;
 
 function EnhancedTableHead(props) {
   const {
@@ -247,7 +247,7 @@ export default function EnhancedTable() {
       drugs: selected.map((drug) => ({ drug })),
     };
     const patientResponse = await entities.patient.update(updatedPatient);
-    console.log(updatedPatient);
+    // console.log(updatedPatient);
   };
 
   const rows =
@@ -385,6 +385,7 @@ export default function EnhancedTable() {
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
+
   return (
     <>
       <Navbar />
@@ -415,6 +416,7 @@ export default function EnhancedTable() {
                       .map((row, index) => {
                         const isItemSelected = isSelected(row.id);
                         const labelId = `enhanced-table-checkbox-${index}`;
+                        
                         return (
                           <TableRow
                             hover
@@ -467,7 +469,7 @@ export default function EnhancedTable() {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[ 10, 25, 50, 100]}
             component="div"
             count={rows.length}
             rowsPerPage={rowsPerPage}
