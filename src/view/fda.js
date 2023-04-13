@@ -115,12 +115,13 @@ export default function FDA() {
             weight: patient.weight,
             uuid: patient.uuid,
             bloodPressure: patient.bloodPressure,
+            drugs: patient.drugs && patient.drugs.map((drug) => drug.drug),
           };
         })
       : [];
 
   function Row(props) {
-    const { row } = props;
+    const { row, drugss } = props;
     const [open, setOpen] = useState(false);
     const [approve, setApprove] = useState("Pending");
 
@@ -150,31 +151,29 @@ export default function FDA() {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h6" gutterBottom component="div">
-                  History
+                  Drug
                 </Typography>
                 <Table size="small" aria-label="purchases">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Date</TableCell>
                       <TableCell>Drug</TableCell>
-
-                      <TableCell>
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => setApprove("Approved")}
-                        >
-                          Approved
-                        </button>
-                      </TableCell>
+                      <TableCell>Status</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {row.history
-                      ? row.history.map((historyRow) => (
-                          <TableRow key={historyRow.id}></TableRow>
-                        ))
-                      : null}
-                  </TableBody>
+                  {row.drugs &&
+                    row.drugs.map((drug) => {
+                      const matchingDrug = drugss.find((d) => d.id === drug); // Find the drug object that matches the current drug
+                      return (
+                        <TableRow key={drug}>
+                          <TableCell>ID: {drug}</TableCell>
+                          <TableCell>
+                            {matchingDrug ? matchingDrug.status : ""} {/* Display the status property of the matching drug object */}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
                 </Table>
               </Box>
             </Collapse>
@@ -229,13 +228,13 @@ export default function FDA() {
                 <TableCell align="left">Date of birth</TableCell>
                 <TableCell align="left">Height</TableCell>
                 <TableCell align="left">Weight </TableCell>
-                <TableCell align="left">Status</TableCell>
+                
               </TableRow>
             </TableHead>
 
             <TableBody>
               {rows.length > 0 &&
-                rows.map((row) => <Row key={row.name} row={row} />)}
+                rows.map((row) => <Row key={row.name} row={row} drugss={drug} />)}
             </TableBody>
           </Table>
 

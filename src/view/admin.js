@@ -17,14 +17,6 @@ import Paper from "@mui/material/Paper";
 import { GridArrowDownwardIcon, GridArrowUpwardIcon } from "@mui/x-data-grid";
 import { Card, TableFooter } from "@mui/material";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -37,16 +29,49 @@ export default function Admin() {
   const [patients, setPatients] = useState([]);
   const { id } = useParams();
 
- 
-  
+  const [drugss, setDrugss] = useState([]);
+
+  const listDrug = async () => {
+    let drugList = await entities.drug.list();
+    console.log(drugList.items);
+    setDrugss(drugList.items);
+  };
 
   const listPatients = async () => {
     let patientList = await entities.patient.list();
     console.log(patientList);
     setPatients(patientList.items);
   };
-
- 
+  const handleStatusChange = async (drugId) => {
+    try {
+      // Get the drug item with the given ID
+      const { _owner, ...product } = await entities.drug.get(drugId);
+  
+      // If the drug item is found, update its status to "complete"
+      if (product) {
+        const updatedDrug = { ...product, status: "Complete" };
+  
+        // Update the drug item with the new status
+        await entities.drug.update(updatedDrug);
+  
+        // Reload the drug list
+        await listDrug();
+  
+        // Update the local state of drugs to reflect the change
+        setDrugss((prevDrugs) =>
+          prevDrugs.map((drug) => {
+            if (drug.id === drugId) {
+              return { ...drug, status: "Complete" };
+            } else {
+              return drug;
+            }
+          })
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const [open, setOpen] = useState(false);
 
@@ -54,8 +79,7 @@ export default function Admin() {
 
   const rows =
     patients.length > 0
-      ? patients.map( (patient) => {
-        
+      ? patients.map((patient) => {
           return {
             id: patient._id,
             name: patient.name,
@@ -65,13 +89,13 @@ export default function Admin() {
             weight: patient.weight,
             uuid: patient.uuid,
             bloodPressure: patient.bloodPressure,
-            drugs: patient.drugs && patient.drugs.map((drug) => drug.drug), 
+            drugs: patient.drugs && patient.drugs.map((drug) => drug.drug),
           };
         })
       : [];
 
   function Row(props) {
-    const { row } = props;
+    const { row, drugss } = props;
     const [open, setOpen] = useState(false);
     const [approve, setApprove] = useState("Pending");
 
@@ -94,7 +118,7 @@ export default function Admin() {
           <TableCell align="left">{row.dob}</TableCell>
           <TableCell align="left">{row.height}</TableCell>
           <TableCell align="left">{row.weight}</TableCell>
-          <TableCell align="left"></TableCell>
+
           <TableCell align="left">
             <Box
               margin="auto"
@@ -121,19 +145,36 @@ export default function Admin() {
                 <Table size="small" aria-label="purchases">
                   <TableHead>
                     <TableRow>
-                     
-                      {/* <TableCell>Drug</TableCell> */}
+                      <TableCell>Drug</TableCell>
+                      <TableCell>status</TableCell>
+                      <TableCell>Complete</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    
                     {row.drugs &&
-                      row.drugs.map((drug) => (
-                        <TableRow key={drug}>
-                          
-                          <TableCell>ID: {drug}</TableCell>
-                        </TableRow>
-                      ))} 
+                      row.drugs.map((drug) => {
+                        const matchingDrug = drugss.find((d) => d.id === drug); // Find the drug object that matches the current drug
+
+                        return (
+                          <TableRow key={drug}>
+                            <TableCell>ID: {drug}</TableCell>
+                            <TableCell>
+                              {matchingDrug ? matchingDrug.status : ""}{" "}
+                              {/* Display the status property of the matching drug object */}
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                variant="contained"
+                                onClick={() =>
+                                  handleStatusChange(matchingDrug._id)
+                                }
+                              >
+                                Complete
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
                   </TableBody>
                 </Table>
               </Box>
@@ -161,13 +202,13 @@ export default function Admin() {
         PropTypes.shape({
           drug: PropTypes.string.isRequired,
         })
-      ), 
+      ),
     }).isRequired,
   };
 
   useEffect(() => {
     listPatients();
-   
+    listDrug();
   }, []);
 
   return (
@@ -194,14 +235,15 @@ export default function Admin() {
                 <TableCell>Date of birth</TableCell>
                 <TableCell>Height</TableCell>
                 <TableCell>Weight </TableCell>
-                <TableCell>Status</TableCell>
                 <TableCell>Select patient</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
               {rows.length > 0 &&
-                rows.map((row) => <Row key={row.name} row={row} />)}
+                rows.map((row) => (
+                  <Row key={row.name} row={row} drugss={drugss} />
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
