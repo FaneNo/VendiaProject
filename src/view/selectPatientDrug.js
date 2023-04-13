@@ -21,7 +21,7 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useJaneHopkins from "../hooks/useJaneHopkins";
 import Navbar from "./nav";
 import Button from "@mui/material/Button";
@@ -237,16 +237,20 @@ export default function EnhancedTable() {
       setLoading(false);
     }
   };
-
+  const navigate = useNavigate();
   // This function updates the patient's drugs list with the selected drugs when the "Select" button is clicked.
   // It creates a new drug based on the slected number
   const handleSelectButton = async () => {
     const { _owner, ...patientDataWithoutOwner } = patient;
+
+
     const updatedPatient = {
       ...patientDataWithoutOwner,
       drugs: selected.map((drug) => ({ drug })),
     };
-    const patientResponse = await entities.patient.update(updatedPatient);
+    
+    const patientResponse = await entities.patient.update(updatedPatient).then(navigate('/admin'));
+    
     // console.log(updatedPatient);
   };
 
@@ -262,26 +266,24 @@ export default function EnhancedTable() {
         })
       : [];
 
-
-      React.useEffect(() => {
-        fetchData();
-      }, []);
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   React.useEffect(() => {
     if (!loading) {
-        let rowsOnMount = stableSort(
-          rows,
-          getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY)
-        );
-  
-        rowsOnMount = rowsOnMount.slice(
-          0 * DEFAULT_ROWS_PER_PAGE,
-          0 * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE
-        );
-  
-        setVisibleRows(rowsOnMount);
-      }
-   
+      let rowsOnMount = stableSort(
+        rows,
+        getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY)
+      );
+
+      rowsOnMount = rowsOnMount.slice(
+        0 * DEFAULT_ROWS_PER_PAGE,
+        0 * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE
+      );
+
+      setVisibleRows(rowsOnMount);
+    }
   }, [loading]);
 
   const handleRequestSort = React.useCallback(
@@ -385,7 +387,6 @@ export default function EnhancedTable() {
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
-
   return (
     <>
       <Navbar />
@@ -416,7 +417,7 @@ export default function EnhancedTable() {
                       .map((row, index) => {
                         const isItemSelected = isSelected(row.id);
                         const labelId = `enhanced-table-checkbox-${index}`;
-                        
+
                         return (
                           <TableRow
                             hover
@@ -469,7 +470,7 @@ export default function EnhancedTable() {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[ 10, 25, 50, 100]}
+            rowsPerPageOptions={[ 25, 50, 100]}
             component="div"
             count={rows.length}
             rowsPerPage={rowsPerPage}
