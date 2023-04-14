@@ -125,7 +125,7 @@ export default function Admin() {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-            >
+            > 
               <Button
                 variant="outlined"
                 onClick={() => navigate(`/patientDrug/${row.id}`)}
@@ -154,9 +154,10 @@ export default function Admin() {
                     {row.drugs &&
                       row.drugs.map((drug) => {
                         const matchingDrug = drugss.find((d) => d.id === drug); // Find the drug object that matches the current drug
-
+                        console.log(matchingDrug);
                         return (
                           <TableRow key={drug}>
+                            
                             <TableCell>ID: {drug}</TableCell>
                             <TableCell>
                               {matchingDrug ? matchingDrug.status : ""}{" "}
@@ -198,12 +199,9 @@ export default function Admin() {
       ),
       name: PropTypes.string,
       height: PropTypes.string,
-      drugs: PropTypes.arrayOf(
-        PropTypes.shape({
-          drug: PropTypes.string.isRequired,
-        })
-      ),
-    }).isRequired,
+      drugs: PropTypes.arrayOf(PropTypes.string), // <-- Update the prop type here
+    }),
+    drugss: PropTypes.arrayOf(PropTypes.object),
   };
 
   useEffect(() => {
