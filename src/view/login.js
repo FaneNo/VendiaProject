@@ -1,101 +1,104 @@
 import React, { useContext, useState } from "react";
 import {
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "./firebase-config";
 import Navbar from "../view/nav";
 import { useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "./firebase-config";
 
-function LoginImage() {
-  return (
-    <img className="login-image" src={require("../loginIMG.jpg")} alt="Login" />
-  );
-}
 
 function LoginForm() {
-  const [error, setError] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const[formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+});
+
+
   const navigate = useNavigate();
 
-
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const registerLogin = (e) => {
+   const handleSubmit = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
+
+
+
+    signInWithEmailAndPassword(auth, formData.email, formData.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        navigate("/");
-        
-        
+        const userRef = doc(db, "users", user.uid);
+        setDoc(userRef, {
+          name: formData.name,
+          email: formData.email,
+          role: formData.role,
+        })
+        .then(() => {
+          console.log("Navigating to home page");
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Error creating user:", error);
+        });
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setError(true);
+        console.error("Error creating user:", error);
       });
   };
 
-  return (
-    <div className="login-container">
-      <h1>Login to Vendia Care</h1>
-      <form className="login-form">
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </label>
-        <br />
-        <button type="submit" onClick={registerLogin}>
-          Login
-        </button>
-      </form>
-    </div>
-  );
-}
 
-function BackgroundContainer(props) {
-  return (
-    <div
-      className="backgroundL"
-      style={{ backgroundColor: props.backgroundColor }}
-    >
-      {props.children}
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+return (
+  <div className="login-container">
+    <div className="login-form">
+    <div className="login-image">
+      <img src={require("../loginIMG.jpg")} alt="Login" />
     </div>
-  );
+    <form className="login-box" onSubmit={handleSubmit}>
+      <h1>Login to Vendia Care</h1>
+      <label>
+        Email:
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          required
+          onChange={handleChange}
+        />
+      </label>
+      <br />
+      <label>
+        Password:
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          required
+          onChange={handleChange}
+        />
+      </label>
+      <button type="submit">
+        Login
+      </button>
+    </form>
+  </div>
+  </div>
+);
+
 }
 
 function Login() {
   return (
     <>
       <Navbar />
-      <BackgroundContainer backgroundColor="#f0f0f0">
-        <LoginImage />
         <LoginForm />
-      </BackgroundContainer>
     </>
   );
 }
