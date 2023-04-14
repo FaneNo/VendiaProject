@@ -53,8 +53,11 @@ function Navbar() {
           {userRole === "fda" && (
             <Link to="/fda">FDA</Link>
           )}
-          {userRole === "patient" && (
-            <Link to="/patient">Patient</Link>
+          {userRole === "admin" && (
+            <Link to="/admin">Admin</Link>
+          )}
+           {userRole === "bavaria" && (
+            <Link to="/bavaria">Bavaria</Link>
           )}
         </li>
         {userRole === "" && (
