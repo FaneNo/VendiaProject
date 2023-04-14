@@ -78,7 +78,7 @@ export default function Patient() {
             <ul>
               <li>Family History:{patient?.familyHistory}</li>
               <li>Address:{patient?.address}</li>
-              <li>List of visit:</li>
+              {/* <li>List of visit:</li> */}
               <li>Allergies: {patient?.allergies[0].allergy}</li>
               <li>
                 Current Medication: {patient?.currentMedications[0].medication}

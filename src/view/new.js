@@ -264,17 +264,114 @@ export default function New() {
                 </div>
                 <div>
                   <label className="form-label" htmlFor="visit">
-                    List of visit
+                    Patient
                   </label>
-                  <input
-                    type={"text"}
-                    id="visit"
-                    className="form-control"
-                    value={patients.visits}
-                    onChange={(e) =>
-                      setPatients({ ...patients, visits: e.target.value })
-                    }
-                  />
+                  {patients.visits.map((visit, idx) => (
+                    <div key={idx}>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={visit.patient}
+                        onChange={(e) => {
+                          const newVisits  = patients.visits.map(
+                            (a, i) => {
+                              if (i === idx) {
+                                return {...a, patient: e.target.value };
+                              } else {
+                                return a;
+                              }
+                            }
+                          );
+                          
+                          setPatients((prevPatients) => ({
+                            ...prevPatients,
+                            visits: newVisits ,
+                          }));
+                        }}
+                      />
+                    </div>
+                  ))}
+                  <label className="form-label" htmlFor="visit">
+                    Date
+                  </label>
+                  {patients.visits.map((visit, idx) => (
+                    <div key={idx}>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={visit.dateTime}
+                        onChange={(e) => {
+                          const newVisits  = patients.visits.map(
+                            (a, i) => {
+                              if (i === idx) {
+                                return {...a, dateTime: e.target.value };
+                              } else {
+                                return a;
+                              }
+                            }
+                          );
+                          setPatients((prevPatients) => ({
+                            ...prevPatients,
+                            visits: newVisits ,
+                          }));
+                        }}
+                      />
+                    </div>
+                  ))}
+                  <label className="form-label" htmlFor="visit">
+                    Notes
+                  </label>
+                  {patients.visits.map((visit, idx) => (
+                    <div key={idx}>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={visit.notes}
+                        onChange={(e) => {
+                          const newVisits  = patients.visits.map(
+                            (a, i) => {
+                              if (i === idx) {
+                                return {...a, notes: e.target.value };
+                              } else {
+                                return a;
+                              }
+                            }
+                          );
+                          setPatients((prevPatients) => ({
+                            ...prevPatients,
+                            visits: newVisits ,
+                          }));
+                        }}
+                      />
+                    </div>
+                  ))}
+                  <label className="form-label" htmlFor="visit">
+                  HivViralLoad
+                  </label>
+                  {patients.visits.map((visit, idx) => (
+                    <div key={idx}>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={visit.hivViralLoad}
+                        onChange={(e) => {
+                          const newVisits  = patients.visits.map(
+                            (a, i) => {
+                              if (i === idx) {
+                                return {...a, hivViralLoad: e.target.value };
+                              } else {
+                                return a;
+                              }
+                            }
+                          );
+                          setPatients((prevPatients) => ({
+                            ...prevPatients,
+                            visits: newVisits ,
+                          }));
+                        }}
+                      />
+                    </div>
+                  ))}
                 </div>
                 <div>
                   <label className="form-label" htmlFor="icd">
