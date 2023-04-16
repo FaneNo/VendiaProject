@@ -29,15 +29,14 @@ const Signout = () => {
           }
 
           .logout-button {
-            background-color: #4c90af;
-            color: white;
-          //   border: none;
-            border-radius: 5px;
+            background-color: white;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 16px; /* decreased from 20px */
+            padding: 3px 15px; /* added padding to compensate for smaller font */
             transition: background-color 0.3s ease-in-out;
-          }
-
+          }          
+          
           .logout-button:hover {
             background-color: #3e51aa;
           }
