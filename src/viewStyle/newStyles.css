@@ -1,23 +1,30 @@
-.newBox h2{
-    text-align: center;
-} 
 
 .newBox {
-  background-color: white;
+  background-color: #f5f5f5;
   margin: auto;
   position: fixed;
   top: 100px;
   bottom: 10px;
-  right: 10%;
-  left: 10%;
+  left: 10px;
+  right: 10px;
   border-radius: 20px; 
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   padding-top: 10px;
   padding-bottom: 10px;
+  overflow: auto;
 }
 
+/* For medium screens */
 @media only screen and (min-width: 768px) {
-  /* styles for devices with a minimum width of 768px (tablets) */
+  .newBox {
+      width: 60%;
+      left: 20%;
+      right: 20%;
+  }
+}
+
+/* For large screens */
+@media only screen and (min-width: 992px) {
   .newBox {
       width: 50%;
       left: 25%;
@@ -25,24 +32,20 @@
   }
 }
 
-@media only screen and (min-width: 992px) {
-  /* styles for devices with a minimum width of 992px (laptops and desktops) */
-  .newBox {
-      width: 40%;
-      left: 30%;
-      right: 30%;
-  }
+/* Styles for all screen sizes */
+.newBox h2 {
+  text-align: center;
 }
 
-
 .button {
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 10px;
-  }
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  margin-top: 1.5rem;
+}
   
   
