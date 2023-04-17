@@ -18,6 +18,8 @@ import { GridArrowDownwardIcon, GridArrowUpwardIcon } from "@mui/x-data-grid";
 import { Card, TableFooter } from "@mui/material";
 import Button from "@mui/material/Button";
 import Slide from "@mui/material/Slide";
+import Grid from "@mui/material/Grid"; // Add this import
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -218,12 +220,14 @@ export default function Admin() {
           display: "flex",
           width: "100%",
           marginTop: "100px",
-
           background: "#FAFAFA",
           borderRadius: 10,
         }}
       >
-        <TableContainer component={Card}>
+       <Grid container justifyContent="center">
+          <Grid item xs={12} sm={10} md={8} lg={6}>
+            <div className="scroll-container">
+              <TableContainer component={Card} className="table-container">
           <Table aria-label="collapsible table">
             <TableHead>
               <TableRow>
@@ -244,7 +248,10 @@ export default function Admin() {
                 ))}
             </TableBody>
           </Table>
-        </TableContainer>
+          </TableContainer>
+            </div>
+          </Grid>
+        </Grid>
       </div>
     </>
   );
