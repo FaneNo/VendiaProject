@@ -21,70 +21,116 @@ export default function Patient() {
   return (
     <>
       <Navbar />
-      <h2>Patient - {id}</h2>
-      <button
-        type="button"
-        className="btn btn-outline-primary"
-        onClick={() => navigate(`/edit/${patient._id}`)}
-      >
-        Update
-      </button>
-      <div className="container">
-        <div className="box" id="top-left">
-          <span className="list">
-            <ul>
-              <li>Patient Picture</li>
-              <li>Name: {patient?.name}</li>
-              <li>DOB: {patient?.dob}</li>
-            </ul>
-          </span>
-        </div>
-        <div className="box" id="top-right-1">
-          <span className="list">
-            <ul>
-              <li>Blood Type: {patient?.bloodType}</li>
-            </ul>
-          </span>
-        </div>
-        <div className="box" id="top-right-2">
-          <span className="list">
-            <ul>
-              <li>Temperature: {patient?.temperature}</li>
-            </ul>
-          </span>
-        </div>
-        <div className="box" id="top-right-3">
-          <span className="list">
-            <ul>
-              <li>Blood Pressure: {patient?.bloodPressure}</li>
-            </ul>
-          </span>
-        </div>
-        <div className="box" id="bottom-left">
-          <span className="list">
-            <ul>
-              <li>Height: {patient?.height}</li>
-              <li>Weight:{patient?.weight}</li>
-              <li>UUID:{patient?.uuid}</li>
-              <li>Insurance Number:{patient?.insuranceNumber}</li>
-              <li>ICD Health code: {patient?.icdHealthCodes[0].code}</li>
-              <li>Oxygen Saturation:{patient?.oxygenSaturation}</li>
-              <li>Currently Insured:{patient?.currentlyInsured}</li>
-            </ul>
-          </span>
-        </div>
-        <div className="box" id="bottom-right">
-          <span className="list" id="">
-            <ul>
-              <li>Family History:{patient?.familyHistory}</li>
-              <li>Address:{patient?.address}</li>
-              {/* <li>List of visit:</li> */}
-              <li>Allergies: {patient?.allergies[0].allergy}</li>
-              <li>
-                Current Medication: {patient?.currentMedications[0].medication}
-              </li>
-            </ul>
-          </span>
+      <div className="containerP1">
+        <div class="containerP">
+          <div class="box" id="top-left">
+            <span class="list">
+              <ul>
+                <li>Patient Picture</li>
+                <li>
+                  Name: <span class="patient-info">{patient?.name}</span>
+                </li>
+                <li>
+                  DOB: <span class="patient-info">{patient?.dob}</span>
+                </li>
+              </ul>
+            </span>
+          </div>
+          <div class="box" id="top-right-1">
+            <span class="list">
+              <ul>
+                <li>
+                  Blood Type:{" "}
+                  <span class="patient-info">{patient?.bloodType}</span>
+                </li>
+              </ul>
+            </span>
+          </div>
+          <div class="box" id="top-right-2">
+            <span class="list">
+              <ul>
+                <li>
+                  Temperature:{" "}
+                  <span class="patient-info">{patient?.temperature}</span>
+                </li>
+              </ul>
+            </span>
+          </div>
+          <div class="box" id="top-right-3">
+            <span class="list">
+              <ul>
+                <li>
+                  Blood Pressure:{" "}
+                  <span class="patient-info">{patient?.bloodPressure}</span>
+                </li>
+              </ul>
+            </span>
+          </div>
+          <div class="box" id="bottom-left">
+            <span class="list">
+              <ul>
+                <li>
+                  Height: <span class="patient-info">{patient?.height}</span>
+                </li>
+                <li>
+                  Weight: <span class="patient-info">{patient?.weight}</span>
+                </li>
+                <li>
+                  UUID: <span class="patient-info">{patient?.uuid}</span>
+                </li>
+                <li>
+                  Insurance Number:{" "}
+                  <span class="patient-info">{patient?.insuranceNumber}</span>
+                </li>
+                <li>
+                  ICD Health code:{" "}
+                  <span class="patient-info">
+                    {patient?.icdHealthCodes[0].code}
+                  </span>
+                </li>
+                <li>
+                  Oxygen Saturation:{" "}
+                  <span class="patient-info">{patient?.oxygenSaturation}</span>
+                </li>
+                <li>
+                  Currently Insured:{" "}
+                  <span class="patient-info">{patient?.currentlyInsured}</span>
+                </li>
+                <li>
+                  Allergies:{" "}
+                  <span class="patient-info">
+                    {patient?.allergies[0].allergy}
+                  </span>
+                </li>
+                <li>
+                  Address: <span class="patient-info">{patient?.address}</span>
+                </li>
+              </ul>
+            </span>
+          </div>
+          <div class="box" id="bottom-right">
+            <span class="list" id="">
+              <ul>
+                <li>
+                  Family History:{" "}
+                  <span class="patient-info">{patient?.familyHistory}</span>
+                </li>
+
+                <li>
+                  Current Medication:{" "}
+                  <span class="patient-info">
+                    {patient?.currentMedications[0].medication}
+                  </span>
+                </li>
+              </ul>
+            </span>
+          </div>
+          <button
+            class="buttonP btn btn-outline-primary"
+            onClick={() => navigate(`/edit/${patient._id}`)}
+          >
+            Update
+          </button>
         </div>
       </div>
     </>

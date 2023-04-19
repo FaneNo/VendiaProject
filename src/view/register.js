@@ -7,7 +7,6 @@ import { db } from "./firebase-config";
 import { doc, setDoc } from "firebase/firestore";
 import Navbar from "./nav";
 
-
 function RegisterForm() {
   const [formData, setFormData] = useState({
     name: "",
@@ -36,13 +35,13 @@ function RegisterForm() {
           email: formData.email,
           role: formData.role,
         })
-        .then(() => {
-          console.log("Navigating to home page");
-          navigate("/");
-        })
-        .catch((error) => {
-          console.error("Error creating user:", error);
-        });
+          .then(() => {
+            console.log("Navigating to home page");
+            navigate("/");
+          })
+          .catch((error) => {
+            console.error("Error creating user:", error);
+          });
       })
       .catch((error) => {
         console.error("Error creating user:", error);
@@ -60,74 +59,76 @@ function RegisterForm() {
   return (
     <div className="register-container">
       <div className="register-form">
-        <div className = "register-image">
-      <img  src={require("../registerIMG.jpg")} alt="Login" />
-      </div>
-      <form className="register-box" onSubmit={handleSubmit}>
-        <h1>Register to Vendia Care</h1>
-        <label>
-          User Type:
-          <select name="role" value={formData.role} onChange={handleChange}>
-            <option value="">--Select user type--</option>
-            <option value="doctor">Doctor</option>
-            <option value="fda">FDA</option>
-            <option value="admin">Admin</option>
+        <div className="register-image">
+          <img src={require("../registerIMG.jpg")} alt="Login" />
+        </div>
+        <form className="register-box" onSubmit={handleSubmit}>
+          <h1>Register to Vendia Care</h1>
+          <label>
+            User Type:
+            <select name="role" value={formData.role} onChange={handleChange}>
+              <option value="">--Select user type--</option>
+              <option value="doctor">Doctor</option>
+              <option value="fda">FDA</option>
+              <option value="admin">Admin</option>
             <option value="bavaria">Bavaria</option>
-          </select>
-        </label>
-        <br />
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            required
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            required
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <br />
-        <label>
-          Confirm Password:
-          <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            required
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <button type="submit" >
-          Submit
-        </button>
-      </form>
+            </select>
+          </label>
+          <br />
+          <label>
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              required
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <label>
+            Password:
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              required
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <br />
+          <label>
+            Confirm Password:
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              required
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <div className="divR">
+            <button className="buttonR" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+        
       </div>
+      
     </div>
   );
-  
 }
 
-
 function Register() {
-return (
-<>
-<Navbar />
-<RegisterForm />
-</>
-);
+  return (
+    <>
+      <Navbar />
+      <RegisterForm />
+    </>
+  );
 }
 
 export default Register;
