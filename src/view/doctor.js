@@ -3,17 +3,27 @@ import useJaneHopkins from "../hooks/useJaneHopkins";
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import LinearProgress from "@mui/material/LinearProgress";
+import Button from '@mui/material/Button'
 
 export default function Doctor() {
   const { entities } = useJaneHopkins();
   const [format, setFormat] = useState("list");
   const [patients, setPatients] = useState([]);
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
 
   const listPatients = async () => {
-    let patientList = await entities.patient.list();
-    console.log(patientList.items);
-    setPatients(patientList.items);
+    setIsLoading(true); // Set loading state to true before fetching data
+    try {
+      let patientList = await entities.patient.list();
+      console.log(patientList.items);
+      setPatients(patientList.items);
+    } catch (error) {
+      console.error("Failed to fetch patients", error);
+    } finally {
+      setIsLoading(false); // Set loading state to false after fetching data
+    }
   };
 
   const handleDelete = async (id) => {
@@ -33,23 +43,29 @@ export default function Doctor() {
     { field: "uuid", headerName: "UUID", width: 90 },
     { field: "bloodPressure", headerName: "Blood Pressure", width: 150 },
     {
-      field: "actions",
+      
       headerName: "Actions",
+      field: "actions",
       width: 300,
+      
       renderCell: (params) => (
         <>
-          <button
-            className="btn btn-danger"
-            onClick={() => handleDelete(params.row.id)}
-          >
-            Delete patient
-          </button>
-          <button
-            className="btn btn-primary"
+        <Button
+            variant="contained"
+          
             onClick={() => navigate(`/patient/${params.row.id}`)}
           >
             View Patient
-          </button>
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            sx={{marginLeft: "10px"}}
+            onClick={() => handleDelete(params.row.id)}
+          >
+            Delete Patient
+          </Button>
+          
         </>
       ),
     },
@@ -76,7 +92,6 @@ export default function Doctor() {
     <>
       <Navbar />
 
-     
       <div
         className="container-fluid"
         style={{
@@ -87,13 +102,18 @@ export default function Doctor() {
           borderRadius: 10,
         }}
       >
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          // checkboxSelection
-        />
+        
+        {isLoading ? (
+          <LinearProgress />
+        ) : (
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
+            // checkboxSelection
+          />
+        )}
       </div>
     </>
   );

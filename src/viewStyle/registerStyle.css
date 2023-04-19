@@ -20,6 +20,7 @@
 .register-box {
   flex-basis: 50%;
   flex-grow: 1;
+  
 }
 
 .register-image {
@@ -40,17 +41,24 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   flex-basis: 40%;
+  
 }
 
 .register-box h1 {
   font-family: "Arial", sans-serif;
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20gpx;
+  margin-bottom: 20px;
   text-align: center;
 }
+.divR {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
 
-button[type="submit"] {
+.buttonR {
   padding: 12px 40px;
   border: none;
   background-color: #0056b3;
@@ -58,10 +66,10 @@ button[type="submit"] {
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
-button[type="submit"]:hover {
+.buttonR:hover {
   background-color: #004080;
 }
 

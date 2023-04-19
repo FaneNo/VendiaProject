@@ -69,7 +69,7 @@ function LoginForm() {
           />
         </label>
         <br />
-        <button type="submit" onClick={registerLogin}>
+        <button className="buttonL" type="submit" onClick={registerLogin}>
           Login
         </button>
       </form>

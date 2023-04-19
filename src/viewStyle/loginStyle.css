@@ -72,13 +72,18 @@
   margin-top: 5px;
 }
 
-button[type="submit"] {
+.buttonL {
   padding: 10px 40px;
   border: none;
   background-color: blue;
   color: white;
   font-size: 16px;
   border-radius: 5px;
+  cursor: pointer;
+  transition:  0.4s ease-in-out;
+}
+.buttonL:hover {
+  background-color: #004080;
 }
 
 

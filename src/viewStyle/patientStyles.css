@@ -1,135 +1,168 @@
 body{
   background-color: white !important;
 }
-/* #110015 */
-.profile-list{
-  list-style: none;
-  margin: 0;
+.containerP1{
+  margin: 1rem;
+}
+
+/* CSS for containerP */
+.containerP {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  
+}
+
+/* CSS for box */
+.box {
+  width: 100%;
+  padding: 1rem;
+  background-color:#ADD8E6;
+  border-radius: 10px;
+}
+
+/* CSS for list */
+.list ul {
+  list-style-type: none;
   padding: 0;
-  /* position: absolute; */
-  /* bottom: 0; */
-  display: inline-block;
-  text-align: left;
-  /* flex-grow: 3; */
 }
 
-
-#profile-list:nth-child(1) {
-  line-height: 1.5;
+.list ul li {
+  margin-bottom: 0.5rem;
 }
-* {
-    box-sizing: border-box;
+
+/* CSS for patient-info */
+.patient-info {
+  font-weight: bold;
+}
+
+/* CSS for buttonP */
+.buttonP {
+  margin-top: 1rem;
+  align-self: center;
+}
+
+/* Media Queries for responsiveness */
+
+@media (min-width: 576px) {
+  /* For screens with min-width of 576px (small screens) */
+  .containerP1{
+    margin: 2rem;
   }
-  
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    /* height: 100vh;
-    padding: 20px; */
-    margin-top: 3rem;
-  }
-  
   .box {
-    width: 200px;
-    height: 200px;
-    margin: 10px;
-    
-    border-radius: 20px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    width: 48%;
   }
-  
-  #top-left {
-    width: 410px;
-    height: fit-content;
-    background-color: #F1C40F;
+
+  #top-left,
+  #top-right-1,
+  #top-right-2,
+  #top-right-3 {
+    width: 100%;
+    border-radius: 10px;
   }
-  
-  #bottom-left {
-    width: 410px;
-    height: fit-content;
-    
-    background-color: #E74C3C;
-  }
-  
+
+  #bottom-left,
   #bottom-right {
-    width: 640px;
-    height: inherit;
-    
-    background-color: #2ECC71;
+    width: 100%;
+    border-radius: 10px;
   }
-  
-  #top-right-1, #top-right-2, #top-right-3 {
-    width: 200px;
-    height: inherit;
-    
-    background-color: white;
-  }
-  
-  #bottom-boxes {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* #bottom-left-box {
-    width: 410px;
-    height: 500px;
-    background-color: #E74C3C;
-  }
-  
-  #bottom-right-box {
-    width: 640px;
-    height: 500px;
-    background-color: #2ECC71;
-  } */
+}
 
-  .list li:not(:last-child) {
-    margin-bottom: 40px;
+@media (min-width: 768px) {
+  /* For screens with min-width of 768px (medium screens) */
+  .containerP1{
+    margin: 2rem;
   }
-  
-  .list ul{
-    list-style: none;
-    margin-top: 10px;
-    
-  }
-  
-  @media screen and (max-width: 768px) {
-    .box {
-      width: 180px;
-      height: 180px;
-    }
-    #top-left {
-      width: 360px;
-      height: 180px;
-    }
-    #bottom-left {
-      width: 360px;
-      height: 180px;
-    }
-    #bottom-right {
-      width: 540px;
-      height: 180px;
-    }
-  }
-  
-  @media screen and (max-width: 480px) {
-    .box {
-      width: 100%;
-      height: 180px;
-      margin: 5px;
-    }
-    #top-left {
-      width: 100%;
-      height: 200px;
-    }
-    #bottom-left {
-      width: 100%;
-      height: 200px;
-    }
-    #bottom-right {
-      width: 100%;
-      height: 200px;
-    }
+  .box {
+    width: 31%;
   }
 
+  #top-left,
+  #top-right-1,
+  #top-right-2,
+  #top-right-3 {
+    width: 48%;
+    border-radius: 10px;
+  }
 
+  #bottom-left,
+  #bottom-right {
+    width: 48%;
+    border-radius: 10px;
+  }
+}
 
+@media (min-width: 992px) {
+  /* For screens with min-width of 992px (large screens) */
+
+  .containerP1{
+    margin: 2rem;
+  }
+  .box {
+    width: 23%;
+    border-radius: 10px;
+  }
+
+  #top-left,
+  #top-right-1,
+  #top-right-2,
+  #top-right-3 {
+    width: 96.7%;
+    border-radius: 10px;
+  }
+
+  #bottom-left,
+  #bottom-right {
+    width: 48%;
+    border-radius: 10px;
+  }
+}
+@media (min-width: 1020px) {
+  /* For screens with min-width of 992px (large screens) */
+
+  .containerP1{
+    margin: 3rem;
+  }
+  .box {
+    width: 23%;
+  }
+
+  #top-left,
+  #top-right-1,
+  #top-right-2,
+  #top-right-3 {
+    width: 96.7%;
+    border-radius: 10px;
+  }
+
+  #bottom-left,
+  #bottom-right {
+    width: 47.5%;
+    border-radius: 10px;
+  }
+}
+@media (min-width: 1220px) {
+  /* For screens with min-width of 992px (large screens) */
+
+  .containerP1{
+    margin: 5rem;
+  }
+  .box {
+    width: 23%;
+  }
+
+  #top-left,
+  #top-right-1,
+  #top-right-2,
+  #top-right-3 {
+    width: 96.7%;
+    border-radius: 10px;
+  }
+
+  #bottom-left,
+  #bottom-right {
+    width: 48%;
+    border-radius: 10px;
+  }
+}

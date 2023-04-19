@@ -1,18 +1,13 @@
 import Navbar from "../view/nav";
 import useJaneHopkins from "../hooks/useJaneHopkins";
 import React, { useState } from "react";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { styled } from "@mui/material/styles";
+
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
+
+import Button from '@mui/material/Button';
 import { TextField } from "@mui/material";
-import Button from "@mui/material/Button";
+import LinearProgress from "@mui/material/LinearProgress";
+
 export default function New() {
   const [patients, setPatients] = useState({
     name: "",
@@ -36,8 +31,10 @@ export default function New() {
   });
 
   const { entities } = useJaneHopkins();
+  const [isLoading, setIsLoading] = useState(false);
 
   const addPatient = async () => {
+    setIsLoading(true);
     try {
       const response = await entities.patient.add(patients, {
         aclInput: {
@@ -103,15 +100,10 @@ export default function New() {
       });
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -122,20 +114,29 @@ export default function New() {
     <>
       <Navbar />
 
-      <div className="newBox">
+      <div className="newBox" style={{ backgroundColor: "#B2D3C2" }}>
         <h2>New Patient</h2>
+
         <form onSubmit={handleSubmit}>
           <div className="container-fluid text-center">
             <div className="row">
-              <div className=" col-md-12 " style={{ marginRight: 20, backgroundColor: "lightgrey", borderRadius:10, padding: 20}}>
-                <div>
-                  <label className="form-label" htmlFor="visit">
-                    Patient
-                  </label>
+              <div
+                className=" col-md-12 "
+                style={{
+                  marginRight: 20,
+                  backgroundColor: "#99EDC3",
+                  borderRadius: 10,
+                  padding: 20,
+                }}
+              >
+                <h4>Appointment</h4>
+                <div style={{marginTop: "2rem"}}>
+                  
                   {patients.visits.map((visit, idx) => (
                     <div key={idx}>
-                      <input
-                        type="text"
+                      <TextField
+                        label = "Patient"
+                        size="small"
                         className="form-control"
                         value={visit.patient}
                         onChange={(e) => {
@@ -155,15 +156,14 @@ export default function New() {
                     </div>
                   ))}
                 </div>
-                <div>
-                  <label className="form-label" htmlFor="visit">
-                    Date
-                  </label>
+                <div style={{marginTop: "2rem"}}>
+                  
                   {patients.visits.map((visit, idx) => (
                     <div key={idx}>
-                      <input
-                        type="text"
+                      <TextField
+                        label = "Date of Appointment"
                         className="form-control"
+                        size="small"
                         value={visit.dateTime}
                         onChange={(e) => {
                           const newVisits = patients.visits.map((a, i) => {
@@ -182,14 +182,13 @@ export default function New() {
                     </div>
                   ))}
                 </div>
-                <div>
-                  <label className="form-label" htmlFor="visit">
-                    Notes
-                  </label>
+                <div style={{marginTop: "2rem"}}>
+                  
                   {patients.visits.map((visit, idx) => (
                     <div key={idx}>
-                      <input
-                        type="text"
+                      <TextField
+                        label = "Notes"
+                        sx={{width: "100%"}}
                         className="form-control"
                         value={visit.notes}
                         onChange={(e) => {
@@ -209,15 +208,14 @@ export default function New() {
                     </div>
                   ))}
                 </div>
-                <div>
-                  <label className="form-label" htmlFor="visit">
-                    HivViralLoad
-                  </label>
+                <div style={{marginTop: "2rem"}}>
+                  
                   {patients.visits.map((visit, idx) => (
                     <div key={idx}>
-                      <input
-                        type="text"
+                      <TextField
+                        label = "HivViralLoad"
                         className="form-control"
+                        sx={{ width: "100%" }}
                         value={visit.hivViralLoad}
                         onChange={(e) => {
                           const newVisits = patients.visits.map((a, i) => {
@@ -239,41 +237,35 @@ export default function New() {
               </div>
 
               <div className="col-sm-12 col-md-6 col-lg-4">
-                <div>
-                  <label className="form-label" htmlFor="name">
-                    Name:
-                  </label>
-                  <input
-                    type="text"
+                <div style={{marginTop: "2rem"}}>
+                  
+                  <TextField
+                    label = "Name"
                     className="form-control"
-                    id="name"
+                    size="small"
                     value={patients.name}
                     onChange={(e) =>
                       setPatients({ ...patients, name: e.target.value })
                     }
                   />
                 </div>
-                <div>
-                  <label className="form-label" htmlFor="dob">
-                    DOB:
-                  </label>
-                  <input
-                    type="text"
+                <div style={{marginTop: "2rem"}}>
+                  
+                  <TextField
+                    label = "Date of Birth"
                     className="form-control"
-                    id="dob"
+                   size="small"
                     value={patients.dob}
                     onChange={(e) =>
                       setPatients({ ...patients, dob: e.target.value })
                     }
                   />
                 </div>
-                <div>
-                  <label className="form-label" htmlFor="height">
-                    Height
-                  </label>
-                  <input
-                    type={"text"}
-                    id="height"
+                <div style={{marginTop: "2rem"}}>
+                 
+                  <TextField
+                    label = "Height"
+                    size="small"
                     className="form-control"
                     value={patients.height}
                     onChange={(e) =>
@@ -281,13 +273,11 @@ export default function New() {
                     }
                   />
                 </div>
-                <div>
-                  <label className="form-label" htmlFor="weight">
-                    Weight
-                  </label>
-                  <input
-                    type={"text"}
-                    id="weight"
+                <div style={{marginTop: "2rem"}}>
+                  
+                  <TextField
+                    label = "Weight"
+                    size="small"
                     className="form-control"
                     value={patients.weight}
                     onChange={(e) =>
@@ -295,14 +285,13 @@ export default function New() {
                     }
                   />
                 </div>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="allergies">
-                    Allergies
-                  </label>
+                <div style={{marginTop: "2rem"}}>
+                  
                   {patients.allergies.map((allergy, idx) => (
                     <div key={idx}>
-                      <input
-                        type="text"
+                      <TextField
+                        label = "Allergies"
+                        size="small"
                         className="form-control"
                         value={allergy.allergy}
                         onChange={(e) => {
@@ -326,14 +315,12 @@ export default function New() {
                 </div>
               </div>
 
-              <div className="col-sm-12 col-md-6 col-lg-4">
-                <div>
-                  <label className="form-label" htmlFor="temp">
-                    Temp
-                  </label>
-                  <input
-                    type={"text"}
-                    id="temp"
+              <div className="col-sm-12 col-md-6 col-lg-4" >
+                <div style={{marginTop: "2rem"}}>
+                  
+                  <TextField
+                    label = "Temperature"
+                    size="small"
                     className="form-control"
                     value={patients.temperature}
                     onChange={(e) =>
@@ -345,28 +332,26 @@ export default function New() {
                   />
                 </div>
 
-                <div>
-                  <label className="form-label" htmlFor="UUID">
-                    UUID:
-                  </label>
-                  <input
-                    type="text"
+                <div style={{marginTop: "2rem"}}>
+                  
+                  <TextField
+
+                    label = "UUID"
                     className="form-control"
-                    id="UUID"
+                    size="small"
                     value={patients.uuid}
                     onChange={(e) =>
                       setPatients({ ...patients, uuid: e.target.value })
                     }
                   />
                 </div>
-                <div>
-                  <label className="form-label" htmlFor="insurance">
-                    Insurance number:
-                  </label>
-                  <input
-                    type="text"
+                <div style={{marginTop: "2rem"}}>
+                  
+                  <TextField
+                    label = "Insurance Number"
+                    size="small"
                     className="form-control"
-                    id="insurance"
+                    
                     value={patients.insuranceNumber}
                     onChange={(e) =>
                       setPatients({
@@ -376,13 +361,11 @@ export default function New() {
                     }
                   />
                 </div>
-                <div>
-                  <label className="form-label" htmlFor="address">
-                    Address
-                  </label>
-                  <input
-                    type={"text"}
-                    id="address"
+                <div style={{marginTop: "2rem"}}> 
+                  
+                  <TextField
+                    label = "Address"
+                    size="small"
                     className="form-control"
                     value={patients.address}
                     onChange={(e) =>
@@ -390,13 +373,11 @@ export default function New() {
                     }
                   />
                 </div>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="btype">
-                    Blood Type
-                  </label>
-                  <input
-                    type={"text"}
-                    id="btype"
+                <div className="form-group" style={{marginTop: "2rem"}}>
+                  
+                  <TextField
+                    label = "Blood Type"
+                    size="small"
                     className="form-control"
                     value={patients.bloodType}
                     onChange={(e) =>
@@ -407,14 +388,13 @@ export default function New() {
               </div>
 
               <div className="col-sm-12 col-md-6 col-lg-4">
-                <div>
-                  <label className="form-label" htmlFor="icd">
-                    ICD health codes
-                  </label>
+                <div style={{marginTop: "2rem"}}>
+              
                   {patients.icdHealthCodes.map((icd, idx) => (
                     <div key={idx}>
-                      <input
-                        type="text"
+                      <TextField
+                        label = "ICD health codes"
+                        size="small"
                         className="form-control"
                         value={icd.code}
                         onChange={(e) => {
@@ -436,13 +416,11 @@ export default function New() {
                     </div>
                   ))}
                 </div>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="pressure">
-                    Blood Pressure
-                  </label>
-                  <input
-                    type={"text"}
-                    id="pressure"
+                <div className="form-group" style={{marginTop: "2rem"}}>
+                  
+                  <TextField
+                    label = "Blood Pressure"
+                    size="small"
                     className="form-control"
                     value={patients.bloodPressure}
                     onChange={(e) =>
@@ -453,14 +431,11 @@ export default function New() {
                     }
                   />
                 </div>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="oxygen">
-                    Oxygen Saturation
-                  </label>
-                  <input
-                    type={"text"}
-                    id="oxygen"
+                <div className="form-group" style={{marginTop: "2rem"}}>
+                  <TextField
+                    label = "Oxygen Saturation"
                     className="form-control"
+                    size="small"
                     value={patients.oxygenSaturation}
                     onChange={(e) =>
                       setPatients({
@@ -470,14 +445,13 @@ export default function New() {
                     }
                   />
                 </div>
-                <div>
-                  <label className="form-label" htmlFor="employed">
-                    Currently Employed
-                  </label>
-                  <input
-                    type={"text"}
-                    id="employed"
+                <div style={{marginTop: "2rem"}}>
+                 
+                  <TextField
+                    
+                    label = "Currently Employed?"
                     className="form-control"
+                    size="small"
                     value={patients.currentlyEmployed}
                     onChange={(e) =>
                       setPatients({
@@ -487,13 +461,10 @@ export default function New() {
                     }
                   />
                 </div>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="insured">
-                    Currently insured
-                  </label>
-                  <input
-                    type={"text"}
-                    id="insured"
+                <div className="form-group" style={{marginTop: "2rem"}}>
+                  <TextField
+                    label = "Currently insured?"
+                    size="small"
                     className="form-control"
                     value={patients.currentlyInsured}
                     onChange={(e) =>
@@ -508,12 +479,13 @@ export default function New() {
 
               <div className=" col-md-6 " style={{ marginTop: 50 }}>
                 <Box sx={{ mb: 2 }}>
-                  
                   {patients.currentMedications.map((medications, idx) => (
                     <div key={idx}>
                       <TextField
                         label={`Medication `}
-                        defaultValue={medications.medication}
+                        value={medications.medication}
+                        multiline
+                        className="form-control"
                         onChange={(e) => {
                           const newMedication = patients.currentMedications.map(
                             (a, i) => {
@@ -529,7 +501,7 @@ export default function New() {
                             currentMedications: newMedication,
                           }));
                         }}
-                        InputProps={{ className: "form-control" }}
+                        
                         sx={{ width: "100%" }}
                       />
                     </div>
@@ -541,7 +513,9 @@ export default function New() {
                 <Box sx={{ mb: 2 }}>
                   <TextField
                     label="Family History"
-                    defaultValue={patients.familyHistory}
+                    className="form-control"
+                    multiline
+                    value={patients.familyHistory}
                     sx={{ width: "100%" }}
                     onChange={(e) =>
                       setPatients({
@@ -549,19 +523,22 @@ export default function New() {
                         familyHistory: e.target.value,
                       })
                     }
-                    InputProps={{ className: "form-control", id: "history" }}
+                    
                   />
                 </Box>
               </div>
             </div>
           </div>
-          <div className="button">
-            <button type="submit">add patient</button>
+          <div className="buttonN">
+            <Button variant="contained" sx={{fontSize: "14px"}} type="submit">add patient</Button >
           </div>
         </form>
+        {isLoading && (
+          <Box sx={{ width: '100%', marginTop: '50px' }}>
+          <LinearProgress />
+        </Box>
+        )}
       </div>
-
-      
     </>
   );
 }
