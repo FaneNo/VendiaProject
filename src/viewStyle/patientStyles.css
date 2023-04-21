@@ -1,12 +1,22 @@
-body{
-  background-color: white !important;
-}
-.containerP1{
-  margin: 1rem;
+.containerP2{
+  
+  background-color: #645394;
+  width: 100%; 
+  padding: 1rem; 
+  box-sizing: border-box; 
+  min-height: 93.91vh;
+
+
 }
 
-/* CSS for containerP */
+.containerP1{
+  margin: 1rem;
+  box-sizing: border-box; 
+  
+}
+
 .containerP {
+
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -14,7 +24,13 @@ body{
   
 }
 
-/* CSS for box */
+.patient-info {
+  word-wrap: break-word;
+}
+
+
+
+
 .box {
   width: 100%;
   padding: 1rem;
@@ -22,7 +38,7 @@ body{
   border-radius: 10px;
 }
 
-/* CSS for list */
+
 .list ul {
   list-style-type: none;
   padding: 0;
@@ -40,6 +56,13 @@ body{
 /* CSS for buttonP */
 .buttonP {
   margin-top: 1rem;
+  align-self: center;
+  
+}
+
+.buttonE {
+  margin: 1rem;
+  padding: auto;
   align-self: center;
 }
 
@@ -67,6 +90,7 @@ body{
     width: 100%;
     border-radius: 10px;
   }
+  
 }
 
 @media (min-width: 768px) {
