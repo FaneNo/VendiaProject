@@ -1,36 +1,24 @@
+.newBoxOut {
+  margin: auto;
+  background-color: #61838d;
+  display: flex;
+  height: 93.91vh; /* Add this property */
+}
 
 .newBox {
-  background-color: #f5f5f5;
-  margin: auto;
-  position: fixed;
-  top: 100px;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  border-radius: 20px; 
+  background-color: #bedcda;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   padding-top: 10px;
   padding-bottom: 10px;
   overflow: auto;
 }
 
-/* For medium screens */
-@media only screen and (min-width: 768px) {
-  .newBox {
-      width: 60%;
-      left: 20%;
-      right: 20%;
-  }
-}
 
-/* For large screens */
-@media only screen and (min-width: 992px) {
-  .newBox {
-      width: 50%;
-      left: 25%;
-      right: 25%;
-  }
-}
 
 /* Styles for all screen sizes */
 .newBox h2 {
@@ -38,12 +26,10 @@
 }
 
 .buttonN {
-  
   display: flex;
   justify-content: center;
   align-items: center;
   padding-top: 10px;
   margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
-  
-  

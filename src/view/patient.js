@@ -2,11 +2,18 @@ import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../view/nav";
 import { useState, useEffect } from "react";
 import useJaneHopkins from "../hooks/useJaneHopkins";
+import Button from '@mui/material/Button';
+
+
+
 
 export default function Patient() {
   const { id } = useParams();
   const { entities } = useJaneHopkins();
   const [patient, setPatient] = useState();
+
+
+
   const fetchPatient = async () => {
     const patientData = await entities.patient.get(id);
     setPatient(patientData);
@@ -19,14 +26,16 @@ export default function Patient() {
   }, [entities.patient, id]);
 
   return (
+    
     <>
       <Navbar />
+      <div className="containerP2">
       <div className="containerP1">
         <div class="containerP">
           <div class="box" id="top-left">
             <span class="list">
               <ul>
-                <li>Patient Picture</li>
+                
                 <li>
                   Name: <span class="patient-info">{patient?.name}</span>
                 </li>
@@ -109,7 +118,7 @@ export default function Patient() {
             </span>
           </div>
           <div class="box" id="bottom-right">
-            <span class="list" id="">
+            <span class="list" >
               <ul>
                 <li>
                   Family History:{" "}
@@ -125,13 +134,14 @@ export default function Patient() {
               </ul>
             </span>
           </div>
-          <button
-            class="buttonP btn btn-outline-primary"
+          <Button
+            className="buttonP " style={{backgroundColor: " #00A693"}} variant="contained"
             onClick={() => navigate(`/edit/${patient._id}`)}
           >
             Update
-          </button>
+          </Button>
         </div>
+      </div>
       </div>
     </>
   );

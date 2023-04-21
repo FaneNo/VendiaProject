@@ -3,6 +3,7 @@ import Navbar from "../view/nav";
 import { useState, useEffect } from "react";
 import useJaneHopkins from "../hooks/useJaneHopkins";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import TextField from "@mui/material/TextField";
 
 export default function Edit() {
   const { id } = useParams();
@@ -36,11 +37,11 @@ export default function Edit() {
             <div className="box" id="top-left">
               <span className="list">
                 <ul>
-                  <li>Patient Picture</li>
-                  <li>
-                    Name:{" "}
-                    <input
-                      type={"text"}
+                  {/* <li style={{marginTop: "1rem"}}>Patient Picture</li> */}
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Name"
+                      size="small"
                       className=" height form-control"
                       value={patient?.name || ""}
                       onChange={(e) =>
@@ -48,12 +49,12 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
-                  <li>
-                    DOB:{" "}
-                    <input
-                      type={"text"}
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Date of Birth"
+                      size="small"
                       className=" height form-control"
                       value={patient?.dob || ""}
                       onChange={(e) =>
@@ -61,7 +62,7 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
                 </ul>
               </span>
@@ -69,10 +70,10 @@ export default function Edit() {
             <div className="box" id="top-right-1">
               <span className="list">
                 <ul>
-                  <li>
-                    Blood Type:{" "}
-                    <input
-                      type={"text"}
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Blood Type"
+                      size="small"
                       className=" height form-control"
                       value={patient?.bloodType || ""}
                       onChange={(e) =>
@@ -80,7 +81,7 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
                 </ul>
               </span>
@@ -88,18 +89,18 @@ export default function Edit() {
             <div className="box" id="top-right-2">
               <span className="list">
                 <ul>
-                  <li>
-                    Temperature{" "}
-                    <input
-                      type={"text"}
-                      className=" height form-control"
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Temperature"
+                      size="small"
+                      className=" form-control"
                       value={patient?.temperature || ""}
                       onChange={(e) =>
                         setPatient({ ...patient, temperature: e.target.value })
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
                 </ul>
               </span>
@@ -107,11 +108,11 @@ export default function Edit() {
             <div className="box" id="top-right-3">
               <span className="list">
                 <ul>
-                  <li>
-                    Blood Pressure{" "}
-                    <input
-                      type={"text"}
-                      className=" height form-control"
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Blood Pressure"
+                      size="small"
+                      className=" form-control"
                       value={patient?.bloodPressure || ""}
                       onChange={(e) =>
                         setPatient({
@@ -121,7 +122,7 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
                 </ul>
               </span>
@@ -129,23 +130,23 @@ export default function Edit() {
             <div className="box" id="bottom-left">
               <span className="list">
                 <ul>
-                  <li>
-                    Height:{" "}
-                    <input
-                      type={"text"}
-                      className=" height form-control"
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Height"
+                      size="small"
+                      className=" form-control"
                       value={patient?.height || ""}
                       onChange={(e) =>
                         setPatient({ ...patient, height: e.target.value })
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
-                  <li>
-                    Weight:
-                    <input
-                      type={"text"}
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Weight"
+                      size="small"
                       className=" height form-control"
                       value={patient?.weight || ""}
                       onChange={(e) =>
@@ -153,12 +154,12 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
-                  <li>
-                    UUID:{" "}
-                    <input
-                      type={"text"}
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="UUID"
+                      size="small"
                       className=" height form-control"
                       value={patient?.uuid || ""}
                       onChange={(e) =>
@@ -166,12 +167,12 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
-                  <li>
-                    Insurance Number:
-                    <input
-                      type={"text"}
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Insurance Number"
+                      size="small"
                       className=" height form-control"
                       value={patient?.insuranceNumber || ""}
                       onChange={(e) =>
@@ -182,14 +183,14 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
-                  <li>
-                    ICD Health code:
+                  <li style={{ marginTop: "1rem" }}>
                     {patient.icdHealthCodes?.slice(0, 1).map((icd, idx) => (
                       <div key={idx}>
-                        <input
-                          type="text"
+                        <TextField
+                          label="ICD Health Code"
+                          size="small"
                           className="form-control"
                           value={icd.code}
                           onChange={(e) => {
@@ -203,10 +204,10 @@ export default function Edit() {
                       </div>
                     ))}
                   </li>
-                  <li>
-                    Oxygen Saturation:
-                    <input
-                      type={"text"}
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Oxygen Saturation"
+                      size="small"
                       className=" height form-control"
                       value={patient?.oxygenSaturation || ""}
                       onChange={(e) =>
@@ -217,13 +218,13 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
-                  <li>
-                    Currently Insured:{" "}
-                    <input
-                      type={"text"}
-                      className=" height form-control"
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Currently Insured?"
+                      size="small"
+                      className=" form-control"
                       value={patient?.currentlyInsured || ""}
                       onChange={(e) =>
                         setPatient({
@@ -233,12 +234,12 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
-                  <li>
-                    Currently Employed:{" "}
-                    <input
-                      type={"text"}
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Currently Employed?"
+                      size="small"
                       className=" height form-control"
                       value={patient?.currentlyEmployed || ""}
                       onChange={(e) =>
@@ -249,12 +250,12 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
-                  <li>
-                    Address:{" "}
-                    <input
-                      type={"text"}
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Address"
+                      size="small"
                       className=" height form-control"
                       value={patient?.address || ""}
                       onChange={(e) =>
@@ -262,15 +263,15 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></input>
+                    />
                   </li>
 
-                  <li>
-                    Allergies:
+                  <li style={{ marginTop: "1rem" }}>
                     {patient.allergies?.slice(0, 1).map((icd, idx) => (
                       <div key={idx}>
-                        <textarea
-                          type="text"
+                        <TextField
+                          label="Allergies"
+                          size="small"
                           className="form-control"
                           value={icd.allergy}
                           onChange={(e) => {
@@ -290,10 +291,11 @@ export default function Edit() {
             <div className="box" id="bottom-right">
               <span className="list" id="">
                 <ul>
-                  <li>
-                    Family History:
-                    <textarea
-                      type={"text"}
+                  <li style={{ marginTop: "1rem" }}>
+                    <TextField
+                      label="Family History"
+                      size="small"
+                      multiline
                       className=" height form-control"
                       value={patient?.familyHistory || ""}
                       onChange={(e) =>
@@ -304,16 +306,16 @@ export default function Edit() {
                       }
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
-                    ></textarea>
+                    />
                   </li>
 
-                  <li>
-                    Current Medication:
-                    
+                  <li style={{ marginTop: "1rem" }}>
                     {patient.currentMedications?.slice(0, 1).map((icd, idx) => (
                       <div key={idx}>
-                        <textarea
-                          type="text"
+                        <TextField
+                          label="Current Medication"
+                          size="small"
+                          multiline
                           className="form-control"
                           value={icd.medication}
                           onChange={(e) => {
@@ -332,11 +334,11 @@ export default function Edit() {
                 </ul>
               </span>
             </div>
+            <button className=" buttonE btn btn-primary" type="submit">
+            Save
+          </button>
           </div>
-          <button
-            className=" buttonP btn btn-primary"
-            type="submit"
-          >Save</button>
+          
         </form>
       </div>
     </>
