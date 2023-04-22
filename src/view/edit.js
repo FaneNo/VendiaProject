@@ -4,14 +4,24 @@ import { useState, useEffect } from "react";
 import useJaneHopkins from "../hooks/useJaneHopkins";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
-
+import LinearProgress from "@mui/material/LinearProgress";
 export default function Edit() {
   const { id } = useParams();
   const { entities } = useJaneHopkins();
   const [patient, setPatient] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
   const fetchPatient = async () => {
-    const patientData = await entities.patient.get(id);
-    setPatient(patientData);
+    setIsLoading(true);
+    try{
+      const patientData = await entities.patient.get(id);
+      setPatient(patientData);
+    } catch (error) {
+      console.error("Failed to fetch patients", error);
+    } finally {
+      setIsLoading(false); // Set loading state to false after fetching data
+    }
+    
   };
   const navigate = useNavigate();
 
@@ -31,6 +41,10 @@ export default function Edit() {
   return (
     <>
       <Navbar />
+      {isLoading ? (
+        <LinearProgress />
+      ) : (
+      <div className="containerPe">
       <div className="containerP1">
         <form onSubmit={handleUpdate}>
           <div className="containerP">
@@ -341,6 +355,8 @@ export default function Edit() {
           
         </form>
       </div>
+      </div>
+      )}
     </>
   );
 }
