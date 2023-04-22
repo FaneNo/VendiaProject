@@ -3,7 +3,7 @@ import Navbar from "../view/nav";
 import { useState, useEffect } from "react";
 import useJaneHopkins from "../hooks/useJaneHopkins";
 import Button from '@mui/material/Button';
-
+import LinearProgress from "@mui/material/LinearProgress";
 
 
 
@@ -11,12 +11,19 @@ export default function Patient() {
   const { id } = useParams();
   const { entities } = useJaneHopkins();
   const [patient, setPatient] = useState();
-
+  const [isLoading, setIsLoading] = useState(true);
 
 
   const fetchPatient = async () => {
+    setIsLoading(true);
+    try{
     const patientData = await entities.patient.get(id);
     setPatient(patientData);
+  }catch (error) {
+    console.error("Failed to fetch patients", error);
+  } finally {
+    setIsLoading(false); // Set loading state to false after fetching data
+  }
   };
 
   const navigate = useNavigate();
@@ -29,6 +36,9 @@ export default function Patient() {
     
     <>
       <Navbar />
+      {isLoading ? (
+        <LinearProgress/>
+      ): (
       <div className="containerP2">
       <div className="containerP1">
         <div class="containerP">
@@ -143,6 +153,7 @@ export default function Patient() {
         </div>
       </div>
       </div>
+      )}
     </>
   );
 }

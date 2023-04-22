@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import LinearProgress from "@mui/material/LinearProgress";
-import Button from '@mui/material/Button'
-
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 export default function Doctor() {
   const { entities } = useJaneHopkins();
   const [format, setFormat] = useState("list");
@@ -43,16 +43,14 @@ export default function Doctor() {
     { field: "uuid", headerName: "UUID", width: 90 },
     { field: "bloodPressure", headerName: "Blood Pressure", width: 150 },
     {
-      
       headerName: "Actions",
       field: "actions",
       width: 300,
-      
+
       renderCell: (params) => (
         <>
-        <Button
+          <Button
             variant="contained"
-          
             onClick={() => navigate(`/patient/${params.row.id}`)}
           >
             View Patient
@@ -60,12 +58,11 @@ export default function Doctor() {
           <Button
             variant="contained"
             color="error"
-            sx={{marginLeft: "10px"}}
+            sx={{ marginLeft: "10px" }}
             onClick={() => handleDelete(params.row.id)}
           >
             Delete Patient
           </Button>
-          
         </>
       ),
     },
@@ -91,29 +88,34 @@ export default function Doctor() {
   return (
     <>
       <Navbar />
-
       <div
-        className="container-fluid"
+        className="doctor2"
         style={{
-          height: 1000,
-          width: "100%",
-          marginTop: "100px",
-          background: "#FAFAFA",
-          borderRadius: 10,
+          backgroundColor: "#317873",
+          height: "100vh",
+          width: "100vw",
+          padding: "15px",
         }}
       >
-        
-        {isLoading ? (
-          <LinearProgress />
-        ) : (
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={10}
-            rowsPerPageOptions={[10]}
-            // checkboxSelection
-          />
-        )}
+        <Box
+          className="doctor1 container-fluid"
+          sx={{
+            height: 1000,
+          }}
+        >
+          {isLoading ? (
+            <LinearProgress />
+          ) : (
+            <DataGrid
+              style={{ backgroundColor: "white", marginTop: "10px" }}
+              rows={rows}
+              columns={columns}
+              pageSize={10}
+              rowsPerPageOptions={[10]}
+              // checkboxSelection
+            />
+          )}
+        </Box>
       </div>
     </>
   );
