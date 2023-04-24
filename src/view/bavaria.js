@@ -14,7 +14,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import { GridArrowDownwardIcon, GridArrowUpwardIcon } from "@mui/x-data-grid";
-import { Card, TableFooter } from "@mui/material";
+import { Card, TableFooter, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import ListItemText from "@mui/material/ListItemText";
@@ -25,6 +25,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -32,7 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Bavaria() {
   const { entities } = useBavaria();
-
+  const [isLoading, setIsLoading] = useState(true);
   const [patients, setPatients] = useState([]);
   const { id } = useParams();
   const [drug, setDrug] = useState([]);
@@ -76,9 +77,16 @@ export default function Bavaria() {
   };
 
   const listPatients = async () => {
-    let patientList = await entities.patient.list();
+    setIsLoading(true);
+    try {
+      let patientList = await entities.patient.list();
 
-    setPatients(patientList.items);
+      setPatients(patientList.items);
+    } catch (error) {
+      console.error("Failed to fetch patients", error);
+    } finally {
+      setIsLoading(false); // Set loading state to false after fetching data
+    }
   };
 
   const [open, setOpen] = React.useState(false);
@@ -148,22 +156,22 @@ export default function Bavaria() {
                       <TableCell>Status</TableCell>
                     </TableRow>
                   </TableHead>
-                  
+
                   <TableBody>
-                  {row.drugs &&
-                    row.drugs.map((drug) => {
-                      const matchingDrug = drugss.find((d) => d.id === drug); // Find the drug object that matches the current drug
-                      return (
-                        <TableRow key={drug}>
-                          <TableCell>ID: {drug}</TableCell>
-                          <TableCell>
-                            {matchingDrug ? matchingDrug.status : ""} {/* Display the status property of the matching drug object */}
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                </TableBody>
-                  
+                    {row.drugs &&
+                      row.drugs.map((drug) => {
+                        const matchingDrug = drugss.find((d) => d.id === drug); // Find the drug object that matches the current drug
+                        return (
+                          <TableRow key={row.id}>
+                            <TableCell>ID: {drug}</TableCell>
+                            <TableCell>
+                              {matchingDrug ? matchingDrug.status : ""}{" "}
+                              {/* Display the status property of the matching drug object */}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
                 </Table>
               </Box>
             </Collapse>
@@ -192,139 +200,198 @@ export default function Bavaria() {
   useEffect(() => {
     listPatients();
     listDrug();
-    console.log(drug);
   }, []);
 
   return (
     <>
       <Navbar />
-      <button
-        className="btn btn-primary"
-        onClick={() => navigate(`/createDrug`)}
-      >
-        Create drug
-      </button>
 
-      <div
-        className="container-fluid"
-        style={{
-          display: "flex",
-          width: "100%",
-          marginTop: "100px",
-
-          background: "#FAFAFA",
-          borderRadius: 10,
-        }}
-      >
-        <TableContainer component={Card}>
-          <Table aria-label="collapsible table">
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                <TableCell>Id</TableCell>
-                <TableCell align="left">Name</TableCell>
-                <TableCell align="left">Date of birth</TableCell>
-                <TableCell align="left">Height</TableCell>
-                <TableCell align="left">Weight </TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {rows.length > 0 &&
-                rows.map((row) => <Row key={row.name} row={row} drugss={drug}/>)}
-            </TableBody>
-          </Table>
-
-          <Box
-            component="span"
-            m={1}
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
+      {isLoading ? (
+        <div className="linearDisplay">
+          <LinearProgress color="secondary" />
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            
+            backgroundColor: "#4A646C",
+          }}
+        >
+          <div
+            className="container-fluid"
+            style={{
+              display: "flex",
+              width: "100%",
+              marginTop: "20px",
+              borderRadius: 10,
+            }}
           >
-            <Box
-              margin="auto"
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Button variant="contained" color="primary" sx={{ height: 40 }}>
-                Get result
-              </Button>
-            </Box>
+            <TableContainer component={Card}>
+              <Table aria-label="collapsible table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <TableCell>Id</TableCell>
+                    <TableCell align="left">Name</TableCell>
+                    <TableCell align="left">Date of birth</TableCell>
+                    <TableCell align="left">Height</TableCell>
+                    <TableCell align="left">Weight </TableCell>
+                  </TableRow>
+                </TableHead>
 
-            <Box
-              margin="auto"
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Button variant="contained" onClick={handleClickOpen}>
-                Send Drug
-              </Button>
-              <Dialog
-                fullScreen
-                open={open}
-                onClose={handleClose}
-                TransitionComponent={Transition}
+                <TableBody>
+                  {rows.length > 0 &&
+                    rows.map((row) => (
+                      <Row
+                        key={`${row.name}-${row.id}`}
+                        row={row}
+                        drugss={drug}
+                      />
+                    ))}
+                </TableBody>
+              </Table>
+
+              <Box
+                component="span"
+                m={1}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
               >
-                <AppBar sx={{ position: "relative" }}>
-                  <Toolbar>
-                    <Typography sx={{ flex: 1 }} variant="h6" component="div">
-                      Drug List
-                    </Typography>
+                <Box
+                  margin="auto"
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Button
+                    variant="contained"
+                    onClick={() => navigate(`/createDrug`)}
+                    color="primary"
+                    sx={{ height: 40 }}
+                  >
+                    Create drug
+                  </Button>
+                </Box>
 
-                    <IconButton
-                      edge="start"
-                      color="inherit"
-                      onClick={handleClose}
-                      aria-label="close"
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                  </Toolbar>
-                </AppBar>
-                <List>
-                  {drug.map((drug) => (
-                    <React.Fragment key={`${drug.id}-${drug.batchNumber}`}>
-                      <ListItem>
-                        <ListItemText>
-                          batchNumber: {drug.batchNumber}
-                        </ListItemText>
-                        <ListItemText>Status: {drug.status}</ListItemText>
-                        <ListItemText>
-                          Placebo: {drug.placebo.toString()}
-                        </ListItemText>
-                        {drug.status === "Approved" || drug.status === "Complete"? (
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                          ></Typography>
-                        ) : (
-                          <Button
-                            variant="contained"
-                            onClick={() => handleStatusChange(drug._id)}
-                          >
-                            Select
-                          </Button>
-                        )}
-                        <Button
-                          variant="outlined"
-                          onClick={() => handleDeleteDrug(drug._id)}
+                <Box
+                  margin="auto"
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Button variant="contained" onClick={handleClickOpen}>
+                    Send Drug
+                  </Button>
+                  <Dialog
+                    fullScreen
+                    open={open}
+                    onClose={handleClose}
+                    TransitionComponent={Transition}
+                  >
+                    <AppBar sx={{ position: "relative" }}>
+                      <Toolbar>
+                        <Typography
+                          sx={{ flex: 1 }}
+                          variant="h6"
+                          component="div"
                         >
-                          Removed
-                        </Button>
-                      </ListItem>
+                          Drug List
+                        </Typography>
 
-                      <Divider />
-                    </React.Fragment>
-                  ))}
-                </List>
-              </Dialog>
-            </Box>
-          </Box>
-        </TableContainer>
-      </div>
+                        <IconButton
+                          edge="start"
+                          color="inherit"
+                          onClick={handleClose}
+                          aria-label="close"
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                      </Toolbar>
+                    </AppBar>
+                    <List>
+                      {drug.map((drug) => (
+                        <React.Fragment key={`${drug.id}-${drug.batchNumber}`}>
+                          <ListItem>
+                            <Grid container spacing={2}>
+                              <Grid item xs={4}>
+                                <ListItemText>
+                                  batchNumber: {drug.batchNumber}
+                                </ListItemText>
+                              </Grid>
+                              <Grid item xs={4}>
+                                <ListItemText>
+                                  Status: {drug.status}
+                                </ListItemText>
+                              </Grid>
+                              <Grid item xs={4}>
+                                <ListItemText>
+                                  Placebo: {drug.placebo.toString()}
+                                </ListItemText>
+                              </Grid>
+
+                              {drug.status === "Approved" ||
+                              drug.status === "Complete" ? (
+                                <>
+                                  <Grid item xs={6}>
+                                    <Typography
+                                      variant="body2"
+                                      color="textSecondary"
+                                    ></Typography>
+                                  </Grid>
+                                  <Grid item xs={6}>
+                                    <Button
+                                      variant="outlined"
+                                      color="error"
+                                      onClick={() => handleDeleteDrug(drug._id)}
+                                    >
+                                      Removed
+                                    </Button>
+                                  </Grid>
+                                </>
+                              ) : (
+                                <>
+                                  <Grid item xs={6}>
+                                    <Button
+                                      variant="contained"
+                                      sx={{ marginLeft: "50%" }}
+                                      color="success"
+                                      onClick={() =>
+                                        handleStatusChange(drug._id)
+                                      }
+                                    >
+                                      Select
+                                    </Button>
+                                  </Grid>
+                                  <Grid item xs={6}>
+                                    <Button
+                                      variant="outlined"
+                                      color="error"
+                                      onClick={() => handleDeleteDrug(drug._id)}
+                                    >
+                                      Removed
+                                    </Button>
+                                  </Grid>
+                                </>
+                              )}
+                            </Grid>
+                          </ListItem>
+
+                          <Divider />
+                        </React.Fragment>
+                      ))}
+                    </List>
+                  </Dialog>
+                </Box>
+              </Box>
+            </TableContainer>
+          </div>
+        </div>
+      )}
     </>
   );
 }
