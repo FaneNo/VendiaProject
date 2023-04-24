@@ -7,7 +7,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import useJaneHopkins from "../hooks/useJaneHopkins";
 import { Link, useParams, useNavigate } from "react-router-dom";
-
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 export default function BasicTextFields() {
   const { entities } = useJaneHopkins();
   const [patients, setPatients] = useState([]);
@@ -48,42 +49,64 @@ export default function BasicTextFields() {
       
       <Navbar />
       <Box
-        component="form"
-        onSubmit={handleSubmit}
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundColor: "#4A646C",
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <Box
         sx={{
-          "& > :not(style)": { m: 1, width: "25ch" },
+          display: "flex",
+          flexDirection: "column",
+          gap: "1rem",
+          maxWidth: "400px",
+          padding: "1rem",
+          backgroundColor: "#f0f0f0",
+          borderRadius: "4px",
+          boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)"
         }}
-        noValidate
-        autoComplete="off"
       >
+        <Typography> Create Drug</Typography>
         <TextField
-          id="standard-basic"
+          id="batchNumber"
           label="Batch Number"
-          variant="standard"
+          variant="outlined"
           value={drug.batchNumber}
           onChange={(event) =>
             setDrug({ ...drug, batchNumber: event.target.value })
           }
         />
         <TextField
-          id="standard-basic"
+          id="id"
           label="ID"
-          variant="standard"
+          variant="outlined"
           value={drug.id}
-          onChange={(event) =>
-            setDrug({ ...drug, id: event.target.value })
-          }
+          onChange={(event) => setDrug({ ...drug, id: event.target.value })}
         />
         <FormGroup>
           <FormControlLabel
             control={
-              <Checkbox checked={drug.placebo} onChange={handlePlaceboChange} />
+              <Checkbox
+                checked={drug.placebo}
+                onChange={handlePlaceboChange}
+              />
             }
             label="Placebo"
           />
         </FormGroup>
-        <button type="submit">Submit</button>
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
       </Box>
+    </Box>
     </>
   );
 }
