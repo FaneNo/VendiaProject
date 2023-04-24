@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth, db } from "./firebase-config";
 import { doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
@@ -12,29 +12,36 @@ import IconButton from "@mui/material/IconButton";
 
 function Navbar() {
   const [userRole, setUserRole] = useState("");
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userDoc = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userDoc);
+
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          setUserRole(userData.role);
+        }
+      } else {
+        setUserRole("");
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  // Check user's role
-  auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      const userDoc = doc(db, "users", user.uid);
-      const docSnap = await getDoc(userDoc);
-
-      if (docSnap.exists()) {
-        const userData = docSnap.data();
-        setUserRole(userData.role);
-      }
-    } else {
-      setUserRole("");
-    }
-  });
 
   return (
     <>

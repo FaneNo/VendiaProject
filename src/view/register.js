@@ -26,27 +26,37 @@ function RegisterForm() {
       return;
     }
 
+    if (formData.role === "") {
+      alert("Please select a user type");
+      return;
+    }
+  
+
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        const userRef = doc(db, "users", user.uid);
-        setDoc(userRef, {
-          name: formData.name,
-          email: formData.email,
-          role: formData.role,
-        })
-          .then(() => {
-            console.log("Navigating to home page");
-            navigate("/");
-          })
-          .catch((error) => {
-            console.error("Error creating user:", error);
-          });
+    .then((userCredential) => {
+      const user = userCredential.user;
+
+      // Store user data in Firebase Firestore
+      const userRef = doc(db, "users", user.uid);
+      setDoc(userRef, {
+        name: formData.name,
+        email: formData.email,
+        role: formData.role,
       })
-      .catch((error) => {
-        console.error("Error creating user:", error);
-      });
-  };
+        .then(() => {
+          console.log("User registered successfully");
+          // Store user type in browser's local storage
+          localStorage.setItem("userType", formData.role);
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Error storing user data in Firestore:", error);
+        });
+    })
+    .catch((error) => {
+      console.error("Error creating user:", error);
+    });
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +66,7 @@ function RegisterForm() {
     }));
   };
 
-  return (
+   return (
     <div className="register-container">
       <div className="register-form">
         <div className="register-image">
@@ -71,7 +81,7 @@ function RegisterForm() {
               <option value="doctor">Doctor</option>
               <option value="fda">FDA</option>
               <option value="admin">Admin</option>
-            <option value="bavaria">Bavaria</option>
+              <option value="bavaria">Bavaria</option>
             </select>
           </label>
           <br />
