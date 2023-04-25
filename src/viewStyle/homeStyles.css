@@ -20,6 +20,7 @@ body {
   max-width: 1200px;
   height: auto;
   object-fit: cover;
+  margin-top: 10px;
 }
 
 .text-box {

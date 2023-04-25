@@ -34,6 +34,7 @@ const Signout = () => {
           .logout-button {
             background-color: white;
             border-radius: 20px;
+            border: 1px solid white;
             cursor: pointer;
             font-size: 16px; /* decreased from 20px */
             padding: 3px 15px; /* added padding to compensate for smaller font */
