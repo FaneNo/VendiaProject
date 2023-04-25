@@ -47,6 +47,7 @@ function RegisterForm() {
           console.log("User registered successfully");
           // Store user type in browser's local storage
           localStorage.setItem("userType", formData.role);
+          localStorage.setItem("user", user.uid)
           navigate("/");
         })
         .catch((error) => {

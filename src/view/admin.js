@@ -244,7 +244,7 @@ export default function Admin() {
             <TableBody>
               {rows.length > 0 &&
                 rows.map((row) => (
-                  <Row key={row.name} row={row} drugss={drugss} />
+                  <Row key={`${row.name}-${row.id}`} row={row} drugss={drugss} />
                 ))}
             </TableBody>
           </Table>
