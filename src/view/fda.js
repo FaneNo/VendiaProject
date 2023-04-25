@@ -234,7 +234,7 @@ export default function FDA() {
 
             <TableBody>
               {rows.length > 0 &&
-                rows.map((row) => <Row key={row.name} row={row} drugss={drug} />)}
+                rows.map((row) => <Row key={`${row.name}-${row.id}`} row={row} drugss={drug} />)}
             </TableBody>
           </Table>
 

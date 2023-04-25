@@ -7,6 +7,8 @@ import Navbar from "../view/nav";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase-config";
+import { AuthContext } from "../context/AuthContext";
+import { type } from "@testing-library/user-event/dist/type";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -15,7 +17,9 @@ function LoginForm() {
   });
 
   const navigate = useNavigate();
-
+  
+  const {dispatch} = useContext(AuthContext);
+   
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -28,7 +32,11 @@ function LoginForm() {
       if (userSnap.exists()) {
         const userData = userSnap.data();
         localStorage.setItem("userType", userData.role);
+        
+        dispatch({type: "LOGIN", payload:user})
       }
+
+      
 
       navigate("/");
     })
