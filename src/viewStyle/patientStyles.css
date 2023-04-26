@@ -11,8 +11,7 @@
 }
 /* This is for the patient page */
 .containerP2{
-  
-  background-color: #645394;
+  background: linear-gradient(0.25turn, #4da2a5 40%,#3b145c);
   width: 100%; 
   padding: 1rem; 
   box-sizing: border-box; 
@@ -46,7 +45,7 @@
 .box {
   width: 100%;
   padding: 1rem;
-  background-color:#ADD8E6;
+  background-color:#bcdfd8;
   border-radius: 10px;
 }
 
