@@ -1,0 +1,9 @@
+.bavaria2View {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#9198e5, #4A646C);
+}
+
+

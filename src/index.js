@@ -9,6 +9,8 @@ import "./viewStyle/newStyles.css";
 import "./viewStyle/loginStyle.css";
 import "./viewStyle/registerStyle.css";
 import "./viewStyle/bavariaStyle.css";
+import "./viewStyle/logoutStyles.css";
+import "./viewStyle/doctorStyle.css";
 import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthContextProvider } from "./context/AuthContext";
