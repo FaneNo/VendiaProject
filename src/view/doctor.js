@@ -86,21 +86,23 @@ export default function Doctor() {
   }, []);
 
   return (
-    <>
+    <>  
       <Navbar />
       <div
         className="doctor2"
-        style={{
-          backgroundColor: "#317873",
-          height: "100vh",
-          width: "100vw",
-          padding: "15px",
-        }}
+        id="doctor2View"
+        
+        // style={{
+        //   backgroundColor: "#317873",
+        //   height: "93vh",
+        //   width: "100vw",
+        //   padding: "15px",
+        // }}
       >
         <Box
           className="doctor1 container-fluid"
           sx={{
-            height: 1000,
+            height: 700,
           }}
         >
           {isLoading ? (

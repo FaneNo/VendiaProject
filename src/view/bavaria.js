@@ -207,19 +207,20 @@ export default function Bavaria() {
       <Navbar />
 
       {isLoading ? (
-        <div className="linearDisplay">
+        <div className="linearDisplayB">
           <LinearProgress color="secondary" />
         </div>
       ) : (
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
+        className="bavaria2View"
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "column",
+          //   justifyContent: "center",
+          //   alignItems: "center",
             
-            backgroundColor: "#4A646C",
-          }}
+          //   backgroundColor: "#4A646C",
+          // }}
         >
           <div
             className="container-fluid"
@@ -227,6 +228,7 @@ export default function Bavaria() {
               display: "flex",
               width: "100%",
               marginTop: "20px",
+              marginBottom: "20px",
               borderRadius: 10,
             }}
           >
