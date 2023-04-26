@@ -1,0 +1,20 @@
+.table-container {
+    overflow-x: auto;
+  }
+  
+  .scroll-container {
+    overflow-x: auto;
+  }
+  
+  @media (max-width: 600px) {
+    .table-container {
+      margin: 0 -16px;
+      font-size: 0.8rem;
+    }
+  
+    .scroll-container {
+      padding: 0 16px;
+    }
+  }
+  
+  

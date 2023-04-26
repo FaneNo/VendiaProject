@@ -37,6 +37,9 @@
           "bloodPressure": {
             "type": "string"
           },
+          "bloodType": {
+            "type": "string"
+          },
           "temperature": {
             "type": "string"
           },
@@ -91,6 +94,17 @@
               }
             }
           },
+          "drugs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "drug": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "visits": {
             "type": "array",
             "items": {
@@ -126,6 +140,12 @@
             "type": "string"
           },
           "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "date": {
             "type": "string"
           }
         }

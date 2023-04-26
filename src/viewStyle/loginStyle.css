@@ -1,33 +1,52 @@
-.nav {
-  background-color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-.background {
-  background-color: gray;
-  height: 100vh;
+.login-container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #f2f2f2, #e6e6e6);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5%;
 }
 
-.login-container h1 {
+.login-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  flex-wrap: wrap;
+}
+
+.login-image,
+.login-box {
+  flex-basis: 50%;
+  flex-grow: 1;
+}
+
+.login-image {
+  flex-basis: 60%;
+}
+
+.login-image img {
+  width: 100%;
+  display: block;
+  margin-right: 100px;
+}
+
+.login-box {
+  background: #fff;
+  padding: 40px 8%;
+  color: #333;
+  min-width: 250px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  flex-basis: 40%;
+}
+
+.login-box h1 {
   font-family: "Arial", sans-serif;
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
-}
-
-.login-container {
-  background-color: white;
-  border-radius: 8px;
-  padding: 60px;
-  width: 400px;
-  max-width: 100%;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
@@ -52,13 +71,45 @@
   margin-top: 5px;
 }
 
-button[type="submit"] {
+.buttonL {
   padding: 10px 40px;
   border: none;
-  background-color: blue;
+  background-color: #0056b3;
   color: white;
   font-size: 16px;
   border-radius: 5px;
+  cursor: pointer;
+  transition:  0.4s ease-in-out;
+}
+.buttonL:hover {
+  background-color: #004080;
 }
 
+.login-box label {
+  padding: 10px;
+  border-radius: 4px;
+  outline: none;
+  display: block;
+  width: 100%;
+  margin: 5px 0 10px;
+  font-size: 16px;
+}
 
+.login-box input[type="email"],
+.login-box input[type="password"] {
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin: 5px 0 10px;
+  background-color: #f2f2f2;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-box input[type="email"]:focus,
+.login-box input[type="password"]:focus {
+  background-color: #fff;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}

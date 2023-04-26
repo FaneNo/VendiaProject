@@ -1,78 +1,105 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import React, { useContext, useState } from "react";
+import {
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "./firebase-config";
+import Navbar from "../view/nav";
+import { useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase-config";
+import { AuthContext } from "../context/AuthContext";
+import { type } from "@testing-library/user-event/dist/type";
 
 function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+  const navigate = useNavigate();
+  
+  const {dispatch} = useContext(AuthContext);
+   
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+    signInWithEmailAndPassword(auth, formData.email, formData.password)
+    .then(async (userCredential) => {
+      const user = userCredential.user;
+      const userDoc = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userDoc);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(`Submitted email: ${email} and password: ${password}`);
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        localStorage.setItem("userType", userData.role);
+        
+        dispatch({type: "LOGIN", payload:user})
+      }
+
+      
+
+      navigate("/");
+    })
+    .catch((error) => {
+      console.error("Error signing in user:", error);
+    });
+};
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   return (
-      <div className="login-container">
-        <h1>Login to Vendia Care</h1>
-      <form className="login-form" onSubmit={handleSubmit}>
+    <div className="login-container">
+      <div className="login-form">
+        <div className="login-image">
+          <img src={require("../loginIMG.jpg")} alt="Login" />
+        </div>
+        <form className="login-box" onSubmit={handleSubmit}>
+          <h1>Login to Vendia Care</h1>
           <label>
             Email:
-          <input type="email" name="email" value={email} onChange={handleEmailChange} />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              required
+              onChange={handleChange}
+            />
           </label>
           <br />
           <label>
             Password:
-          <input type="password" name="password" value={password} onChange={handlePasswordChange} />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              required
+              onChange={handleChange}
+            />
           </label>
-          <br />
-        <button type="submit">Login</button>
+          <button className="buttonL" type="submit">
+            Login
+          </button>
         </form>
+      </div>
     </div>
   );
 }
 
-function NavContainer() {
-  return (
-    <nav className="nav">
-      <div className="homeImg">
-        <Link to="/">
-          <img className="vendiaLogo" src={require("../vendiaLogo.png")} />
-        </Link>
-      </div>
-      <Link to="/" className="title">Vendia Care</Link>
-    </nav>
-  );
-}
-
-function BackgroundContainer(props) {
-  return (
-    <div className="background" style={{ backgroundColor: props.backgroundColor }}>
-      {props.children}
-      </div>
-  );
-}
-
 function Login() {
+  const userType = localStorage.getItem("userType");
+
   return (
-    <BackgroundContainer backgroundColor="#f0f0f0">
-      <NavContainer />
+    <>
+      <Navbar userType={userType} />
       <LoginForm />
-    </BackgroundContainer>
+    </>
   );
 }
 
 export default Login;
-
-
-
-
-
-
