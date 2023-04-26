@@ -62,7 +62,7 @@ body {
 }
 
 .homeNav {
-  background-color: #4c90af;
+  background: linear-gradient(0.25turn, #4da2a5 40%,#3b145c);
   color: white;
   display: flex;
   justify-content: space-between;
