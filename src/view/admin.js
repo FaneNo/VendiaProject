@@ -26,6 +26,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function Admin() {
+
   const { entities } = useFDA();
   const [format, setFormat] = useState("list");
   const [patients, setPatients] = useState([]);
@@ -219,9 +220,9 @@ export default function Admin() {
         style={{
           display: "flex",
           width: "100%",
-          marginTop: "100px",
-          background: "#FAFAFA",
-          borderRadius: 10,
+          paddingTop: "100px",
+          backgroundImage: "linear-gradient(#4c90af, #4010eb)",
+          borderRadius: 0,
         }}
       >
        <Grid container justifyContent="center">
