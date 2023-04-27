@@ -212,10 +212,10 @@ export default function FDA() {
         style={{
           display: "flex",
           width: "100%",
-          marginTop: "100px",
+          paddingTop: "100px",
 
-          background: "#FAFAFA",
-          borderRadius: 10,
+          backgroundImage: "linear-gradient(#865bf5, #4008cf)",
+          borderRadius: 0,
         }}
       >
         <TableContainer component={Card}>
