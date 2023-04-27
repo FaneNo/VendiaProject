@@ -102,7 +102,7 @@ export default function Doctor() {
         <Box
           className="doctor1 container-fluid"
           sx={{
-            height: 700,
+            height: "91vh",
           }}
         >
           {isLoading ? (
