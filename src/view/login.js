@@ -16,34 +16,35 @@ function LoginForm() {
     password: "",
   });
 
+  const [error, setError] = useState(null);
+
   const navigate = useNavigate();
-  
+
   const {dispatch} = useContext(AuthContext);
-   
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     signInWithEmailAndPassword(auth, formData.email, formData.password)
-    .then(async (userCredential) => {
-      const user = userCredential.user;
-      const userDoc = doc(db, "users", user.uid);
-      const userSnap = await getDoc(userDoc);
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        const userDoc = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userDoc);
 
-      if (userSnap.exists()) {
-        const userData = userSnap.data();
-        localStorage.setItem("userType", userData.role);
-        
-        dispatch({type: "LOGIN", payload:user})
-      }
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          localStorage.setItem("userType", userData.role);
 
-      
+          dispatch({type: "LOGIN", payload:user})
+        }
 
-      navigate("/");
-    })
-    .catch((error) => {
-      console.error("Error signing in user:", error);
-    });
-};
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error signing in user:", error);
+        setError("Incorrect email or password. Please try again.");
+      });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,6 +62,7 @@ function LoginForm() {
         </div>
         <form className="login-box" onSubmit={handleSubmit}>
           <h1>Login to Vendia Care</h1>
+          {error && <div className="error">{error}</div>}
           <label>
             Email:
             <input
@@ -90,6 +92,7 @@ function LoginForm() {
     </div>
   );
 }
+
 
 function Login() {
   const userType = localStorage.getItem("userType");
