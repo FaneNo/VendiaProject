@@ -112,11 +112,29 @@ body {
   transition: all 0.3s ease-out;
 }
 
+.homeNav li a {
+  position: relative;
+}
+
+.homeNav li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 0;
+  background-color: rgb(255, 255, 255);
+  transition: width 0.3s ease-in-out;
+}
+
 .homeNav li a:hover {
   color: rgb(255, 255, 255);
-  background-color: #3e51aa;
-  border-radius: 5px;
 }
+
+.homeNav li a:hover::after {
+  width: 100%;
+}
+
 
 .titleName {
   flex-grow: 1;
