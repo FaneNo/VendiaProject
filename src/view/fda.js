@@ -90,6 +90,56 @@ export default function FDA() {
     }
   };
 
+
+
+  function convertToCSV(data) {
+    const header = Object.keys(data[0]);
+    const rows = data.map((row) => Object.values(row));
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [header.join(","), ...rows.map((row) => row.join(","))].join("\n");
+    return encodeURI(csvContent);
+  }
+  
+  function ExportButton({ rows, drug }) {
+    const [exporting, setExporting] = useState(false);
+  
+    // Handle export button click
+    const handleExport = () => {
+      setExporting(true);
+  
+      // Combine rows and drug data into a single array
+      const data = [...(rows || []), ...(drug || [])];
+  
+      // Convert data to CSV format
+      const csvData = convertToCSV(data);
+  
+      // Create a temporary anchor element to trigger the download
+      const link = document.createElement("a");
+      link.setAttribute("href", csvData);
+      link.setAttribute("download", "export.csv");
+      link.style.display = "none";
+      document.body.appendChild(link);
+  
+      // Trigger the download and clean up
+      link.click();
+      document.body.removeChild(link);
+      setExporting(false);
+    };
+  
+    return (
+      <Button
+        variant="contained"
+        disabled={exporting || (!rows && !drug) || (rows && rows.length === 0 && drug && drug.length === 0)}
+        onClick={handleExport}
+      >
+        Export CSV
+      </Button>
+    );
+  }
+
+
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -251,9 +301,7 @@ export default function FDA() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Button variant="contained" color="primary" sx={{ height: 40 }}>
-                Get result
-              </Button>
+              <ExportButton rows={rows} drug={drug}/>
             </Box>
 
             <Box
