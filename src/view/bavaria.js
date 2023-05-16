@@ -13,7 +13,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import { GridArrowDownwardIcon, GridArrowUpwardIcon } from "@mui/x-data-grid";
+import {
+  GridArrowDownwardIcon,
+  GridArrowUpwardIcon,
+  GridToolbarExport,
+  GridToolbarContainer,
+  DataGrid
+} from "@mui/x-data-grid";
 import { Card, TableFooter, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -31,6 +37,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+
+
+
+
 export default function Bavaria() {
   const { entities } = useBavaria();
   const [isLoading, setIsLoading] = useState(true);
@@ -38,6 +48,7 @@ export default function Bavaria() {
   const { id } = useParams();
   const [drug, setDrug] = useState([]);
 
+  
   const listDrug = async () => {
     let drugList = await entities.drug.list();
     console.log(drugList.items);
@@ -88,6 +99,57 @@ export default function Bavaria() {
       setIsLoading(false); // Set loading state to false after fetching data
     }
   };
+
+
+
+  function convertToCSV(data) {
+    const header = Object.keys(data[0]);
+    const rows = data.map((row) => Object.values(row));
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [header.join(","), ...rows.map((row) => row.join(","))].join("\n");
+    return encodeURI(csvContent);
+  }
+  
+  function ExportButton({ rows, drug }) {
+    const [exporting, setExporting] = useState(false);
+  
+    // Handle export button click
+    const handleExport = () => {
+      setExporting(true);
+  
+      // Combine rows and drug data into a single array
+      const data = [...(rows || []), ...(drug || [])];
+  
+      // Convert data to CSV format
+      const csvData = convertToCSV(data);
+  
+      // Create a temporary anchor element to trigger the download
+      const link = document.createElement("a");
+      link.setAttribute("href", csvData);
+      link.setAttribute("download", "export.csv");
+      link.style.display = "none";
+      document.body.appendChild(link);
+  
+      // Trigger the download and clean up
+      link.click();
+      document.body.removeChild(link);
+      setExporting(false);
+    };
+  
+    return (
+      <Button
+        variant="contained"
+        disabled={exporting || (!rows && !drug) || (rows && rows.length === 0 && drug && drug.length === 0)}
+        onClick={handleExport}
+      >
+        Export CSV
+      </Button>
+    );
+  }
+
+
+
 
   const [open, setOpen] = React.useState(false);
 
@@ -211,17 +273,9 @@ export default function Bavaria() {
           <LinearProgress color="secondary" />
         </div>
       ) : (
-        <div
-        className="bavaria2View"
-          // style={{
-          //   display: "flex",
-          //   flexDirection: "column",
-          //   justifyContent: "center",
-          //   alignItems: "center",
-            
-          //   backgroundColor: "#4A646C",
-          // }}
-        >
+        
+        <div className="bavaria2View">
+          
           <div
             className="container-fluid"
             style={{
@@ -232,7 +286,8 @@ export default function Bavaria() {
               borderRadius: 10,
             }}
           >
-            <TableContainer component={Card}>
+            
+            <TableContainer component={Card} >
               <Table aria-label="collapsible table">
                 <TableHead>
                   <TableRow>
@@ -264,6 +319,8 @@ export default function Bavaria() {
                 justifyContent="space-between"
                 alignItems="center"
               >
+                
+
                 <Box
                   margin="auto"
                   display="flex"
@@ -278,6 +335,16 @@ export default function Bavaria() {
                   >
                     Create drug
                   </Button>
+                </Box>
+
+
+                <Box
+                  margin="auto"
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                <ExportButton rows={rows} drug={drug} />
                 </Box>
 
                 <Box
