@@ -1,5 +1,4 @@
-import "./App.css";
-import React, { Component, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./view/home";
 import FDA from "./view/fda";
@@ -13,23 +12,35 @@ import Bavaria from "./view/bavaria";
 import CreateDrug from "./view/createDrug";
 import Admin from "./view/admin";
 import PatientDrug from "./view/selectPatientDrug";
+import { AuthContext } from "./context/AuthContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./view/firebase-config";
-import { AuthContext } from "./context/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 
-//do linear gradient for background color
-
 function App() {
-  
-
-  const {currentUser} = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
 
   const RequireAuth = ({ children }) => {
-    return currentUser  ? children : <Navigate to="/" />;
+    return currentUser ? children : <Navigate to="/" />;
   };
 
-  console.log(currentUser);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userDoc = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userDoc);
+
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          // Set the current user data in your AuthContext
+        }
+      } else {
+        // Set the current user data to null in your AuthContext
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <>
