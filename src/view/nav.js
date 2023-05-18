@@ -71,11 +71,33 @@ function Navbar() {
                 <li>
                   <Link to="/new">New Patient</Link>
                 </li>
+                {["/fda", "/admin", "/bavaria", "/createDrug"].includes(window.location.pathname) && navigate("/")}
               </>
             )}
-            {userRole === "fda" && <Link to="/fda">FDA</Link>}
-            {userRole === "admin" && <Link to="/admin">Admin</Link>}
-            {userRole === "bavaria" && <Link to="/bavaria">Bavaria</Link>}
+            {userRole === "fda" && (
+                  <>
+                    <Link to="/fda">FDA</Link>
+                    {["/doctor", "/new", "/admin", "/bavaria", "/createDrug"].includes(
+                      window.location.pathname
+                    ) && navigate("/")}
+                  </>
+                )}
+            {userRole === "admin" && (
+                  <>
+                    <Link to="/admin">Admin</Link>
+                    {["/doctor", "/new", "/fda", "/bavaria", "/createDrug"].includes(
+                      window.location.pathname
+                    ) && navigate("/")}
+                  </>
+                )}
+            {userRole === "bavaria" && (
+                  <>
+                    <Link to="/bavaria">Bavaria</Link>
+                    {["/doctor", "/new", "/admin", "/fda", "/createDrug"].includes(
+                      window.location.pathname
+                    ) && navigate("/")}
+                  </>
+                )}
           </li>
           {userRole === "" && (
             <>
