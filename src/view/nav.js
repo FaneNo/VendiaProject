@@ -93,7 +93,7 @@ function Navbar() {
             {userRole === "bavaria" && (
                   <>
                     <Link to="/bavaria">Bavaria</Link>
-                    {["/doctor", "/new", "/admin", "/fda", "/createDrug"].includes(
+                    {["/doctor", "/new", "/admin", "/fda", ].includes(
                       window.location.pathname
                     ) && navigate("/")}
                   </>
